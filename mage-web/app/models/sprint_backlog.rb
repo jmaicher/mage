@@ -1,0 +1,2 @@
+class SprintBacklog < Backlog
+end

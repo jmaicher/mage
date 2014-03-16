@@ -1,0 +1,32 @@
+development:
+  adapter: postgresql
+  host: localhost
+  template: template0
+  encoding: unicode
+  database: mage-dev
+  pool: 5
+  username: mage-pg
+  password: scrummage
+
+test: &test
+  adapter: postgresql
+  template: template0
+  template: template0
+  encoding: unicode
+  database: mage-test
+  pool: 5
+  username: mage-pg
+  password: scrummage
+
+production:
+  adapter: postgresql
+  host: localhost
+  template: template0
+  encoding: unicode
+  database: mage-prod
+  pool: 5
+  username: mage-pg
+  password: scrummage
+
+cucumber:
+  <<: *test

@@ -1,0 +1,21 @@
+<div class="page backlog">
+
+  <div class="header clearfix">
+    <a href="<%= new_backlog_item_path %>" class="create-new-item btn btn-success">New Product Backlog Item</a>
+    <h2>Product Backlog</h2>
+  </div>
+
+  <ul class="backlog-items prioritized-backlog-items">
+  <% @prioritized_items.each do |item| %>
+    <%= render "backlog_item", item: item %>
+  <% end %>
+  </ul>
+
+  <ul class="backlog-items unprioritized-backlog-items">
+  <% @unprioritized_items.each do |item| %>
+    <%= render "backlog_item", item: item %>
+  <% end %>
+  </ul>
+
+
+</div> <!-- .backlog -->
