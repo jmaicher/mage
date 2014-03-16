@@ -83,8 +83,8 @@ package { ['sqlite3', 'libsqlite3-dev']:
 
 ## Node.js ####################################
 
-package { 'nodejs':
-  ensure => installed
+class { 'nodejs':
+  version => 'v0.10.26',
 }
 
 
