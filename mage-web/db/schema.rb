@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140312124800) do
+ActiveRecord::Schema.define(version: 20140318085542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20140312124800) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "backlog_item_taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "backlog_item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "backlog_item_taggings", ["backlog_item_id"], name: "index_backlog_item_taggings_on_backlog_item_id", using: :btree
+  add_index "backlog_item_taggings", ["tag_id"], name: "index_backlog_item_taggings_on_tag_id", using: :btree
 
   create_table "backlog_items", force: true do |t|
     t.string   "title"
@@ -36,6 +46,14 @@ ActiveRecord::Schema.define(version: 20140312124800) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tags", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
