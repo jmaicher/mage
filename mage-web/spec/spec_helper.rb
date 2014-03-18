@@ -46,6 +46,9 @@ RSpec.configure do |config|
   # FactoryGirl
   config.include FactoryGirl::Syntax::Methods
 
+  # URL Helper
+  config.include Rails.application.routes.url_helpers
+
   config.before :suite do
     begin
       #DatabaseCleaner.start
