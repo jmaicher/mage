@@ -49,12 +49,18 @@ RSpec.configure do |config|
   # URL Helper
   config.include Rails.application.routes.url_helpers
 
-  config.before :suite do
-    begin
-      #DatabaseCleaner.start
-      FactoryGirl.lint
-    ensure
-      #DatabaseCleaner.clean
-    end
+  config.before(:suite) do
+    FactoryGirl.lint
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
   end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
 end
