@@ -18,7 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # forward postgres port
   config.vm.network :forwarded_port, guest: 5432, host: 5432
 
-  config.vm.synced_folder ".", "/mage", type: "rsync"
+  config.vm.synced_folder ".", "/mage" #, type: "rsync"
 
   config.vm.provision :puppet do |puppet|
    puppet.manifests_path = "mage-vm/puppet/manifests"
