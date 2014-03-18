@@ -11,6 +11,7 @@ describe BacklogItem do
   it { should have_many(:taggings).class_name("BacklogItemTagging") }
   it { should have_many(:tags).through(:taggings) }
 
+
   describe "#tag_list" do
     
     it "should be empty string if there are no tags" do
