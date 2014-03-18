@@ -23,7 +23,7 @@ class { 'apt_get_update':
 
 ## Basics #####################################
 
-package { ['curl', 'build-essential', 'git-core', 'unzip']:
+package { ['curl', 'build-essential', 'git-core', 'unzip', 'vim']:
   ensure => installed
 }
 
