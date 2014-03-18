@@ -10,7 +10,7 @@ development:
 
 test: &test
   adapter: postgresql
-  template: template0
+  host: localhost
   template: template0
   encoding: unicode
   database: mage-test
