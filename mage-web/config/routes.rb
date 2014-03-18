@@ -8,6 +8,10 @@ MageWeb::Application.routes.draw do
 
   resources :backlog_items, only: [:new, :create]
 
+  namespace :api, constraints: { format: 'json' }, defaults: { format: 'json' } do
+    resource :backlog, only: :show, controller: :product_backlog
+  end
+
   devise_for :users
 
   # Test routes
