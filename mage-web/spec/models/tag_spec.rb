@@ -1,5 +1,8 @@
 require 'spec_helper'
 
 describe Tag do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  it { should have_many(:backlog_item_taggings) }
+  it { should have_many(:backlog_items).through(:backlog_item_taggings) }
+
 end
