@@ -1,8 +1,19 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
 
   factory :product_backlog do
+
+    factory :filled_product_backlog do
+      
+      ignore do
+        size 5
+      end
+
+      after :create do |backlog, evaluator|
+        create_list(:backlog_item, evaluator.size, backlog: backlog)
+      end
+
+    end
+
   end
 
 end

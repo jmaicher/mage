@@ -1,8 +1,12 @@
 FactoryGirl.define do
 
   factory :backlog_item do
-    title "Create Backlog Items"
-    description "As a Backlog Item I want to have a description in order to clarify my title"
+    sequence(:title) { |n| "Backlog item #{n}" }
+    description "A fancy description for an awesome backlog item"
+
+    factory :product_backlog_item do
+      association :backlog, factory: :product_backlog    
+    end
   end
 
 end
