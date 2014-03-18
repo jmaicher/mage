@@ -17,4 +17,14 @@ class BacklogItem < ActiveRecord::Base
   has_many :taggings, class_name: "BacklogItemTagging"
   has_many :tags, through: :taggings
 
+  def tag_list
+    self.tags.map(&:name).join(", ")
+  end
+
+  def tag_list=(str)
+    self.tags = str.split(",").map do |name|
+      Tag.where(name: name.strip).first_or_create!
+    end
+  end
+
 end
