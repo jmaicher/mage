@@ -2,7 +2,9 @@
 
 module.exports = (grunt) ->
   
-  require('jit-grunt')(grunt)
+  require('jit-grunt')(grunt, { # static mappings
+    useminPrepare: 'grunt-usemin'
+  })
   
   grunt.initConfig {
     
@@ -59,17 +61,24 @@ module.exports = (grunt) ->
             '<%= config.tmp %>'
             '<%= config.app %>'
           ]
-      test:
-        options:
-          port: 9000
-          base: [
-            '<%= config.tmp %>'
-            '<%= config.app %>'
-            '<%= config.test %>'
-          ]
       dist:
         options:
           base: '<%= config.dist %>'
+    }
+
+    # -- usemin ---------------------------------------
+
+    useminPrepare: {
+      html: '<%= config.app %>/index.html'
+      options:
+        dest: '<%= config.dist %>'
+    }
+
+    usemin: {
+      html: ['<%= config.dist %>/{,*/}*.html'],
+      css: ['<%= config.tmp %>/styles/{,*/}*.css'],
+      options:
+        assetsDirs: ['<%= config.dist %>']
     }
 
 
@@ -152,7 +161,11 @@ module.exports = (grunt) ->
     # -- rev -----------------------------------------
 
     rev: {
-      src: ['<%= config.dist %>/**/*.{js,css,png,jpg}']
+      src: [
+        '<%= config.dist %>/scripts/{,*/}*.js'
+        '<%= config.dist %>/styles/{,*/}*.css'
+        '<%= config.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+      ]
     }
 
 
@@ -192,14 +205,16 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'build', [
     'clean:dist'
+    'useminPrepare'
     'coffee'
     'sass'
-    # 'concat'
-    # 'ngmin'
+    'concat'
+    'ngmin'
+    'cssmin'
+    'uglify'
     'copy:dist'
-    # 'uglify'
-    # 'rev'
-    # 'usemin'
+    'rev'
+    'usemin'
   ]
 
   grunt.registerTask 'default', [
