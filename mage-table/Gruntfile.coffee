@@ -22,7 +22,13 @@ module.exports = (grunt) ->
         tasks: ['newer:coffee:dist']
       coffeeTest:
         files: ['<%= config.test %>/spec/{,*/}*.coffee']
-        tasks: ['newer:coffee:test'] # 'karma']
+        tasks: ['newer:coffee:test']
+      karma:
+        files: [
+          '<%= config.tmp %>/scripts/{,*/}*.js'
+          '<%= config.tmp %>/spec/{,*/}*.js'
+        ]
+        tasks: ['karma:watch:run']
       styles:
         files: ['<%= config.app %>/styles/{,*/}*.scss']
         tasks: ['newer:sass']
@@ -152,35 +158,43 @@ module.exports = (grunt) ->
 
     # -- karma ---------------------------------------
 
-    # karma: {}
+    karma: {
+      options:
+        configFile: 'karma.conf.js'
+      watch:
+        background: true
+      unit:
+        singleRun: true
+    }
 
   }
 
-  grunt.registerTask 'serve', (target) ->
-    if(target == 'dist')
-      return grunt.task.run(['build', 'connect:dist:keepalive'])
+  grunt.registerTask 'dist', [
+    'build'
+    'connect:dist:keepalive'
+  ]
 
-    grunt.task.run [
-      'clean:server'
-      'coffee:dist'
-      'sass'
-      'connect:livereload'
-      'watch'
-    ]
+  grunt.registerTask 'dev', [
+    'clean:server'
+    'coffee'
+    'sass'
+    'connect:livereload'
+    'karma:watch:start'
+    'watch'
+  ]
 
   grunt.registerTask 'test', [
     'clean:server'
     'coffee'
     'sass'
-    'connect:test'
-    #'karma'
+    'karma:unit'
   ]
 
   grunt.registerTask 'build', [
     'clean:dist'
     'coffee'
     'sass'
-    # 'concant'
+    # 'concat'
     # 'ngmin'
     'copy:dist'
     # 'uglify'
