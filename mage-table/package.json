@@ -1,0 +1,24 @@
+{
+  "name": "mage-table",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-coffee": "~0.10.0",
+    "grunt-contrib-sass": "~0.7.0",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-jshint": "~0.9.2",
+    "grunt-autoprefixer": "~0.4.0",
+    "grunt-ngmin": "~0.0.3",
+    "grunt-bower-task": "0.3.0",
+    "grunt-karma": "~0.8.0",
+    "grunt-rev": "~0.1.0",
+    "load-grunt-tasks": "~0.4.0",
+    "jshint-stylish": "~0.1.5",
+    "karma": "~0.12.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}
