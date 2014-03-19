@@ -13,8 +13,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = box_url
 
   config.vm.hostname = hostname
-  # forward rails port
+  # mage-web
   config.vm.network :forwarded_port, guest: 3000, host: 3000
+  # mage-table
+  config.vm.network :forwarded_port, guest: 4000, host: 4000
+  config.vm.network :forwarded_port, guest: 4444, host: 4444
+
   # forward postgres port
   config.vm.network :forwarded_port, guest: 5432, host: 5432
 
