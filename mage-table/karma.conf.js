@@ -15,6 +15,13 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      '.tmp/scripts/vendor/jquery.js',
+      '.tmp/scripts/vendor/angular.js',
+      '.tmp/scripts/vendor/angular-resource.js',
+      '.tmp/scripts/vendor/angular-animate.js',
+      '.tmp/scripts/vendor/angular-route.js',
+      '.tmp/scripts/vendor/lodash.js',
+      '.tmp/scripts/main.js',
       '.tmp/spec/**/*.js',
       '.tmp/scripts/**/*.js'
     ],
@@ -22,7 +29,6 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-      
     ],
 
 
