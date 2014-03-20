@@ -5,6 +5,16 @@ module.exports = (grunt) ->
   require('jit-grunt')(grunt, { # static mappings
     useminPrepare: 'grunt-usemin'
   })
+
+  components =
+    scripts: [
+      '<%= config.app %>/components/angular/angular.js'
+      '<%= config.app %>/components/angular-resource/angular-resource.js'
+      '<%= config.app %>/components/angular-route/angular-route.js'
+      '<%= config.app %>/components/angular-animate/angular-animate.js'
+      '<%= config.app %>/components/jquery/dist/jquery.js'
+      '<%= config.app %>/components/lodash/dist/lodash.js'
+    ]
   
   grunt.initConfig {
     
@@ -55,7 +65,7 @@ module.exports = (grunt) ->
         port: 4000
         hostname: '0.0.0.0'
         livereload: 4444
-      livereload:
+      dev:
         options:
           base: [
             '<%= config.tmp %>'
@@ -63,6 +73,7 @@ module.exports = (grunt) ->
           ]
       dist:
         options:
+          livereload: false
           base: '<%= config.dist %>'
     }
 
@@ -76,9 +87,14 @@ module.exports = (grunt) ->
 
     usemin: {
       html: ['<%= config.dist %>/{,*/}*.html'],
-      css: ['<%= config.tmp %>/styles/{,*/}*.css'],
+      css: ['<%= config.dist %>/styles/{,*/}*.css'],
       options:
         assetsDirs: ['<%= config.dist %>']
+    }
+
+    uglify: {
+      options:
+        mangle: false
     }
 
 
@@ -136,7 +152,7 @@ module.exports = (grunt) ->
       dist:
         expand: true
         cwd: '<%= config.tmp %>/concat/scripts'
-        src: '*.js'
+        src: 'app.js'
         dest: '<%= config.tmp %>/concat/scripts'
     }
 
@@ -149,12 +165,7 @@ module.exports = (grunt) ->
           {
             expand: true
             flatten: true
-            src: [
-              '<%= config.app %>/components/angular/angular.js'
-              '<%= config.app %>/components/angular-resource/angular-resource.js'
-              '<%= config.app %>/components/jquery/dist/jquery.js'
-              '<%= config.app %>/components/lodash/dist/lodash.js'
-            ]
+            src: components.scripts
             dest: '<%= config.tmp %>/scripts/vendor/'
           }
         ]
@@ -168,6 +179,7 @@ module.exports = (grunt) ->
           '*.html'
           'views/{,*/}*.html'
           'images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          'fonts/**/*.{eot,svg,ttf,woff}'
         ]
     }
 
@@ -178,7 +190,9 @@ module.exports = (grunt) ->
       src: [
         '<%= config.dist %>/scripts/{,*/}*.js'
         '<%= config.dist %>/styles/{,*/}*.css'
+        #'<%= config.dist %>/views/{,*/}*.html'
         '<%= config.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+        '<%= config.dist %>/fonts/**/*.{eot,svg,ttf,woff}'
       ]
     }
 
@@ -206,7 +220,7 @@ module.exports = (grunt) ->
     'coffee'
     'sass'
     'copy:components'
-    'connect:livereload'
+    'connect:dev'
     #'karma:watch:start'
     'watch'
   ]

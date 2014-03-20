@@ -1,1 +1,106 @@
 
+body {
+  background: #FFF url('/images/bg-pattern.jpg');
+}
+
+.backlog-item {
+  display: block;
+  height: 190px;
+  width: 300px;
+  background: #FFF url('/images/index-card.png');
+  background-position: bottom;
+  box-shadow: 0 0 1em #333;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  .title, .descr {
+    font-family: 'Open Sans';
+    font-weight: 300;
+  }
+
+  .title {
+    font-size: 16px;
+    line-height: 40px;
+    margin: 0;
+    padding: 0 10px;
+  }
+
+  .descr {
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 15px;
+    padding: 0 10px;
+  }
+
+}
+
+
+/* loading overlay */
+
+.loading-overlay {
+  background-color: rgba(0, 0, 0, .5);
+  height: 100%;
+  left: 0;
+  opacity: 1;
+  position: fixed;
+  top: 0;
+  transition: 0.8s all ease-out;
+  width: 100%;
+  z-index: 1000000000;
+}
+
+.loading-overlay.ng-hide-add, .animate-fade.ng-hide-remove {
+  display: block !important;
+}
+
+.loading-overlay.ng-hide {
+  opacity: 0;
+}
+
+.spinner { 
+  background-color: rgba(0,0,0,0);
+  border: 20px solid #00dbff;
+  border-top: 20px solid rgba(0,0,0,0);
+  border-left: 20px solid rgba(0,0,0,0);
+  border-radius: 100px !important;  opacity: .8;
+  width: 100px;
+  height: 100px; 
+  margin: 5% auto;
+  position: relative;
+  top: 50%;
+  margin-top: -50px;
+  animation: spin 1s infinite linear;
+  -moz-animation: spin 1s infinite linear;
+  -webkit-animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  };
+}
+
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+
+  100% {
+    -moz-transform: rotate(360deg);
+  };
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  };
+}

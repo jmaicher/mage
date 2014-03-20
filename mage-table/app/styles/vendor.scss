@@ -1,1 +1,4 @@
-@import '../components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss'
+@import '../components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss';
+
+$OpenSansPath: "/fonts/open-sans";
+@import '../components/open-sans-fontface/open-sans.scss';
