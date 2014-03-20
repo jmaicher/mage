@@ -30,7 +30,7 @@ module.exports = (grunt) ->
           '<%= config.tmp %>/scripts/{,*/}*.js'
           '<%= config.tmp %>/spec/{,*/}*.js'
         ]
-        tasks: ['karma:watch:run']
+        tasks: [] # ['karma:watch:run']
       styles:
         files: ['<%= config.app %>/styles/{,*/}*.scss']
         tasks: ['newer:sass']
@@ -144,6 +144,20 @@ module.exports = (grunt) ->
     # -- copy ----------------------------------------
 
     copy: {
+      components:
+        files: [
+          {
+            expand: true
+            flatten: true
+            src: [
+              '<%= config.app %>/components/angular/angular.js'
+              '<%= config.app %>/components/angular-resource/angular-resource.js'
+              '<%= config.app %>/components/jquery/dist/jquery.js'
+              '<%= config.app %>/components/lodash/dist/lodash.js'
+            ]
+            dest: '<%= config.tmp %>/scripts/vendor/'
+          }
+        ]
       dist:
         expand: true
         dot: true
@@ -191,8 +205,9 @@ module.exports = (grunt) ->
     'clean:server'
     'coffee'
     'sass'
+    'copy:components'
     'connect:livereload'
-    'karma:watch:start'
+    #'karma:watch:start'
     'watch'
   ]
 
@@ -200,6 +215,7 @@ module.exports = (grunt) ->
     'clean:server'
     'coffee'
     'sass'
+    'copy:components'
     'karma:unit'
   ]
 
@@ -208,6 +224,7 @@ module.exports = (grunt) ->
     'useminPrepare'
     'coffee'
     'sass'
+    'copy:components'
     'concat'
     'ngmin'
     'cssmin'
