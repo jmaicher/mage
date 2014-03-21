@@ -29,7 +29,7 @@ private
   end
 
   def backlog_item_params
-    params.require(:backlog_item).permit(:title, :description)
+    params.require(:backlog_item).permit(:title, :description, :tag_list)
   end
 
 end
