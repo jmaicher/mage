@@ -1,4 +1,6 @@
-<backlog-item ng-repeat="item in backlogItems"
-  item="item" transformable
-  x="{{item.x}}" y="{{item.y}}"
-  rotation="{{item.rotation}}" />
+<surface backlog="backlog">
+  <backlog-item ng-repeat="item in backlogItems"
+    item="item" transformable
+    x="{{item.x}}" y="{{item.y}}"
+    rotation="{{item.rotation}}" />
+</surface>

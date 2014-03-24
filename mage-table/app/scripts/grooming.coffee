@@ -2,28 +2,44 @@
 
 app = angular.module('mageTable')
 
-app.controller 'GroomingController', ($scope, $window, Random, backlog) ->
-  zIndexFront = 0
-  $scope.$on 'backlogItem:bringToFront?', (evt, item) ->
-    $scope.$broadcast 'backlogItem:bringToFront!', item, ++zIndexFront
+app.controller 'GroomingController', ($scope, backlog) ->
+  $scope.backlog = backlog
 
-  rand_pos = ->
-    x = Random.getRandomInt(0, $window.innerWidth - 300)
-    y = Random.getRandomInt(0, $window.innerHeight - 180)
-    [x, y]
 
-  rand_rot = -> Random.getRandomInt(-5, 5)
-
-  $scope.backlogItems = _.map(backlog.items, (item) ->
-    [x, y] = rand_pos()
-    r = rand_rot()
-
-    x: x
-    y: y
-    rotation: r
-    model: item
-  )
+app.directive 'surface', () ->
+  restrict: 'E'
+  scope:
+    backlog: '='
+  transclude: true
+  compile: (tElement, attrs, transclude) ->
+    ($scope, $element) ->
+      transclude($scope, (clone) -> tElement.append(clone))
+      $element.addClass 'surface'
+      # show touch points
+      Hammer $element[0], {}
+  controller: ($scope, $window, Random)->
+    zIndexFront = 0
+    $scope.$on 'backlogItem:bringToFront?', (evt, item) ->
+      $scope.$broadcast 'backlogItem:bringToFront!', item, ++zIndexFront
   
+    rand_pos = ->
+      # TODO: Use element dimensions, but not set?
+      x = Random.getRandomInt(0, $window.innerWidth - 300)
+      y = Random.getRandomInt(0, $window.innerHeight - 180)
+      [x, y]
+
+    rand_rot = -> Random.getRandomInt(-5, 5)
+
+    $scope.backlogItems = _.map($scope.backlog.items, (item) ->
+      [x, y] = rand_pos()
+      r = rand_rot()
+
+      x: x
+      y: y
+      rotation: r
+      model: item
+    )
+
 
 app.directive 'backlogItem', () ->
   restrict: 'E'
@@ -65,6 +81,7 @@ app.directive 'backlogItem', () ->
       $element.css 'z-index': zIndex if isFront
 
     return
+
 
 app.directive 'transformable', () ->
   restrict: 'A'
