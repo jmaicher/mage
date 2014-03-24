@@ -20,6 +20,7 @@
   <script src="/scripts/vendor/lodash.js"></script>
   <script src="/scripts/vendor/hammer.js"></script>
   <script src="/scripts/vendor/hammer.showtouches.js"></script>
+  <script src="/scripts/vendor/hammer.fakemultitouch.js"></script>
   <script src="/scripts/vendor/angular.js"></script>
   <script src="/scripts/vendor/angular-route.js"></script>
   <script src="/scripts/vendor/angular-animate.js"></script>
@@ -33,6 +34,7 @@
   <!-- endbuild -->
 
   <script>
+    Hammer.plugins.fakeMultitouch();
     Hammer.plugins.showTouches();
   </script>
 </body>

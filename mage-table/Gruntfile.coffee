@@ -12,6 +12,7 @@ module.exports = (grunt) ->
       '<%= config.app %>/components/lodash/dist/lodash.js'
       '<%= config.app %>/components/hammerjs/hammer.js'
       '<%= config.app %>/components/hammerjs/plugins/hammer.showtouches.js'
+      '<%= config.app %>/components/hammerjs/plugins/hammer.fakemultitouch.js'
       '<%= config.app %>/components/angular/angular.js'
       '<%= config.app %>/components/angular-route/angular-route.js'
       '<%= config.app %>/components/angular-animate/angular-animate.js'
