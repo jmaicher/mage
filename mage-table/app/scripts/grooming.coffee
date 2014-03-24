@@ -3,17 +3,24 @@
 app = angular.module('mageTable')
 
 app.controller 'GroomingController', ($scope, $window, Random, backlog) ->
+  zIndexFront = 0
+  $scope.$on 'backlogItem:bringToFront?', (evt, item) ->
+    $scope.$broadcast 'backlogItem:bringToFront!', item, ++zIndexFront
+
   rand_pos = ->
     x = Random.getRandomInt(0, $window.innerWidth - 300)
     y = Random.getRandomInt(0, $window.innerHeight - 180)
     [x, y]
 
+  rand_rot = -> Random.getRandomInt(-5, 5)
+
   $scope.backlogItems = _.map(backlog.items, (item) ->
     [x, y] = rand_pos()
+    r = rand_rot()
 
     x: x
     y: y
-    rotation: 0
+    rotation: r
     model: item
   )
   
@@ -37,7 +44,7 @@ app.directive 'backlogItem', () ->
 
     $scope.$watchCollection '[item.x, item.y, item.rotation]', (newValues, oldValues) ->
       [x, y, r] = newValues
-      transform($element, x, y, rotation)
+      transform($element, x, y, r)
  
   controller: ($scope, $rootScope, $element) ->
     item = $scope.item
@@ -47,16 +54,15 @@ app.directive 'backlogItem', () ->
     @getY = -> $scope.item.y
     @setX = (x) -> $scope.item.x = x
     @setY = (y) -> $scope.item.y = y
-    @getRotation = $scope.item.rotation
+    @getRotation = -> $scope.item.rotation
     @setRotation = (r) -> $scope.item.rotation = r
     @bringToFront = ->
       return if isFront
-      $rootScope.$broadcast 'backlogItem:bringToFront', item
+      $scope.$emit 'backlogItem:bringToFront?', item
     
-    $rootScope.$on 'backlogItem:bringToFront', (evt, item) ->
+    $scope.$on 'backlogItem:bringToFront!', (evt, item, zIndex) ->
       isFront = item == $scope.item
-      zIndex = if isFront then 1000 else 500
-      $element.css 'z-index': zIndex
+      $element.css 'z-index': zIndex if isFront
 
     return
 
@@ -64,6 +70,7 @@ app.directive 'transformable', () ->
   restrict: 'A'
   require: 'backlogItem'
   link: ($scope, $element, attrs, backlogItemCtrl) ->
+
     gestures = Hammer $element[0], {
       transform_always_block: true,
       drag_block_horizontal: true,
@@ -71,24 +78,24 @@ app.directive 'transformable', () ->
       drag_min_distance: 0
     }
 
-    lastX = backlogItemCtrl.getX()
-    lastY = backlogItemCtrl.getY()
-    #rotation = backlogItemCtrl.getRotation()
+    lastX = undefined
+    lastY = undefined
+    lastRotation = undefined
   
-    gestures.on 'hold touch dragstart drag dragend transform', (evt) ->
+    gestures.on 'touch drag transform', (evt) ->
       switch evt.type
-        when 'hold' then
         when 'touch'
+          lastX = backlogItemCtrl.getX()
+          lastY = backlogItemCtrl.getY()
+          lastRotation = backlogItemCtrl.getRotation()
           backlogItemCtrl.bringToFront()
-        when 'dragstart' then
         when 'drag'
           $scope.$apply ->
             backlogItemCtrl.setX lastX + evt.gesture.deltaX
             backlogItemCtrl.setY lastY + evt.gesture.deltaY
-        when 'dragend'
-          lastX = backlogItemCtrl.getX()
-          lastY = backlogItemCtrl.getY()
-        when 'transform' then
+        when 'transform'
+          $scope.$apply ->
+            backlogItemCtrl.setRotation lastRotation + evt.gesture.rotation
 
 
 # -- Helper functions -----------------------------------
