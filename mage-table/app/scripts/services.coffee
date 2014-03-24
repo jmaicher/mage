@@ -2,13 +2,12 @@
 
 app = angular.module('mageTable')
 
-app.constant 'mageWeb', {
-  api: 'http://localhost:3000/api'
-}
+app.constant 'mageWeb',
+  api: "http://#{window.location.hostname}:3000/api"
 
 app.service 'Random', ->
   getRandomInt: (min, max) ->
-    Math.round(Math.random() * max - min) + min
+    Math.round(Math.random() * (Math.abs(min) + Math.abs(max))) + min
 
 
 app.service 'Backlog', ($q, $http, mageWeb) ->

@@ -3,34 +3,99 @@
 app = angular.module('mageTable')
 
 app.controller 'GroomingController', ($scope, $window, Random, backlog) ->
+  zIndexFront = 0
+  $scope.$on 'backlogItem:bringToFront?', (evt, item) ->
+    $scope.$broadcast 'backlogItem:bringToFront!', item, ++zIndexFront
+
   rand_pos = ->
     x = Random.getRandomInt(0, $window.innerWidth - 300)
     y = Random.getRandomInt(0, $window.innerHeight - 180)
     [x, y]
 
+  rand_rot = -> Random.getRandomInt(-5, 5)
+
   $scope.backlogItems = _.map(backlog.items, (item) ->
     [x, y] = rand_pos()
+    r = rand_rot()
 
     x: x
     y: y
-    rotation: 0
+    rotation: r
     model: item
   )
-
+  
 
 app.directive 'backlogItem', () ->
   restrict: 'E'
-  templateUrl: '/views/backlog_item.html'
+  priority: 1
   scope:
-    model: '='
+    item: '='
+  templateUrl: '/views/backlog_item.html'
   link: ($scope, $element, attrs, ctrl) ->
     $element.addClass 'backlog-item'
 
-    x = attrs.x || 0
-    y = attrs.y || 0
-    rotation = attrs.rotation || 0
-    
+    item = $scope.item
+
+    x = item.x || (item.x = 0)
+    y = item.y || (item.y = 0)
+    rotation = item.rotation || (item.rotation = 0)
+    # initial transform
     transform($element, x, y, rotation)
+
+    $scope.$watchCollection '[item.x, item.y, item.rotation]', (newValues, oldValues) ->
+      [x, y, r] = newValues
+      transform($element, x, y, r)
+ 
+  controller: ($scope, $rootScope, $element) ->
+    item = $scope.item
+    isFront = false
+
+    @getX = -> $scope.item.x
+    @getY = -> $scope.item.y
+    @setX = (x) -> $scope.item.x = x
+    @setY = (y) -> $scope.item.y = y
+    @getRotation = -> $scope.item.rotation
+    @setRotation = (r) -> $scope.item.rotation = r
+    @bringToFront = ->
+      return if isFront
+      $scope.$emit 'backlogItem:bringToFront?', item
+    
+    $scope.$on 'backlogItem:bringToFront!', (evt, item, zIndex) ->
+      isFront = item == $scope.item
+      $element.css 'z-index': zIndex if isFront
+
+    return
+
+app.directive 'transformable', () ->
+  restrict: 'A'
+  require: 'backlogItem'
+  link: ($scope, $element, attrs, backlogItemCtrl) ->
+
+    gestures = Hammer $element[0], {
+      transform_always_block: true,
+      drag_block_horizontal: true,
+      drag_block_vertical: true,
+      drag_min_distance: 0
+    }
+
+    lastX = undefined
+    lastY = undefined
+    lastRotation = undefined
+  
+    gestures.on 'touch drag transform', (evt) ->
+      switch evt.type
+        when 'touch'
+          lastX = backlogItemCtrl.getX()
+          lastY = backlogItemCtrl.getY()
+          lastRotation = backlogItemCtrl.getRotation()
+          backlogItemCtrl.bringToFront()
+        when 'drag'
+          $scope.$apply ->
+            backlogItemCtrl.setX lastX + evt.gesture.deltaX
+            backlogItemCtrl.setY lastY + evt.gesture.deltaY
+        when 'transform'
+          $scope.$apply ->
+            backlogItemCtrl.setRotation lastRotation + evt.gesture.rotation
 
 
 # -- Helper functions -----------------------------------
