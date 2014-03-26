@@ -15,8 +15,7 @@ app.directive 'surface', () ->
     ($scope, $element) ->
       transclude($scope, (clone) -> tElement.append(clone))
       $element.addClass 'surface'
-      # show touch points
-      Hammer $element[0], {}
+
   controller: ($scope, $window, Random)->
     zIndexFront = 0
     $scope.$on 'backlogItem:bringToFront?', (evt, item) ->
@@ -87,8 +86,8 @@ app.directive 'transformable', () ->
   restrict: 'A'
   require: 'backlogItem'
   link: ($scope, $element, attrs, backlogItemCtrl) ->
-
-    gestures = Hammer $element[0], {
+    el = $element[0]
+    gestures = Hammer el, {
       transform_always_block: true,
       drag_block_horizontal: true,
       drag_block_vertical: true,
@@ -99,7 +98,7 @@ app.directive 'transformable', () ->
     lastY = undefined
     lastRotation = undefined
   
-    gestures.on 'touch drag transform', (evt) ->
+    gestures.on 'touch dragstart drag dragend transformstart transform transformend', (evt) ->
       switch evt.type
         when 'touch'
           lastX = backlogItemCtrl.getX()
@@ -113,6 +112,7 @@ app.directive 'transformable', () ->
         when 'transform'
           $scope.$apply ->
             backlogItemCtrl.setRotation lastRotation + evt.gesture.rotation
+          
 
 
 # -- Helper functions -----------------------------------

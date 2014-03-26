@@ -17,7 +17,9 @@ module.exports = function(config) {
     files: [
       '.tmp/scripts/vendor/jquery.js',
       '.tmp/scripts/vendor/lodash.js',
-      '.tmp/scripts/vendor/hammerjs.js',
+      '.tmp/scripts/vendor/pointer-event.js',
+      '.tmp/scripts/vendor/houdini-web.js',
+      '.tmp/scripts/vendor/hammer.js',
       '.tmp/scripts/vendor/angular.js',
       '.tmp/scripts/vendor/angular-route.js',
       '.tmp/scripts/vendor/angular-animate.js',

@@ -18,6 +18,8 @@
   <!-- build:js({.tmp,app}) scripts/vendor.js -->
   <script src="/scripts/vendor/jquery.js"></script>
   <script src="/scripts/vendor/lodash.js"></script>
+  <script src="/scripts/vendor/pointer-event.js"></script>
+  <script src="/scripts/vendor/houdini-web.js"></script>
   <script src="/scripts/vendor/hammer.js"></script>
   <script src="/scripts/vendor/hammer.showtouches.js"></script>
   <script src="/scripts/vendor/hammer.fakemultitouch.js"></script>
@@ -34,6 +36,7 @@
   <!-- endbuild -->
 
   <script>
+    // Houdini.start();
     Hammer.plugins.fakeMultitouch();
     Hammer.plugins.showTouches();
   </script>

@@ -10,6 +10,8 @@ module.exports = (grunt) ->
     scripts: [
       '<%= config.app %>/components/jquery/dist/jquery.js'
       '<%= config.app %>/components/lodash/dist/lodash.js'
+      '<%= config.app %>/components/houdini-web/pointer-event.js'
+      '<%= config.app %>/components/houdini-web/houdini-web.js'
       '<%= config.app %>/components/hammerjs/hammer.js'
       '<%= config.app %>/components/hammerjs/plugins/hammer.showtouches.js'
       '<%= config.app %>/components/hammerjs/plugins/hammer.fakemultitouch.js'
