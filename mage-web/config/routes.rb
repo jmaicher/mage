@@ -9,7 +9,13 @@ MageWeb::Application.routes.draw do
   resources :backlog_items, only: [:new, :create]
 
   namespace :api, constraints: { format: 'json' }, defaults: { format: 'json' } do
+    
     resource :backlog, only: :show, controller: :product_backlog
+
+    resources :backlog_items, only: [:show] do
+      resources :taggings, only: [:index, :show, :create, :destroy], controller: 'backlog_items/taggings'
+    end
+
   end
 
   devise_for :users

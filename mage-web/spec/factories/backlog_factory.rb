@@ -5,7 +5,7 @@ FactoryGirl.define do
     factory :filled_product_backlog do
       
       ignore do
-        size 5
+        size 3
       end
 
       after :create do |backlog, evaluator|
