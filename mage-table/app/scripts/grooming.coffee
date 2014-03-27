@@ -138,7 +138,7 @@ app.directive 'transformable', () ->
       transform_always_block: true,
       drag_block_horizontal: true,
       drag_block_vertical: true,
-      drag_min_distance: 0,
+      drag_min_distance: 10,
       hold_threshold: 10
     }
 
@@ -146,7 +146,7 @@ app.directive 'transformable', () ->
     lastY = undefined
     lastRotation = undefined
   
-    gestures.on 'touch dragstart drag dragend transformstart transform transformend', (evt) ->
+    gestures.on 'touch drag transform', (evt) ->
       switch evt.type
         when 'touch'
           lastX = backlogItemCtrl.getX()
