@@ -36,7 +36,7 @@ app.directive 'surface', () ->
 
       x: x
       y: y
-      rotation: r
+      rotation: 0
       model: item
     )
 
@@ -80,7 +80,53 @@ app.directive 'backlogItem', () ->
       isFront = item == $scope.item
       $element.css 'z-index': zIndex if isFront
 
+    $scope.quicktags = [
+      { name: 'ready', icon: 'ok' }
+      { name: 'trash', icon: 'trash' }
+      { name: 'refine', icon: 'th' }
+      { name: 'discuss', icon: 'comment' }
+    ]
+
     return
+
+
+app.directive 'quicktagMenu', () ->
+  restrict: 'E'
+  transclude: true
+  templateUrl: '/views/quicktag-menu.html'
+  link: ($scope, $element, attrs) ->
+    $element.find('a.quicktag-menu-trigger').on 'hold release', (evt) ->
+      switch evt.type
+        when "hold"
+          $scope.$apply -> $scope.opened = true
+        when "release"
+          $scope.$apply -> $scope.opened = false
+
+  controller: ($scope) ->
+    $scope.opened = false
+
+
+app.directive 'quicktag', () ->
+  restrict: 'E'
+  replace: true
+  scope:
+    item: '='
+    quicktag: '='
+  templateUrl: '/views/quicktag.html'
+  link: ($scope, $element, attrs) ->
+    $element.find('a').on 'tap', ->
+      $scope.$apply -> $scope.toggle()
+  controller: ($scope, $timeout) ->
+    $scope.has_tag = $scope.item.has_tag($scope.quicktag.name)
+    $scope.enabled = true
+    
+    $scope.toggle = ->
+      $scope.enabled = false
+      $timeout(
+        (() ->
+          $scope.enabled = true
+          $scope.has_tag = !$scope.has_tag
+        ), 1000)
 
 
 app.directive 'transformable', () ->
@@ -92,7 +138,8 @@ app.directive 'transformable', () ->
       transform_always_block: true,
       drag_block_horizontal: true,
       drag_block_vertical: true,
-      drag_min_distance: 0
+      drag_min_distance: 0,
+      hold_threshold: 10
     }
 
     lastX = undefined

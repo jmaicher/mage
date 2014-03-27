@@ -14,6 +14,9 @@ class BacklogItem extends Model
   constructor: (attrs) ->
     super attrs
 
+  has_tag: (tag) ->
+    !!_.find(@taggings, (tagging) -> tagging.tag.name == tag)
+
 class BacklogItemTagging extends Model
   constructor: (attrs) ->
     super attrs

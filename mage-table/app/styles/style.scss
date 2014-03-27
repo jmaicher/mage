@@ -1,3 +1,5 @@
+$blue: #428bca;
+
 html {
   width: 100%;
   height: 100%;
@@ -31,6 +33,8 @@ body {
   position: absolute;
   left: 0;
   top: 0;
+  
+  /*-webkit-font-smoothing: subpixel-antialiased;*/
 
   .title, .descr {
     cursor: default;
@@ -50,6 +54,86 @@ body {
     line-height: 15px;
     margin-top: 15px;
     padding: 0 10px;
+  }
+
+  quicktag-menu {
+    position: absolute;
+    bottom: 15px;
+
+    a.quicktag-menu-trigger {
+      color: #FFF;
+      display: inline-block;
+      height: 40px;
+      width: 40px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 30px;
+      line-height: 40px;
+      vertical-align: middle;
+      margin: 0 20px 0 15px;
+
+      border-radius: 50%;
+      background-color: #333;
+      opacity: .2;
+    }
+
+    &.opened {
+      opacity: 1;
+
+      a.quicktag-menu-trigger {
+        background-color: $blue;
+        opacity: 1;
+      } 
+
+      ul.quicktags {
+        visibility: visible;
+      }
+    }
+   
+    ul.quicktags {
+      visibility: hidden;
+      list-style: none;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      
+      li.quicktag {
+        display: inline-block;
+        margin-left: 15px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+        
+        &.has_tag {
+          a {
+            background-color: $blue;
+          }
+        }
+
+        &.disabled {
+          opacity: .5;
+        }
+        
+        a {
+          color: #FFF;
+          display: inline-block;
+          font-size: 20px;
+          width: 40px;
+          height: 40px;
+          line-height: 40px;
+          vertical-align: middle;
+          text-align: center;
+          text-decoration: none;
+
+          border-radius: 50%;
+          background-color: #333;
+        }
+
+      }
+    
+    } 
+
   }
 
 }
