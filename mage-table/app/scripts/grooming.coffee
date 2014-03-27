@@ -2,6 +2,7 @@
 
 app = angular.module('mageTable')
 
+
 app.controller 'GroomingController', ($scope, backlog) ->
   $scope.backlog = backlog
 
