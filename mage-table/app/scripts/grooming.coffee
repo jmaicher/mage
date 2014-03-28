@@ -81,10 +81,10 @@ app.directive 'backlogItem', () ->
       $element.css 'z-index': zIndex if isFront
 
     $scope.quicktags = [
-      { name: 'ready', icon: 'ok' }
       { name: 'trash', icon: 'trash' }
       { name: 'refine', icon: 'th' }
       { name: 'discuss', icon: 'comment' }
+      { name: 'ready', icon: 'ok' }
     ]
 
     return
@@ -95,12 +95,13 @@ app.directive 'quicktagMenu', () ->
   transclude: true
   templateUrl: '/views/quicktag-menu.html'
   link: ($scope, $element, attrs) ->
-    $element.find('a.quicktag-menu-trigger').on 'hold release', (evt) ->
+    $element.find('a.quicktag-menu-trigger').on 'pointerdown pointerup', (evt) ->
       switch evt.type
-        when "hold"
+        when "pointerdown", "mousedown"
           $scope.$apply -> $scope.opened = true
-        when "release"
+        when "pointerup", "mouseup"
           $scope.$apply -> $scope.opened = false
+      return true
 
   controller: ($scope) ->
     $scope.opened = false
@@ -114,19 +115,36 @@ app.directive 'quicktag', () ->
     quicktag: '='
   templateUrl: '/views/quicktag.html'
   link: ($scope, $element, attrs) ->
-    $element.find('a').on 'tap', ->
+    $element.find('a').on 'pointerup mouseup', ->
       $scope.$apply -> $scope.toggle()
-  controller: ($scope, $timeout) ->
-    $scope.has_tag = $scope.item.has_tag($scope.quicktag.name)
+  controller: ($scope, $timeout, $http, BacklogItemTaggingMapper) ->
+    tag = $scope.quicktag.name
+    tagging = $scope.item.find_tagging(tag)
+    $scope.has_tag = !!tagging
     $scope.enabled = true
-    
+
     $scope.toggle = ->
       $scope.enabled = false
-      $timeout(
-        (() ->
+      
+      unless $scope.has_tag
+        url = "http://#{window.location.hostname}:3000/api/backlog_items/#{$scope.item.id}/taggings"
+        $http.post(url, {
+          tag: {
+            name: tag
+          }
+        }).then (resp) ->
+          tagging = BacklogItemTaggingMapper.from_json(resp.data)
           $scope.enabled = true
-          $scope.has_tag = !$scope.has_tag
-        ), 1000)
+          $scope.has_tag = true
+      else
+        url = "http://#{window.location.hostname}:3000/api/backlog_items/#{$scope.item.id}/taggings/#{tagging.id}"
+        $http(url: url, method: 'DELETE')
+          .then ->
+            $scope.enabled = true
+            $scope.has_tag = false
+
+    return
+
 
 
 app.directive 'transformable', () ->
@@ -138,8 +156,11 @@ app.directive 'transformable', () ->
       transform_always_block: true,
       drag_block_horizontal: true,
       drag_block_vertical: true,
-      drag_min_distance: 10,
-      hold_threshold: 10
+      drag_min_distance: 15,
+      hold_threshold: 15,
+      tap: false,
+      swipe: false,
+      pinch: false,
     }
 
     lastX = undefined

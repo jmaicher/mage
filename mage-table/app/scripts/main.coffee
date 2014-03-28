@@ -3,7 +3,10 @@
 deps = ['ngRoute', 'ngAnimate', 'ngResource', 'mage.services']
 app = angular.module('mageTable', deps)
 
-app.config ($routeProvider) ->
+app.config ($httpProvider, $routeProvider) ->
+  $httpProvider.defaults.useXDomain = true
+  delete $httpProvider.defaults.headers.common["X-Requested-With"]
+
   $routeProvider
     .when '/',
       redirectTo: '/grooming'
