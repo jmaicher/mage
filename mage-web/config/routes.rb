@@ -9,7 +9,7 @@ MageWeb::Application.routes.draw do
   resources :backlog_items, only: [:new, :create]
 
   namespace :api, constraints: { format: 'json' }, defaults: { format: 'json' } do
-    
+    match '*path', :controller => 'application', :action => 'handle_options_request', via: [:options], :constraints => {:method => 'OPTIONS'}
     resource :backlog, only: :show, controller: :product_backlog
 
     resources :backlog_items, only: [:show] do
