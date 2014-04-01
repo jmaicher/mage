@@ -6,10 +6,12 @@
   <!-- build:css({.tmp,app}) styles/style.css -->
   <link href="/styles/vendor.css" rel="stylesheet" type="text/css">
   <link href="/styles/style.css" rel="stylesheet" type="text/css">
+  <link href="/styles/animations.css" rel="stylesheet" type="text/css">
   <!-- endbuild -->
 
 </head>
 <body ng-controller="AppController">
+  <div id="focus-overlay" class="focus-overlay"></div>
   <div ng-show="loading" class="loading-overlay animate-fade">
     <div class="spinner"></div>
   </div>
@@ -27,6 +29,8 @@
   <script src="/scripts/vendor/angular-route.js"></script>
   <script src="/scripts/vendor/angular-animate.js"></script>
   <script src="/scripts/vendor/angular-resource.js"></script>
+  <script src="/scripts/vendor/shifty.js"></script>
+  <script src="/scripts/vendor/rekapi.js"></script>
   <!-- endbuild -->
 
   <!-- build:js({.tmp,app}) scripts/app.js -->
@@ -34,6 +38,7 @@
   <script src="/scripts/mapper/mapper.js"></script>
   <script src="/scripts/services/services.js"></script>
   <script src="/scripts/main.js"></script>
+  <script src="/scripts/directives/quicktags.js"></script>
   <script src="/scripts/grooming.js"></script>
   <!-- endbuild -->
 
