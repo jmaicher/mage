@@ -1,4 +1,8 @@
+// -- variables --------------------------------------
+
 $blue: #428bca;
+
+// -- styles -----------------------------------------
 
 html {
   width: 100%;
@@ -29,7 +33,7 @@ body {
   width: 300px;
   background: #FFF url('/images/index-card.png');
   background-position: bottom;
-  box-shadow: 0 0 1em #333;
+  box-shadow: 0 0 5em 1em rgba(0, 0, 0, .5);
   position: absolute;
   left: 0;
   top: 0;
@@ -141,16 +145,27 @@ body {
 
 /* loading overlay */
 
-.loading-overlay {
+.loading-overlay, .focus-overlay {
+  display: none;
   background-color: rgba(0, 0, 0, .5);
   height: 100%;
   left: 0;
-  opacity: 1;
   position: fixed;
   top: 0;
-  transition: 0.8s all ease-out;
   width: 100%;
-  z-index: 1000000000;
+  z-index: 10000;
+}
+
+.loading-overlay {
+  opacity: 1;
+  transition: 0.8s all ease-out;
+  background-color: rgba(0, 0, 0, .5);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
 }
 
 .loading-overlay.ng-hide-add, .animate-fade.ng-hide-remove {
@@ -178,32 +193,3 @@ body {
   -webkit-animation: spin 1s infinite linear;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  };
-}
-
-@-moz-keyframes spin {
-  0% {
-    -moz-transform: rotate(0deg);
-  }
-
-  100% {
-    -moz-transform: rotate(360deg);
-  };
-}
-
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-
-  100% {
-    -webkit-transform: rotate(360deg);
-  };
-}

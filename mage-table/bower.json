@@ -4,6 +4,7 @@
   "dependencies": {
     "jquery": "~2.1.0",
     "lodash": "~2.4.1",
+    "rekapi": "~1.1.1",
     "hammerjs": "~1.0.0",
     "angular": "~1.2.14",
     "angular-route": "~1.2.14",

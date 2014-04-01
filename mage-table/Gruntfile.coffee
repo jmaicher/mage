@@ -19,6 +19,8 @@ module.exports = (grunt) ->
       '<%= config.app %>/components/angular-route/angular-route.js'
       '<%= config.app %>/components/angular-animate/angular-animate.js'
       '<%= config.app %>/components/angular-resource/angular-resource.js'
+      '<%= config.app %>/components/shifty/dist/shifty.js'
+      '<%= config.app %>/components/rekapi/dist/rekapi.js'
     ]
   
   grunt.initConfig {
