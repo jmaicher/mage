@@ -1,8 +1,12 @@
 "use strict"
 
-app = angular.module('mageTable', ['ngRoute', 'ngAnimate', 'ngResource'])
+deps = ['ngRoute', 'ngAnimate', 'ngResource', 'mage.services']
+app = angular.module('mageTable', deps)
 
-app.config ($routeProvider) ->
+app.config ($httpProvider, $routeProvider) ->
+  $httpProvider.defaults.useXDomain = true
+  delete $httpProvider.defaults.headers.common["X-Requested-With"]
+
   $routeProvider
     .when '/',
       redirectTo: '/grooming'
@@ -10,8 +14,8 @@ app.config ($routeProvider) ->
       templateUrl: '/views/grooming.html'
       controller: 'GroomingController'
       resolve:
-        backlog: (Backlog) ->
-          Backlog.get()
+        backlog: (BacklogService) ->
+          BacklogService.get()
 
 
 app.controller 'AppController', ($scope) ->

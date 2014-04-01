@@ -30,15 +30,17 @@
   <!-- endbuild -->
 
   <!-- build:js({.tmp,app}) scripts/app.js -->
+  <script src="/scripts/models/models.js"></script>
+  <script src="/scripts/mapper/mapper.js"></script>
+  <script src="/scripts/services/services.js"></script>
   <script src="/scripts/main.js"></script>
-  <script src="/scripts/services.js"></script>
   <script src="/scripts/grooming.js"></script>
   <!-- endbuild -->
 
   <script>
     // Houdini.start();
+    // Hammer.plugins.showTouches();
     Hammer.plugins.fakeMultitouch();
-    Hammer.plugins.showTouches();
   </script>
 </body>
 </html>

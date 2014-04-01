@@ -2,6 +2,7 @@
 
 app = angular.module('mageTable')
 
+
 app.controller 'GroomingController', ($scope, backlog) ->
   $scope.backlog = backlog
 
@@ -35,7 +36,7 @@ app.directive 'surface', () ->
 
       x: x
       y: y
-      rotation: r
+      rotation: 0
       model: item
     )
 
@@ -79,7 +80,71 @@ app.directive 'backlogItem', () ->
       isFront = item == $scope.item
       $element.css 'z-index': zIndex if isFront
 
+    $scope.quicktags = [
+      { name: 'trash', icon: 'trash' }
+      { name: 'refine', icon: 'th' }
+      { name: 'discuss', icon: 'comment' }
+      { name: 'ready', icon: 'ok' }
+    ]
+
     return
+
+
+app.directive 'quicktagMenu', () ->
+  restrict: 'E'
+  transclude: true
+  templateUrl: '/views/quicktag-menu.html'
+  link: ($scope, $element, attrs) ->
+    $element.find('a.quicktag-menu-trigger').on 'pointerdown pointerup', (evt) ->
+      switch evt.type
+        when "pointerdown", "mousedown"
+          $scope.$apply -> $scope.opened = true
+        when "pointerup", "mouseup"
+          $scope.$apply -> $scope.opened = false
+      return true
+
+  controller: ($scope) ->
+    $scope.opened = false
+
+
+app.directive 'quicktag', () ->
+  restrict: 'E'
+  replace: true
+  scope:
+    item: '='
+    quicktag: '='
+  templateUrl: '/views/quicktag.html'
+  link: ($scope, $element, attrs) ->
+    $element.find('a').on 'pointerup mouseup', ->
+      $scope.$apply -> $scope.toggle()
+  controller: ($scope, $timeout, $http, BacklogItemTaggingMapper) ->
+    tag = $scope.quicktag.name
+    tagging = $scope.item.find_tagging(tag)
+    $scope.has_tag = !!tagging
+    $scope.enabled = true
+
+    $scope.toggle = ->
+      $scope.enabled = false
+      
+      unless $scope.has_tag
+        url = "http://#{window.location.hostname}:3000/api/backlog_items/#{$scope.item.id}/taggings"
+        $http.post(url, {
+          tag: {
+            name: tag
+          }
+        }).then (resp) ->
+          tagging = BacklogItemTaggingMapper.from_json(resp.data)
+          $scope.enabled = true
+          $scope.has_tag = true
+      else
+        url = "http://#{window.location.hostname}:3000/api/backlog_items/#{$scope.item.id}/taggings/#{tagging.id}"
+        $http(url: url, method: 'DELETE')
+          .then ->
+            $scope.enabled = true
+            $scope.has_tag = false
+
+    return
+
 
 
 app.directive 'transformable', () ->
@@ -91,14 +156,18 @@ app.directive 'transformable', () ->
       transform_always_block: true,
       drag_block_horizontal: true,
       drag_block_vertical: true,
-      drag_min_distance: 0
+      drag_min_distance: 15,
+      hold_threshold: 15,
+      tap: false,
+      swipe: false,
+      pinch: false,
     }
 
     lastX = undefined
     lastY = undefined
     lastRotation = undefined
   
-    gestures.on 'touch dragstart drag dragend transformstart transform transformend', (evt) ->
+    gestures.on 'touch drag transform', (evt) ->
       switch evt.type
         when 'touch'
           lastX = backlogItemCtrl.getX()
