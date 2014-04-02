@@ -18,6 +18,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # mage-table
   config.vm.network :forwarded_port, guest: 4000, host: 4000
   config.vm.network :forwarded_port, guest: 4444, host: 4444
+  # mage-mobile
+  config.vm.network :forwarded_port, guest: 5000, host: 5000
+  config.vm.network :forwarded_port, guest: 5555, host: 5555
 
   # forward postgres port
   config.vm.network :forwarded_port, guest: 5432, host: 5432
