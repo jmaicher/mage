@@ -1,0 +1,69 @@
+<!doctype html>
+<html xmlns:ng="http://angularjs.org" ng-app="mageMobile">
+<head>
+  <title>♻ mage-mobile</title>
+
+  <!-- build:css({.tmp,app}) styles/vendor.css -->
+  <link href="/styles/vendor/mobile-angular-ui-base.css" rel="stylesheet" type="text/css">
+  <link href="/styles/vendor/mobile-angular-ui-desktop.css" rel="stylesheet" type="text/css">
+  <!-- endbuild -->
+
+  <!-- build:css({.tmp,app}) styles/style.css -->
+  <link href="/styles/style.css" rel="stylesheet" type="text/css">
+  <!-- endbuild -->
+
+  <!-- build:js({.tmp,app}) scripts/vendor.js -->
+  <script src="/scripts/vendor/jquery.js"></script>
+  <script src="/scripts/vendor/lodash.js"></script>
+  <script src="/scripts/vendor/angular.js"></script>
+  <script src="/scripts/vendor/angular-route.js"></script>
+  <script src="/scripts/vendor/mobile-angular-ui-touch-fastclick.js"></script>
+  <script src="/scripts/vendor/mobile-angular-ui-scrollable-overthrow.js"></script>
+  <script src="/scripts/vendor/mobile-angular-ui.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:js({.tmp,app}) scripts/app.js -->
+  <script src="/scripts/main.js"></script>
+  <!-- endbuild -->
+</head>
+<body>
+
+<div id="main-nav" class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in">
+  <h1 class="app-name">mage mobile</h1>
+  <div class="scrollable">
+    <div class="scrollable-content">
+      <div class="list-group" toggle="off" bubble target="main-nav">
+        <a class="list-group-item" href="/#/">
+          Home <i class="fa fa-chevron-right pull-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div> <!-- #main-nav -->
+
+<div class="app">
+  <div class="navbar navbar-app navbar-absolute-top">
+    <div class="navbar-brand navbar-brand-center" yield-to="title">
+      <span></span>
+    </div>
+    <div class="btn-group pull-left">
+      <div ng-click="toggle('main-nav')" class="btn btn-navbar sidebar-toggle">
+        <i class="fa fa-bars"></i> Menu
+      </div>
+    </div>
+  </div> <!-- .navbar (top) -->
+
+  <div class="navbar navbar-app navbar-absolute-bottom">
+    <div class="btn-group justified">
+      <a href="/#/" class="btn btn-navbar btn-icon-only"><i class="fa fa-home fa-navbar"></i></a>
+    </div>
+  </div> <!-- .navbar (bottom) -->
+
+  <div class="app-body">
+    <ng-view class="app-content"></ng-view>
+  </div> <!-- .app-body -->
+</div> <!-- .app -->
+
+</body>
+</html>
+
