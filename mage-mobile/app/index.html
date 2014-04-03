@@ -37,7 +37,7 @@
 <body>
 
 <div id="main-nav" class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in" >
-  <h1 class="app-name">mage mobile</h1>
+  <img src="/images/logo-white.png" class="app-logo">
   <div class="scrollable">
     <div class="scrollable-content">
       <div class="list-group" toggle="off" bubble target="main-nav">
@@ -49,6 +49,10 @@
 </div> <!-- #main-nav -->
 
 <div class="app">
+  <div ng-show="loading" class="loading-overlay">
+    <i class="fa fa-spinner fa-spin loading-spinner"></i>
+  </div>
+
   <div class="navbar navbar-app navbar-absolute-top">
     <div class="navbar-brand navbar-brand-center" yield-to="title">
       <span></span>

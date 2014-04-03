@@ -2,6 +2,7 @@
 
 $green: #5cb85c;
 $darker-green: #4cae4c;
+$blue: #007aff;
 
 // -- FontAwesome config ------------------------------------------
 
@@ -11,6 +12,33 @@ $darker-green: #4cae4c;
   font-weight: normal;
   src: url('/fonts/fontawesome-webfont.eot?v=4.0.3');
   src: url('/fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('/fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('/fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('/fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+}
+
+// -- Loading -----------------------------------------------------
+
+.loading-overlay {
+  background-color: rgba(255, 255, 255, .5);
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 10000;
+}
+
+.loading-spinner {
+  position: relative;
+  top: 50%;
+  font-size: 100px;
+  margin-top: -40px;
+  color: $blue;
+}
+
+
+// -- Sidebars ----------------------------------------------------
+
+.app-logo {
+  margin: 19px;
+  width: 250px;
 }
 
 
@@ -37,7 +65,9 @@ textarea.ng-invalid,
   border: 1px solid #CCC;
 }
 
-input.ng-invalid.ng-dirty {
-  border-color: #FA787E;
+.form-group.has-error {
+  .form-control {
+    border-color: #a94442;
+  }
 }
 
