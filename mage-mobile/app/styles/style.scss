@@ -1,3 +1,7 @@
+// -- Variables ---------------------------------------------------
+
+$green: #5cb85c;
+$darker-green: #4cae4c;
 
 // -- FontAwesome config ------------------------------------------
 
@@ -7,5 +11,33 @@
   font-weight: normal;
   src: url('/fonts/fontawesome-webfont.eot?v=4.0.3');
   src: url('/fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('/fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('/fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('/fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+}
+
+
+// -- Forms -------------------------------------------------------
+
+button.btn-navbar {
+}
+
+.navbar-app .btn-submit {
+  background-color: $green;
+  border-color: $darker-green;
+  border-radius: 0;
+  color: #FFF;
+}
+
+.navbar-app .btn-submit:hover {
+  color: #FFF;
+}
+
+/* reset angular-mobile styles */
+input.ng-invalid,
+textarea.ng-invalid,
+.ng-dirty input.ng-invalid {
+  border: 1px solid #CCC;
+}
+
+input.ng-invalid.ng-dirty {
+  border-color: #FA787E;
 }
 

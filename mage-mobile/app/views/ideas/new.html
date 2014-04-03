@@ -1,0 +1,50 @@
+<div content-for="title">
+  <span>You have a new Idea?</span>
+</div>
+
+<div content-for="navbar-top-action-left">
+  <div class="btn-group pull-right">
+    <a href="#/ideas" class="btn btn-navbar">
+      <i class="fa fa-chevron-left"></i> Cancel
+    </a>
+  </div>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content section">
+    <form name="newIdeaForm" action="" class="create-idea-form" novalidate>
+      <div class="panel">
+        <div class="panel-body">
+          <div class="form-group container-fluid">
+            <div class="row">
+              <label for="idea_title_input" class="control-label col-sm-2">Short working title *</label>
+              <div class="col-sm-10">
+                <input type="text" ng-model="idea.title" id="idea_title_input" class="form-control" required>
+              </div>
+            </div>
+          </div> <!-- .form-group -->
+
+          <div class="form-group container-fluid">
+            <div class="row">
+              <label for="idea_description_input" class="control-label col-sm-2">Description</label>
+              <div class="col-sm-10">
+                <textarea ng-model="idea.description" rows="10" id="idea_description_input" class="form-control"></textarea>
+              </div>
+            </div>
+          </div> <!-- .form-group -->
+
+        </div>
+      </div> <!-- .panel -->     
+    </form>
+  </div>
+</div>
+
+<div content-for="navbar-bottom-actions">
+  <div class="btn-group">
+    <button type="button" class="btn btn-submit" ng-click="submit(idea)" ng-disabled="newIdeaForm.$invalid || isUnchanged(idea)">
+      <i class="fa fa-save"></i>
+      &nbsp;Submit
+    </button>
+  </div>  
+</div>
+
