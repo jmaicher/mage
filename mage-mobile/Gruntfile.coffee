@@ -71,9 +71,9 @@ module.exports = (grunt) ->
     
     connect: {
       options:
-        port: 4000
+        port: 5000
         hostname: '0.0.0.0'
-        livereload: 4444
+        livereload: 5555
       dev:
         options:
           base: [
