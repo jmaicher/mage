@@ -50,9 +50,14 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
 
   config.before(:suite) do
-    FactoryGirl.lint
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
+
+    begin
+      DatabaseCleaner.start
+      FactoryGirl.lint
+    ensure
+      DatabaseCleaner.clean
+    end
   end
 
   config.before(:each) do
