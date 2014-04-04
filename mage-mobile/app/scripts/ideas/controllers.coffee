@@ -3,10 +3,22 @@
 ideas = angular.module('mageMobile.ideas')
 
 ideas.service 'Idea', ($q, $http) ->
+  api_root = "http://#{window.location.hostname}:3000/api"
+
+  all = ->
+    dfd = $q.defer()
+    url = "#{api_root}/ideas"
+
+    success = (resp) -> dfd.resolve(resp.data)
+    failure = (resp) -> dfd.reject()
+
+    $http.get(url).then success, failure
+
+    dfd.promise
 
   create = (params) ->
     dfd = $q.defer()
-    url = "http://#{window.location.hostname}:3000/api/ideas"
+    url = "#{api_root}/ideas"
 
     success = (resp) ->
       dfd.resolve(resp.data)
@@ -20,11 +32,23 @@ ideas.service 'Idea', ($q, $http) ->
 
 
   return {
+    all: all
     create: create
   }
 
-ideas.controller 'ideas.IndexCtrl', ->
-  console.log 'index'
+
+ideas.controller 'ideas.IndexCtrl', ($scope, $rootScope, Idea) ->
+  $rootScope.loading = true
+
+  success = (ideasCol) ->
+    $rootScope.loading = false
+    $scope.ideas = ideasCol.items
+
+  failure = ->
+    $rootScope.loading = false
+
+  Idea.all().then success, failure
+
 
 ideas.controller 'ideas.NewCtrl', ($scope, $location, Idea) ->
   
@@ -34,7 +58,6 @@ ideas.controller 'ideas.NewCtrl', ($scope, $location, Idea) ->
 
   failure = (reason) ->
     $scope.loading = false
-    console.log reason.errors
     $scope.errors = reason.errors
 
   $scope.submit = (params) ->

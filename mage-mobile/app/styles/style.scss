@@ -29,7 +29,7 @@ $blue: #007aff;
   position: relative;
   top: 50%;
   font-size: 100px;
-  margin-top: -70px;
+  margin-top: -50px;
   color: $blue;
 }
 
@@ -39,6 +39,24 @@ $blue: #007aff;
 .app-logo {
   margin: 10%;
   width: 80%;
+}
+
+
+// -- Ideas -------------------------------------------------------
+
+.ideas {
+
+  .idea {
+    .idea-title {
+      font-size: 18px;
+      font-weight: 200;
+      margin-bottom: 0;
+    }
+    .idea-description {
+      color: #999;
+      margin-bottom: 0;
+    }
+  }
 }
 
 
@@ -71,3 +89,27 @@ textarea.ng-invalid,
   }
 }
 
+
+// -- Media ------------------------------------------------------
+
+.list-group-item.media {
+
+  .media-body {
+    padding-top: 5px;
+  }
+
+  .media-icon {
+    font-size: 44px;
+    padding: 0;
+    color: #0062cc;
+    line-height: 64px;
+    width: 64px;
+    text-align: center;
+    opacity: .8;
+  }
+  
+}
+
+.form-control {
+  -webkit-appearance:none;
+}
