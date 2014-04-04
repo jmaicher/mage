@@ -16,6 +16,7 @@ MageWeb::Application.routes.draw do
       resources :taggings, only: [:index, :show, :create, :destroy], controller: 'backlog_items/taggings'
     end
 
+    resources :ideas, only: [:index, :create]
   end
 
   devise_for :users
