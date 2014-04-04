@@ -27,6 +27,6 @@ module MageDesktop
     config.i18n.enforce_available_locales = false
 
     # Disable the asset pipeline.
-    config.assets.enabled = false
+    config.assets.enabled = true
   end
 end
