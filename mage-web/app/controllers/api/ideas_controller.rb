@@ -1,5 +1,12 @@
 class API::IdeasController < API::ApplicationController
 
+  def index
+    ideas = Idea.all.map { |idea| IdeaRepresenter.new(idea) }
+    coll = API::Collection.new(ideas, self: api_ideas_url)
+    
+    render json: ::CollectionRepresenter.new(coll)
+  end # index
+
   def create
     idea = Idea.new(idea_params)
 
@@ -12,7 +19,7 @@ class API::IdeasController < API::ApplicationController
     end
 
     render json: response, status: status
-  end
+  end # create
 
 private
 

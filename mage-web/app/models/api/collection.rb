@@ -1,7 +1,8 @@
 class API::Collection
-  attr_accessor :items
+  attr_accessor :items, :links
 
-  def initialize(items)
+  def initialize(items, links = {})
     @items = items
+    @links = links
   end
 end
