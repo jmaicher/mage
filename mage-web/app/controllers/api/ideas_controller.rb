@@ -4,7 +4,7 @@ class API::IdeasController < API::ApplicationController
     ideas = Idea.all.map { |idea| IdeaRepresenter.new(idea) }
     coll = API::Collection.new(ideas, self: api_ideas_url)
     
-    render json: ::CollectionRepresenter.new(coll)
+    render json: CollectionRepresenter.new(coll)
   end # index
 
   def create
