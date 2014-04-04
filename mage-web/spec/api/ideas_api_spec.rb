@@ -3,6 +3,30 @@ require 'spec_helper'
 describe 'Ideas API' do
 
   describe 'GET /api/ideas' do
+
+    before :each do
+      3.times do |i|
+        create(:idea)
+      end
+    end
+
+    def do_request
+      get "/api/ideas"
+    end
+
+    it "responds with serializd ideas collection" do
+      do_request
+
+      ideas = Idea.all.map { |idea| IdeaRepresenter.new(idea) }
+      # Note: Missing host to link to! error when generating urls in test
+      coll = API::Collection.new(ideas, self: "")
+      expected_body = CollectionRepresenter.new(coll).to_json
+      actual_body = response.body
+
+      expect(response.status).to eq(200)
+      expect(actual_body).to be_json_eql(expected_body).excluding('_links')
+    end
+
   end # GET /api/ideas
 
 

@@ -4,7 +4,7 @@ class API::BacklogItems::TaggingsController < API::ApplicationController
   before_action :get_and_set_tagging, only: [:show, :destroy]
 
   def index
-    taggings = @backlog_item.taggings
+    taggings = @backlog_item.taggings.map { |item| BacklogItems::TaggingRepresenter.new(item) }
     decorator = CollectionRepresenter.new(Collection.new(taggings))
     respond_with decorator
   end

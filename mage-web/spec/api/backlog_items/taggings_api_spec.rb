@@ -10,8 +10,9 @@ describe 'BacklogItems/Tags API' do
 
     it "respond with serialized taggings collection" do
       get "/api/backlog_items/#{@item.id}/taggings"
-      
-      expected_body = CollectionRepresenter.new(API::Collection.new(@item.taggings)).to_json
+
+      taggings = @item.taggings.map { |item| BacklogItems::TaggingRepresenter.new(item) }      
+      expected_body = CollectionRepresenter.new(API::Collection.new(taggings)).to_json
       actual_body = response.body
 
       expect(response.status).to eq(200)
