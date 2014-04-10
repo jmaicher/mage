@@ -1,7 +1,7 @@
 "use strict"
 
 deps = ['ngRoute', 'ngAnimate', 'ngResource', 'mage.services']
-app = angular.module('mageTable', deps)
+app = angular.module('mageBoard', deps)
 
 app.config (MageReactiveProvider) ->
   MageReactiveProvider.setUrl "http://#{window.location.hostname}:9000/echo"
@@ -9,16 +9,6 @@ app.config (MageReactiveProvider) ->
 app.config ($httpProvider, $routeProvider) ->
   $httpProvider.defaults.useXDomain = true
   delete $httpProvider.defaults.headers.common["X-Requested-With"]
-
-  $routeProvider
-    .when '/',
-      redirectTo: '/grooming'
-    .when '/grooming',
-      templateUrl: '/views/grooming.html'
-      controller: 'GroomingController'
-      resolve:
-        backlog: (BacklogService) ->
-          BacklogService.get()
 
 app.run (MageReactive) ->
   MageReactive.connect().then ->

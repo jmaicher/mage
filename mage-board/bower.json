@@ -1,0 +1,19 @@
+{
+  "name": "mage-board",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "lodash": "~2.4.1",
+    "angular": "~1.2.14",
+    "angular-route": "~1.2.14",
+    "angular-animate": "~1.2.14",
+    "angular-resource": "~1.2.14",
+    "bootstrap-sass-official": "~3.1.1",
+    "sockjs": "~0.3.4"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.14",
+    "angular-scenario": "~1.2.14"
+  }
+}
+
