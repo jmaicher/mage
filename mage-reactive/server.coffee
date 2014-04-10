@@ -1,7 +1,7 @@
 http = require 'http'
 sockjs = require 'sockjs'
 host = '0.0.0.0'
-port = 9000
+port = 7000
 
 echo = sockjs.createServer()
 

@@ -4,7 +4,7 @@ deps = ['ngRoute', 'ngAnimate', 'ngResource', 'mage.services']
 app = angular.module('mageTable', deps)
 
 app.config (MageReactiveProvider) ->
-  MageReactiveProvider.setUrl "http://#{window.location.hostname}:9000/echo"
+  MageReactiveProvider.setUrl "http://reactive.mage.dev/echo"
 
 app.config ($httpProvider, $routeProvider) ->
   $httpProvider.defaults.useXDomain = true
