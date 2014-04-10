@@ -13,6 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = box_url
 
   config.vm.hostname = hostname
+  config.vm.network :forwarded_port, guest: 80, host: 8080
   # mage-web
   config.vm.network :forwarded_port, guest: 3000, host: 3000
   # mage-table

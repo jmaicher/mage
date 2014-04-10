@@ -1,0 +1,61 @@
+# ~/.tmuxinator/mage.yml
+
+name: mage
+root: ~/Development/mage/mage-dev/
+
+# Runs before everything. Use it to start daemons etc.
+pre: vagrant up
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+windows:
+  - web:
+      layout: caf6,158x45,0,0[158x32,0,0,0,158x12,0,33{78x12,0,33,3,79x12,79,33,4}]
+      panes:
+        - editor:
+          - cd mage-web
+          - clear
+          - vim
+        - shell:
+          - vagrant ssh
+          - cd /mage/mage-web
+          - clear
+        - server:
+          - vagrant ssh
+          - cd /mage/mage-web
+          - clear
+          - bundle exec rails s
+  - table:
+      layout: caf6,158x45,0,0[158x32,0,0,0,158x12,0,33{78x12,0,33,3,79x12,79,33,4}]
+      panes:
+        - editor:
+          - cd mage-table
+          - clear
+          - vim
+        - shell:
+          - vagrant ssh
+          - cd /mage/mage-table
+          - clear
+        - server:
+          - vagrant ssh
+          - cd /mage/mage-table
+          - clear
+          - grunt dev
+  - mobile:
+      layout: caf6,158x45,0,0[158x32,0,0,0,158x12,0,33{78x12,0,33,3,79x12,79,33,4}]
+      panes:
+        - editor:
+          - cd mage-mobile
+          - clear
+          - vim
+        - shell:
+          - vagrant ssh
+          - cd /mage/mage-mobile
+          - clear
+        - server:
+          - vagrant ssh
+          - cd /mage/mage-mobile
+          - clear
+          - grunt dev
+

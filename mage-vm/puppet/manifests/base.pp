@@ -21,7 +21,7 @@ class { 'apt_get_update':
 }
 
 
-## Basics #####################################
+## Basics #########################################
 
 package { ['curl', 'build-essential', 'git-core', 'unzip', 'vim']:
   ensure => installed
@@ -166,3 +166,17 @@ exec { "${as_vagrant} 'gem install bundler --no-rdoc --no-ri'":
   creates => "${home}/.rvm/bin/bundle",
   require => Exec['install_ruby']
 }
+
+## nginx #################################
+
+class { 'nginx': }
+
+file { '/etc/nginx/conf.d/mage.conf':
+  ensure => present,
+  content => template('mage/mage.conf.erb'),
+  owner => 'root',
+  group => 'root',
+  mode => 0644,
+  require => Class['nginx']
+}
+
