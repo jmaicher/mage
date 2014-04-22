@@ -12,6 +12,9 @@ MageWeb::Application.routes.draw do
     match '*path', :controller => 'application', :action => 'handle_options_request', via: [:options], :constraints => {:method => 'OPTIONS'}
     resource :backlog, only: :show, controller: :product_backlog
 
+    resources :sessions, only: [:create] do
+    end
+
     resources :backlog_items, only: [:show] do
       resources :taggings, only: [:index, :show, :create, :destroy], controller: 'backlog_items/taggings'
     end
