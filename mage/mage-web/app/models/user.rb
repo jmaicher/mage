@@ -4,6 +4,13 @@ class User < ActiveRecord::Base
 
   before_save :ensure_api_token
 
+
+  # -- Custom finders ---------------------------------
+
+  def self.find_by_api_token token
+    where(api_token: token).first
+  end
+
 protected
 
   def ensure_api_token

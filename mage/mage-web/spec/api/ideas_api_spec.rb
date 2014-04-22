@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe 'Ideas API' do
 
+  let :user do
+    create :user
+  end
+
   describe 'GET /api/ideas' do
 
     before :each do
@@ -11,7 +15,8 @@ describe 'Ideas API' do
     end
 
     def do_request
-      get "/api/ideas"
+      headers = { 'API-TOKEN' => user.api_token }
+      get "/api/ideas", {}, headers
     end
 
     it "responds with serializd ideas collection" do
@@ -33,7 +38,10 @@ describe 'Ideas API' do
   describe 'POST /api/ideas' do
 
     def do_request(params)
-      headers = { 'CONTENT_TYPE' => 'application/json' }
+      headers = {
+        'CONTENT-TYPE' => 'application/json',
+        'API-TOKEN' => user.api_token
+      }
       post "/api/ideas", params.to_json, headers
     end
 

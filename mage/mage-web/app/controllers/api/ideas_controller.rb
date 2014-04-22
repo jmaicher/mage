@@ -1,4 +1,5 @@
 class API::IdeasController < API::ApplicationController
+  before_filter :authenticate_user_from_token!
 
   def index
     ideas = Idea.all.map { |idea| IdeaRepresenter.new(idea) }
