@@ -58,4 +58,36 @@ windows:
           - cd /mage/mage-mobile
           - clear
           - grunt dev
+  - board:
+      layout: caf6,158x45,0,0[158x32,0,0,0,158x12,0,33{78x12,0,33,3,79x12,79,33,4}]
+      panes:
+        - editor:
+          - cd mage-board
+          - clear
+          - vim
+        - shell:
+          - vagrant ssh
+          - cd /mage/mage-board
+          - clear
+        - server:
+          - vagrant ssh
+          - cd /mage/mage-board
+          - clear
+          - grunt dev
+  - reactive:
+      layout: caf6,158x45,0,0[158x32,0,0,0,158x12,0,33{78x12,0,33,3,79x12,79,33,4}]
+      panes:
+        - editor:
+          - cd mage-reactive
+          - clear
+          - vim
+        - shell:
+          - vagrant ssh
+          - cd /mage/mage-reactive
+          - clear
+        - server:
+          - vagrant ssh
+          - cd /mage/mage-reactive
+          - clear
+          - coffee server.coffee
 
