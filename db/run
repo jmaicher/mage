@@ -1,0 +1,34 @@
+#!/bin/bash
+set -e
+
+POSTGRESQL_ROLE=mage_pg
+POSTGRESQL_PASS=scrummage
+
+MAGE_DEV_DATABASE=mage_dev
+MAGE_TEST_DATABASE=mage_test
+MAGE_PROD_DATABASE=mage_prod
+
+POSTGRESQL_BIN=/usr/lib/postgresql/9.1/bin/postgres
+POSTGRESQL_CONFIG_FILE=/etc/postgresql/9.1/main/postgresql.conf
+POSTGRESQL_DATA=/var/lib/postgresql/9.1/main
+
+if [ ! -d $POSTGRESQL_DATA ]; then
+mkdir -p $POSTGRESQL_DATA
+    chown -R postgres:postgres $POSTGRESQL_DATA
+    sudo -u postgres /usr/lib/postgresql/9.1/bin/initdb -D $POSTGRESQL_DATA
+    ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem $POSTGRESQL_DATA/server.crt
+    ln -s /etc/ssl/private/ssl-cert-snakeoil.key $POSTGRESQL_DATA/server.key
+fi
+
+# Create postgres user...
+sudo -u postgres $POSTGRESQL_BIN --single --config-file=$POSTGRESQL_CONFIG_FILE <<< "CREATE ROLE $POSTGRESQL_ROLE WITH CREATEDB LOGIN;"
+# ..and set password
+sudo -u postgres $POSTGRESQL_BIN --single --config-file=$POSTGRESQL_CONFIG_FILE <<< "ALTER ROLE $POSTGRESQL_ROLE WITH PASSWORD '$POSTGRESQL_PASS';"
+# Create databases
+sudo -u postgres $POSTGRESQL_BIN --single --config-file=$POSTGRESQL_CONFIG_FILE <<< "CREATE DATABASE $MAGE_DEV_DATABASE OWNER $POSTGRESQL_ROLE;"
+sudo -u postgres $POSTGRESQL_BIN --single --config-file=$POSTGRESQL_CONFIG_FILE <<< "CREATE DATABASE $MAGE_TEST_DATABASE OWNER $POSTGRESQL_ROLE;"
+sudo -u postgres $POSTGRESQL_BIN --single --config-file=$POSTGRESQL_CONFIG_FILE <<< "CREATE DATABASE $MAGE_PROD_DATABASE OWNER $POSTGRESQL_ROLE;"
+
+
+exec sudo -u postgres $POSTGRESQL_BIN --config-file=$POSTGRESQL_CONFIG_FILE
+

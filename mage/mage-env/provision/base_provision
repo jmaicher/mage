@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+
+if [ ! -d "/var/mage" ]; then
+  apt-get -y update
+  apt-get -y install build-essential wget curl unzip software-properties-common python-software-properties
+  apt-get -y install supervisor
+
+  adduser --disabled-password --gecos "" --ingroup www-data mage
+
+  # Create var folders for log etc.
+  folders=( /var/mage /var/mage/log /var/mage/pid /var/mage/socket )
+  for i in "${folders[@]}"
+  do
+    mkdir -p $i
+    chown -R mage.www-data $i
+    chmod -R 2775 $i
+  done
+fi
+

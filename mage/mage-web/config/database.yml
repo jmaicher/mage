@@ -1,0 +1,33 @@
+development:
+  adapter: postgresql
+  host: localhost
+  template: template0
+  encoding: unicode
+  database: mage_dev
+  pool: 5
+  username: mage_pg
+  password: scrummage
+
+test: &test
+  adapter: postgresql
+  host: localhost
+  template: template0
+  encoding: unicode
+  database: mage_test
+  pool: 5
+  username: mage_pg
+  password: scrummage
+
+production:
+  adapter: postgresql
+  host: <%= ENV.fetch('MAGE_DB_PORT_5432_TCP_ADDR', 'localhost') %>
+  port: <%= ENV.fetch('MAGE_DB_PORT_5432_TCP_PORT', '5432') %>
+  template: template0
+  encoding: unicode
+  database: mage_prod
+  pool: 5
+  username: mage_pg
+  password: scrummage
+
+cucumber:
+  <<: *test

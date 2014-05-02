@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+
+chown -R mage:www-data /var/mage/log
+
+# -p important to preserve the environment (otherwise, docker env variables are lost)
+su -l -p mage <<'EOF'
+
+  # Run database migrations
+  cd /mage/mage-web && \
+    RAILS_ENV=production bundle exec rake db:migrate
+
+  # Run kitten, run!
+  cd /mage && \
+    supervisord -c run.conf
+
+EOF
+
