@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+PHANTOMJS_VERSION=1.9.7
+
+if ! which phantomjs &>/dev/null; then
+  apt-get -y install libfontconfig libfontconfig-dev libfreetype6-dev
+  /usr/bin/wget --quiet --directory-prefix=/opt https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2
+  mkdir /opt/phantomjs
+  tar xvf /opt/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -C /opt
+  mv /opt/phantomjs-$PHANTOMJS_VERSION-linux-x86_64/* /opt/phantomjs/
+  rm -rf /opt/phantomjs-$PHANTOMJS_VERSION-linux-x86_64*
+  ln -s /opt/phantomjs/bin/phantomjs /usr/local/bin/phantomjs
+fi
+

@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+if [ ! -d "/mage" ]; then
+  apt-get -y install git vim
+  ln -s /vagrant/mage /mage
+
+  # Add vagrant user to www-data
+  adduser vagrant www-data
+  adduser vagrant rvm
+
+  echo "========================================================"
+  uname -a
+  echo "Important: Manually update kernel to 3.8:"
+  echo "$ sudo apt-get install linux-image-generic-lts-raring linux-headers-generic-lts-raring"
+  echo "$ sudo reboot"
+  echo "========================================================"
+fi
+

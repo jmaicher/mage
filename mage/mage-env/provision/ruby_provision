@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+
+MAGE_RUBY_VERSION=2.0.0
+MAGE_RUBY_PATCH=p451
+
+if ! ( which ruby &> /dev/null && ruby -v | egrep -q -o $MAGE_RUBY_VERSION$MAGE_RUBY_PATCH ); then
+  echo "Installing rvm ..."
+  curl -sSL https://get.rvm.io | bash -s stable &> /dev/null
+  source /usr/local/rvm/scripts/rvm
+  echo "Installing ruby ($MAGE_RUBY_VERSION-$MAGE_RUBY_PATCH) ..."
+  rvm install $MAGE_RUBY_VERSION-$MAGE_RUBY_PATCH &> /dev/null
+  rvm use $MAGE_RUBY_VERSION-$MAGE_RUBY_PATCH@mage --create --default
+  adduser mage rvm
+  
+  gem install --no-ri --no-rdoc bundler
+  gem install --no-ri --no-rdoc sass # required for grunt/sass
+
+  # nokogiri deps
+  apt-get -y install libxml2 libxml2-dev libxslt1-dev
+  # pg deps
+  apt-get -y install libpq-dev
+fi
+
