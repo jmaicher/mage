@@ -14,6 +14,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.memory = 2048
   end
 
+  # Use nfs!!
+  config.vm.synced_folder ".", "/vagrant", :nfs => true
+  # Private network necessary for nfs
+  config.vm.network :private_network, ip: "10.11.12.13"
+
 
   # -- Networking ------------------------------------------
 

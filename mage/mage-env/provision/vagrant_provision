@@ -3,6 +3,7 @@ set -e
 
 if [ ! -d "/mage" ]; then
   apt-get -y install git vim
+  apt-get install nfs-common portmap # for nfs support
   ln -s /vagrant/mage /mage
 
   # Add vagrant user to www-data
