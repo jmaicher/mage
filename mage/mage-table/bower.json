@@ -4,18 +4,38 @@
   "dependencies": {
     "jquery": "~2.1.0",
     "lodash": "~2.4.1",
+    "shifty": "~1.0.1",
     "rekapi": "~1.1.1",
     "hammerjs": "~1.0.0",
     "angular": "~1.2.14",
     "angular-route": "~1.2.14",
     "angular-animate": "~1.2.14",
     "angular-resource": "~1.2.14",
-    "bootstrap-sass-official": "~3.1.1",
-    "open-sans-fontface": "~1.0.4"
-  },
-  "devDependencies": {
     "angular-mocks": "~1.2.14",
-    "angular-scenario": "~1.2.14"
+    "angular-scenario": "~1.2.14",
+    "components-font-awesome": "~4.0.3"
+  },
+  "exportsOverride": {
+    "jquery": { "js": "dist/jquery.js" },
+    "lodash": { "js": "dist/lodash.js" },
+    "shifty": { "js": "dist/shifty.js" },
+    "rekapi": { "js": "dist/rekapi.js" },
+    "hammerjs": { "js": [
+      "hammer.js",
+      "plugins/hammer.fakemultitouch.js",
+      "plugins/hammer.showtouches.js"
+    ]},
+    "angular": { "js": "angular.js" },
+    "angular-route": { "js": "angular-route.js" },
+    "angular-animate": { "js": "angular-animate.js" },
+    "angular-resource": { "js": "angular-resource.js" },
+    "angular-mocks": { "js": "angular-mocks.js" },
+    "angular-scenario": { "js": "angular-scenario.js" },
+    "components-font-awesome": {
+      "css": "scss/*.scss",
+      "fonts": "fonts/*"
+    },
+    "underscore": { "js": "underscore.js" }
   }
 }
 

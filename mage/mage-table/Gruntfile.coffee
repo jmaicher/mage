@@ -1,27 +1,15 @@
 "use strict"
 
 module.exports = (grunt) ->
-  
-  require('jit-grunt')(grunt, { # static mappings
-    useminPrepare: 'grunt-usemin'
-  })
 
-  components =
-    scripts: [
-      '<%= config.app %>/components/jquery/dist/jquery.js'
-      '<%= config.app %>/components/lodash/dist/lodash.js'
-      '<%= config.app %>/components/houdini-web/pointer-event.js'
-      '<%= config.app %>/components/houdini-web/houdini-web.js'
-      '<%= config.app %>/components/hammerjs/hammer.js'
-      '<%= config.app %>/components/hammerjs/plugins/hammer.showtouches.js'
-      '<%= config.app %>/components/hammerjs/plugins/hammer.fakemultitouch.js'
-      '<%= config.app %>/components/angular/angular.js'
-      '<%= config.app %>/components/angular-route/angular-route.js'
-      '<%= config.app %>/components/angular-animate/angular-animate.js'
-      '<%= config.app %>/components/angular-resource/angular-resource.js'
-      '<%= config.app %>/components/shifty/dist/shifty.js'
-      '<%= config.app %>/components/rekapi/dist/rekapi.js'
-    ]
+  # :-(
+  grunt.file.expand('../node_modules/grunt-*/tasks').forEach(grunt.loadTasks);
+  
+  #require('jit-grunt')(grunt, { # static mappings
+  #  useminPrepare: 'grunt-usemin'
+  #  bower: 'grunt-bower-task'
+  #})
+
   
   grunt.initConfig {
     
@@ -31,6 +19,22 @@ module.exports = (grunt) ->
       test: 'test'
       tmp: '.tmp'
     }
+
+
+    # -- bower ----------------------------------------
+
+    bower:
+      install:
+        options:
+          targetDir: '<%= config.app %>/vendor',
+          layout: (type, component) ->
+            type_dir = switch type
+              when 'js' then 'scripts'
+              when 'css' then 'styles'
+              when 'img' then 'images'
+              else type
+
+            require('path').join(type_dir, component)
 
  
     # -- watch ----------------------------------------
@@ -167,15 +171,6 @@ module.exports = (grunt) ->
     # -- copy ----------------------------------------
 
     copy: {
-      components:
-        files: [
-          {
-            expand: true
-            flatten: true
-            src: components.scripts
-            dest: '<%= config.tmp %>/scripts/vendor/'
-          }
-        ]
       dist:
         expand: true
         dot: true
@@ -186,7 +181,7 @@ module.exports = (grunt) ->
           '*.html'
           'views/{,*/}*.html'
           'images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-          'fonts/**/*.{eot,svg,ttf,woff}'
+          'vendor/fonts/**/*.{eot,svg,ttf,woff,otf}'
         ]
     }
 
@@ -226,7 +221,6 @@ module.exports = (grunt) ->
     'clean:server'
     'coffee'
     'sass'
-    'copy:components'
     'connect:dev'
     #'karma:watch:start'
     'watch'
@@ -236,7 +230,6 @@ module.exports = (grunt) ->
     'clean:server'
     'coffee'
     'sass'
-    'copy:components'
     'karma:unit'
   ]
 
@@ -245,7 +238,6 @@ module.exports = (grunt) ->
     'useminPrepare'
     'coffee'
     'sass'
-    'copy:components'
     'concat'
     'ngmin'
     'cssmin'

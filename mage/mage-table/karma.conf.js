@@ -15,15 +15,17 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '.tmp/scripts/vendor/jquery.js',
-      '.tmp/scripts/vendor/lodash.js',
-      '.tmp/scripts/vendor/pointer-event.js',
-      '.tmp/scripts/vendor/houdini-web.js',
-      '.tmp/scripts/vendor/hammer.js',
-      '.tmp/scripts/vendor/angular.js',
-      '.tmp/scripts/vendor/angular-route.js',
-      '.tmp/scripts/vendor/angular-animate.js',
-      '.tmp/scripts/vendor/angular-resource.js',
+      'app/vendor/scripts/jquery/jquery.js',
+      'app/vendor/scripts/lodash/lodash.js',
+      'app/vendor/scripts/houdini-web/pointer-event.js',
+      'app/vendor/scripts/houdini-web/houdini-web.js',
+      'app/vendor/scripts/hammerjs/hammer.js',
+      'app/vendor/scripts/hammerjs/hammer.showtouches.js',
+      'app/vendor/scripts/hammerjs/hammer.fakemultitouch.js',
+      'app/vendor/scripts/angular/angular.js',
+      'app/vendor/scripts/angular-route/angular-route.js',
+      'app/vendor/scripts/angular-animate/angular-animate.js',
+      'app/vendor/scripts/angular-resource/angular-resource.js',
       '.tmp/scripts/main.js',
       '.tmp/spec/**/*.js',
       '.tmp/scripts/**/*.js'

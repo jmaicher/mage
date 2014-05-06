@@ -2,6 +2,6 @@
 /dist
 /.tmp
 /.sass-cache
-/app/components
+/bower_components
 .vimrc
 

@@ -1,5 +1,8 @@
-$icon-font-path: "/fonts/glyphicons/";
-@import '../components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss';
+/*$icon-font-path: "/fonts/glyphicons/";*/
+/*@import '../components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss';*/
 
-$OpenSansPath: "/fonts/open-sans";
-@import '../components/open-sans-fontface/open-sans.scss';
+/*$OpenSansPath: "/fonts/open-sans";*/
+/*@import '../components/open-sans-fontface/open-sans.scss';*/
+
+$fa-font-path: "../vendor/fonts/components-font-awesome";
+@import '../vendor/styles/components-font-awesome/font-awesome.scss';

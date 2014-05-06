@@ -1,16 +1,22 @@
 <!doctype html>
 <html xmlns:ng="http://angularjs.org" ng-app="mageTable">
 <head>
-  <title>♻ mage-table</title>
+  <title>mage-table</title>
+
+  <!-- build:css({.tmp,app}) styles/vendor.css -->
+  <link href="/styles/vendor.css" rel="stylesheet" type="text/css">
+  <!-- endbuild -->
 
   <!-- build:css({.tmp,app}) styles/style.css -->
-  <link href="/styles/vendor.css" rel="stylesheet" type="text/css">
   <link href="/styles/style.css" rel="stylesheet" type="text/css">
   <link href="/styles/animations.css" rel="stylesheet" type="text/css">
   <!-- endbuild -->
 
 </head>
 <body ng-controller="AppController">
+  <p>
+    <i class="fa fa-camera-retro"></i> fa-camera-retro
+  </p>
   <div id="focus-overlay" class="focus-overlay"></div>
   <div ng-show="loading" class="loading-overlay animate-fade">
     <div class="spinner"></div>
@@ -18,19 +24,19 @@
   <div class="content" ng-view></div>
 
   <!-- build:js({.tmp,app}) scripts/vendor.js -->
-  <script src="/scripts/vendor/jquery.js"></script>
-  <script src="/scripts/vendor/lodash.js"></script>
-  <script src="/scripts/vendor/pointer-event.js"></script>
-  <script src="/scripts/vendor/houdini-web.js"></script>
-  <script src="/scripts/vendor/hammer.js"></script>
-  <script src="/scripts/vendor/hammer.showtouches.js"></script>
-  <script src="/scripts/vendor/hammer.fakemultitouch.js"></script>
-  <script src="/scripts/vendor/angular.js"></script>
-  <script src="/scripts/vendor/angular-route.js"></script>
-  <script src="/scripts/vendor/angular-animate.js"></script>
-  <script src="/scripts/vendor/angular-resource.js"></script>
-  <script src="/scripts/vendor/shifty.js"></script>
-  <script src="/scripts/vendor/rekapi.js"></script>
+  <script src="/vendor/scripts/jquery/jquery.js"></script>
+  <script src="/vendor/scripts/lodash/lodash.js"></script>
+  <script src="/vendor/scripts/houdini-web/pointer-event.js"></script>
+  <script src="/vendor/scripts/houdini-web/houdini-web.js"></script>
+  <script src="/vendor/scripts/hammerjs/hammer.js"></script>
+  <script src="/vendor/scripts/hammerjs/hammer.showtouches.js"></script>
+  <script src="/vendor/scripts/hammerjs/hammer.fakemultitouch.js"></script>
+  <script src="/vendor/scripts/angular/angular.js"></script>
+  <script src="/vendor/scripts/angular-route/angular-route.js"></script>
+  <script src="/vendor/scripts/angular-animate/angular-animate.js"></script>
+  <script src="/vendor/scripts/angular-resource/angular-resource.js"></script>
+  <script src="/vendor/scripts/shifty/shifty.js"></script>
+  <script src="/vendor/scripts/rekapi/rekapi.js"></script>
   <!-- endbuild -->
 
   <!-- build:js({.tmp,app}) scripts/app.js -->
