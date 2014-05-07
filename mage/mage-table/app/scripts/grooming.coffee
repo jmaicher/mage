@@ -213,10 +213,10 @@ app.directive 'backlogItem', () ->
       $element.css 'z-index': zIndex if isFront
 
     $scope.quicktags = [
-      { name: 'trash', icon: 'trash' }
-      { name: 'refine', icon: 'th' }
+      { name: 'trash', icon: 'trash-o' }
+      { name: 'refine', icon: 'sitemap' }
       { name: 'discuss', icon: 'comment' }
-      { name: 'ready', icon: 'ok' }
+      { name: 'ready', icon: 'check' }
     ]
 
     return

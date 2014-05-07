@@ -2,9 +2,11 @@
 
 app = angular.module('mage.services', ['mage.mapper'])
 
+mage_table_host = window.location.host
+mage_web_host = mage_table_host.substr(mage_table_host.indexOf('.') + 1)
 
 app.constant 'mageWeb',
-  api: "http://#{window.location.hostname}:3000/api"
+  api: "http://#{mage_web_host}/api"
 
 
 app.service 'Random', ->
