@@ -2,14 +2,8 @@
 
 module.exports = (grunt) ->
 
-  # :-(
-  grunt.file.expand('../node_modules/grunt-*/tasks').forEach(grunt.loadTasks);
-  
-  #require('jit-grunt')(grunt, { # static mappings
-  #  useminPrepare: 'grunt-usemin'
-  #  bower: 'grunt-bower-task'
-  #})
-
+  # jit-grunt cannot load parent modules :-(
+  grunt.file.expand('../node_modules/grunt-*/tasks').forEach(grunt.loadTasks)
   
   grunt.initConfig {
     
@@ -210,7 +204,8 @@ module.exports = (grunt) ->
         singleRun: true
     }
 
-  }
+  } # grunt.initConfig
+
 
   grunt.registerTask 'dist', [
     'build'

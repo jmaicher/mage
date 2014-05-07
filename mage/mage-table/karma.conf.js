@@ -27,8 +27,8 @@ module.exports = function(config) {
       'app/vendor/scripts/angular-animate/angular-animate.js',
       'app/vendor/scripts/angular-resource/angular-resource.js',
       '.tmp/scripts/main.js',
-      '.tmp/spec/**/*.js',
-      '.tmp/scripts/**/*.js'
+      '.tmp/scripts/**/*.js',
+      '.tmp/spec/**/*.js'
     ],
 
 

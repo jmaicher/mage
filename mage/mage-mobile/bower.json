@@ -9,10 +9,38 @@
     "angular-route": "~1.2.14",
     "angular-animate": "~1.2.14",
     "angular-resource": "~1.2.14",
-    "mobile-angular-ui": "http://github.com/jmaicher/mobile-angular-ui.git#master"
-  },
-  "devDependencies": {
     "angular-mocks": "~1.2.14",
-    "angular-scenario": "~1.2.14"
+    "angular-scenario": "~1.2.14",
+    "mobile-angular-ui": "git@github.com:jmaicher/mobile-angular-ui.git#1.1.0-beta.17"
+  },
+  "exportsOverride": {
+    "jquery": { "js": "dist/jquery.js" },
+    "lodash": { "js": "dist/lodash.js" },
+    "hammerjs": { "js": [
+      "hammer.js",
+      "plugins/hammer.fakemultitouch.js",
+      "plugins/hammer.showtouches.js"
+    ]},
+    "angular": { "js": "angular.js" },
+    "angular-route": { "js": "angular-route.js" },
+    "angular-animate": { "js": "angular-animate.js" },
+    "angular-resource": { "js": "angular-resource.js" },
+    "angular-touch": { "js": "angular-touch.js" },
+    "angular-mocks": { "js": "angular-mocks.js" },
+    "angular-scenario": { "js": "angular-scenario.js" },
+    "mobile-angular-ui": {
+      "js": "dist/js/mobile-angular-ui.js",
+      "css": [
+        "dist/css/mobile-angular-ui-base.css",
+        "dist/css/mobile-angular-ui-desktop.css"
+      ],
+      "fonts": "dist/fonts/*"
+    },
+    "bootstrap": {},
+    "fastclick": {},
+    "iscroll": {},
+    "overthrow": {},
+    "font-awesome": {}
   }
+
 }

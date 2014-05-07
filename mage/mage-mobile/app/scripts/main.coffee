@@ -2,7 +2,7 @@
 
 deps = [
   # vendor
-  'ngRoute', 'mobile-angular-ui', 'mobile-angular-ui.touch', 'mobile-angular-ui.scrollable'
+  'ngRoute', 'ngTouch', 'mobile-angular-ui'
   # app modules
   'mageMobile.ideas'
 ]

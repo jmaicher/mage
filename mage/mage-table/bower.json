@@ -11,14 +11,13 @@
     "angular-route": "~1.2.14",
     "angular-animate": "~1.2.14",
     "angular-resource": "~1.2.14",
-    "angular-mocks": "~1.2.14",
-    "angular-scenario": "~1.2.14",
     "components-font-awesome": "~4.0.3"
   },
   "exportsOverride": {
     "jquery": { "js": "dist/jquery.js" },
     "lodash": { "js": "dist/lodash.js" },
     "shifty": { "js": "dist/shifty.js" },
+    "underscore": { "js": "underscore.js" },
     "rekapi": { "js": "dist/rekapi.js" },
     "hammerjs": { "js": [
       "hammer.js",
@@ -34,8 +33,7 @@
     "components-font-awesome": {
       "css": "scss/*.scss",
       "fonts": "fonts/*"
-    },
-    "underscore": { "js": "underscore.js" }
+    }
   }
 }
 

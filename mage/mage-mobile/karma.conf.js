@@ -15,16 +15,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '.tmp/scripts/vendor/jquery.js',
-      '.tmp/scripts/vendor/lodash.js',
-      '.tmp/scripts/vendor/angular.js',
-      '.tmp/scripts/vendor/angular-route.js',
-      '.tmp/scripts/vendor/mobile-angular-ui-touch-fastclick.js',
-      '.tmp/scripts/vendor/mobile-angular-ui-scrollable-overthrow.js',
-      '.tmp/scripts/vendor/mobile-angular-ui.js',
-      '.tmp/scripts/main.js',
-      '.tmp/spec/**/*.js',
-      '.tmp/scripts/**/*.js'
+      'app/vendor/scripts/jquery/jquery.js',
+      'app/vendor/scripts/lodash/lodash.js',
+      'app/vendor/scripts/angular/angular.js',
+      'app/vendor/scripts/angular-route/angular-route.js',
+      'app/vendor/scripts/angular-touch/angular-touch.js',
+      'app/vendor/scripts/mobile-angular-ui/mobile-angular-ui.js',
+      '.tmp/scripts/ideas/ideas.js',
+      '.tmp/scripts/ideas/*.js',
+      '.tmp/scripts/**/*.js',
+      '.tmp/spec/**/*.js'
     ],
 
 

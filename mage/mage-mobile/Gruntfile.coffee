@@ -1,38 +1,34 @@
 "use strict"
 
 module.exports = (grunt) ->
-  
-  require('jit-grunt')(grunt, { # static mappings
-    useminPrepare: 'grunt-usemin'
-  })
 
-  components =
-    scripts: [
-      '<%= config.bower %>/jquery/dist/jquery.js'
-      '<%= config.bower %>/lodash/dist/lodash.js'
-      '<%= config.bower %>/angular/angular.js'
-      '<%= config.bower %>/angular-route/angular-route.js'
-      '<%= config.bower %>/angular-animate/angular-animate.js'
-      '<%= config.bower %>/angular-resource/angular-resource.js'
-      '<%= config.bower %>/mobile-angular-ui/dist/js/*.*'
-    ]
-    styles: [
-      '<%= config.bower %>/mobile-angular-ui/dist/css/*.*'
-    ]
-    fonts: [
-      '<%= config.bower %>/mobile-angular-ui/dist/fonts/*.*'
-    ]
-
-
+  # jit-grunt cannot load parent modules :-(
+  grunt.file.expand('../node_modules/grunt-*/tasks').forEach(grunt.loadTasks)
+ 
   grunt.initConfig {
     
     config: {
       app: 'app'
-      bower: 'app/components'
       dist: 'dist'
       test: 'test'
       tmp: '.tmp'
     }
+
+
+    # -- bower ----------------------------------------
+
+    bower:
+      install:
+        options:
+          targetDir: '<%= config.app %>/vendor',
+          layout: (type, component) ->
+            type_dir = switch type
+              when 'js' then 'scripts'
+              when 'css' then 'styles'
+              when 'img' then 'images'
+              else type
+
+            require('path').join(type_dir, component)
 
  
     # -- watch ----------------------------------------
@@ -169,27 +165,6 @@ module.exports = (grunt) ->
     # -- copy ----------------------------------------
 
     copy: {
-      components:
-        files: [
-          {
-            expand: true
-            flatten: true
-            src: components.scripts
-            dest: '<%= config.tmp %>/scripts/vendor/'
-          }
-          {
-            expand: true
-            flatten: true
-            src: components.styles
-            dest: '<%= config.tmp %>/styles/vendor/'
-          }
-          {
-            expand: true
-            flatten: true
-            src: components.fonts
-            dest: '<%= config.tmp %>/fonts/'
-          }
-        ]
       dist:
         files: [
           {
@@ -202,19 +177,12 @@ module.exports = (grunt) ->
               '*.html'
               'views/{,*/}*.html'
               'images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-            ]
-          }
-          {
-            expand: true
-            dot: true
-            cwd: '<%= config.tmp %>'
-            dest: '<%= config.dist %>'
-            src: [
-              'fonts/**/*.{eot,svg,ttf,woff}'
+              'vendor/fonts/**/*.{eot,svg,ttf,woff,otf}'
             ]
           }
         ]
     }
+
 
     # -- rev -----------------------------------------
 
@@ -242,6 +210,7 @@ module.exports = (grunt) ->
 
   }
 
+
   grunt.registerTask 'dist', [
     'build'
     'connect:dist:keepalive'
@@ -251,7 +220,6 @@ module.exports = (grunt) ->
     'clean:server'
     'coffee'
     'sass'
-    'copy:components'
     'connect:dev'
     #'karma:watch:start'
     'watch'
@@ -261,7 +229,6 @@ module.exports = (grunt) ->
     'clean:server'
     'coffee'
     'sass'
-    'copy:components'
     'karma:unit'
   ]
 
@@ -270,7 +237,6 @@ module.exports = (grunt) ->
     'useminPrepare'
     'coffee'
     'sass'
-    'copy:components'
     'concat'
     'ngmin'
     'cssmin'
