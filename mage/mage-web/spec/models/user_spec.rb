@@ -11,7 +11,7 @@ describe User do
   end
 
   it "has api_token" do
-    expect(persisted_user.api_token).not_to be_blank
+    expect(user.api_token).not_to be_blank
   end
 
-end
+end # User

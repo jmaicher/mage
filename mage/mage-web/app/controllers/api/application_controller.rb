@@ -12,17 +12,14 @@ class API::ApplicationController < ActionController::Base
 private
 
   def authenticate_user_from_token!
-    token = request.headers['API-TOKEN'].presence
-    user = token && User.find_by_api_token(token)
+    given_token = request.headers['API-TOKEN'].presence
+    token = given_token && API::Token.find_by_non_expired_token(given_token)
 
-    if user
+    if token
+      authenticable = token.api_authenticable
       # store: false => do not store user in session
-      sign_in user, store: false
+      sign_in authenticable, store: false
     end
-
-    # invoke device authentication logic
-    # suggested here: https://gist.github.com/josevalim/fb706b1e933ef01e4fb6
-    authenticate_user!
   end
 
   def cors_set_access_control_headers

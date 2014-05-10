@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140422182856) do
+ActiveRecord::Schema.define(version: 20140510180048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_tokens", force: true do |t|
+    t.string   "token"
+    t.integer  "api_authenticable_id"
+    t.string   "api_authenticable_type"
+    t.boolean  "expired",                default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "backlog_item_assignments", force: true do |t|
     t.integer  "backlog_id"
@@ -47,6 +56,20 @@ ActiveRecord::Schema.define(version: 20140422182856) do
     t.datetime "updated_at"
   end
 
+  create_table "devices", force: true do |t|
+    t.string   "name",                           null: false
+    t.integer  "type",                           null: false
+    t.integer  "sign_in_count",      default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "devices", ["name"], name: "index_devices_on_name", using: :btree
+
   create_table "ideas", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -76,7 +99,6 @@ ActiveRecord::Schema.define(version: 20140422182856) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "api_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

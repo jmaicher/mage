@@ -15,7 +15,7 @@ describe 'Ideas API' do
     end
 
     def do_request
-      headers = { 'API-TOKEN' => user.api_token }
+      headers = { 'API-TOKEN' => user.api_token.token }
       get "/api/ideas", {}, headers
     end
 
@@ -40,7 +40,7 @@ describe 'Ideas API' do
     def do_request(params)
       headers = {
         'CONTENT-TYPE' => 'application/json',
-        'API-TOKEN' => user.api_token
+        'API-TOKEN' => user.api_token.token
       }
       post "/api/ideas", params.to_json, headers
     end

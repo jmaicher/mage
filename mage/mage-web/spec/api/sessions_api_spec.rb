@@ -16,7 +16,7 @@ describe 'Sessions API' do
     it "should respond with the api token when correct credentials are given" do
       do_request email: user.email, password: user.password
 
-      expected_body = { email: user.email, api_token: user.api_token }.to_json
+      expected_body = { email: user.email, api_token: user.api_token.token }.to_json
       actual_body = response.body
 
       expect(response.status).to eq(200)
