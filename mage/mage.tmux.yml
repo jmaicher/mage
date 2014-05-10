@@ -1,7 +1,7 @@
 # ~/.tmuxinator/mage.yml
 
 name: mage
-root: ~/Development/mage/mage-dev/
+root: ~/Development/mage/mage
 
 # Runs before everything. Use it to start daemons etc.
 pre: vagrant up
@@ -25,7 +25,7 @@ windows:
           - vagrant ssh
           - cd /mage/mage-web
           - clear
-          - bundle exec rails s
+          - bundle exec unicorn -c config/unicorn.rb
   - table:
       layout: caf6,158x45,0,0[158x32,0,0,0,158x12,0,33{78x12,0,33,3,79x12,79,33,4}]
       panes:

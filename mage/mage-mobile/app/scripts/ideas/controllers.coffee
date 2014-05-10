@@ -2,8 +2,12 @@
 
 ideas = angular.module('mageMobile.ideas')
 
+mobile_host = window.location.host
+web_host = mobile_host.substr(mobile_host.indexOf('.') + 1)
+
 ideas.service 'Idea', ($q, $http) ->
-  api_root = "http://#{window.location.hostname}:3000/api"
+  # inject
+  api_root = "http://#{web_host}/api"
 
   all = ->
     dfd = $q.defer()

@@ -208,7 +208,7 @@ module.exports = (grunt) ->
         singleRun: true
     }
 
-  }
+  } # grunt.initConfig
 
 
   grunt.registerTask 'dist', [
