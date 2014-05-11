@@ -1,6 +1,4 @@
 class API::Token < ActiveRecord::Base
-  self.table_name = "api_tokens"
-
   after_initialize :ensure_token
 
   belongs_to :api_authenticable, polymorphic: true
@@ -17,7 +15,7 @@ class API::Token < ActiveRecord::Base
   def self.generate_unique_token
     loop do
       token = SecureRandom.hex(32)
-      break token unless API::Token.where(token: token).exists?
+      break token unless where(token: token).exists?
     end
   end
 
@@ -25,7 +23,7 @@ protected
 
   def ensure_token
     if token.blank?
-      self.token = API::Token.generate_unique_token
+      self.token = self.class.generate_unique_token
     end
   end
 

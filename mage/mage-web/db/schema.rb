@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140510180048) do
+ActiveRecord::Schema.define(version: 20140510221029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_devices_pins", force: true do |t|
+    t.string   "pin"
+    t.string   "uuid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "api_tokens", force: true do |t|
     t.string   "token"
@@ -58,7 +65,7 @@ ActiveRecord::Schema.define(version: 20140510180048) do
 
   create_table "devices", force: true do |t|
     t.string   "name",                           null: false
-    t.integer  "type",                           null: false
+    t.integer  "device_type",                    null: false
     t.integer  "sign_in_count",      default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"

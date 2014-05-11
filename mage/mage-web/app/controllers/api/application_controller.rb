@@ -11,7 +11,7 @@ class API::ApplicationController < ActionController::Base
   
 private
 
-  def authenticate_user_from_token!
+  def authenticate_from_token!
     given_token = request.headers['API-TOKEN'].presence
     token = given_token && API::Token.find_by_non_expired_token(given_token)
 
@@ -19,6 +19,8 @@ private
       authenticable = token.api_authenticable
       # store: false => do not store user in session
       sign_in authenticable, store: false
+    else
+      head :unauthorized
     end
   end
 

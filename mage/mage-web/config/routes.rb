@@ -15,6 +15,16 @@ MageWeb::Application.routes.draw do
     resources :sessions, only: [:create] do
     end
 
+    namespace :devices do
+    
+      resources :sessions, only: [:create]
+
+      namespace :sessions do
+        resources :pins, only: [:create]
+      end
+
+    end
+
     resources :backlog_items, only: [:show] do
       resources :taggings, only: [:index, :show, :create, :destroy], controller: 'backlog_items/taggings'
     end

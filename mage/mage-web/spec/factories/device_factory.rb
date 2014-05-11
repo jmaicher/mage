@@ -2,12 +2,12 @@
 FactoryGirl.define do
   factory :device do
     factory :table do
+      device_type :table
       sequence(:name) { |n| "Table #{n}" }
-      type :table
     end
 
     factory :board do
-      type :board
+      device_type :board
       sequence(:name) { |n| "Board #{n}" }
     end 
   end
