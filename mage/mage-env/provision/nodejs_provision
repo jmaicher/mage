@@ -1,12 +1,10 @@
 #!/bin/bash
 set -e
 
-NODEJS_VERSION=0.10.26-1chl1~precise1
-
 if ! which node &> /dev/null; then
   apt-add-repository ppa:chris-lea/node.js &> /dev/null
   apt-get -y update
-  apt-get -y install nodejs=$NODEJS_VERSION
-  npm install -g bower grunt-cli
+  apt-get -y install nodejs
+  npm install -g grunt-cli
 fi
 
