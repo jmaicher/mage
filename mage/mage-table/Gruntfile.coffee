@@ -2,8 +2,12 @@
 
 module.exports = (grunt) ->
 
-  # jit-grunt cannot load parent modules :-(
-  grunt.file.expand('../node_modules/grunt-*/tasks').forEach(grunt.loadTasks)
+  require('jit-grunt')(grunt, {
+    useminPrepare: 'grunt-usemin',
+    bower: 'grunt-bower-task'
+  })({
+    pluginsRoot: '../node_modules'
+  })
   
   grunt.initConfig {
     
@@ -12,6 +16,7 @@ module.exports = (grunt) ->
       dist: 'dist'
       test: 'test'
       tmp: '.tmp'
+      shared: '../mage-shared/dist'
     }
 
 
@@ -69,12 +74,13 @@ module.exports = (grunt) ->
       options:
         port: 4000
         hostname: '0.0.0.0'
-        livereload: 4444
+        livereload: 34000
       dev:
         options:
           base: [
             '<%= config.tmp %>'
             '<%= config.app %>'
+            '<%= config.shared %>'
           ]
       dist:
         options:

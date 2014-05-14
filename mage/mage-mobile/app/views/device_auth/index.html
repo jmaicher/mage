@@ -1,0 +1,34 @@
+<div content-for="title">
+  <span>Device Auth</span>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content section">
+    <form name="deviceAuthForm" action="" class="device-auth-form" novalidate>
+      <div class="panel">
+        <div class="panel-body">
+          <div class="form-group container-fluid"
+              ng-class="{ 'has-error': (error && deviceAuthForm.pin.$pristine) || ( deviceAuthForm.pin.$invalid && !deviceAuthForm.pin.$pristine ) }">
+            <div class="row">
+              <label for="device-auth-pin-input" class="control-label col-sm-2">Authentication Pin *</label>
+              <div class="col-sm-10">
+                <input type="text" name="pin" ng-model="pin" id="device-auth-pin-input" class="form-control" required>
+                <p ng-show="error && deviceAuthForm.pin.$pristine" class="help-block">{{error}}</p>
+              </div>
+            </div>
+          </div> <!-- .form-group -->
+        </div>
+      </div> <!-- .panel -->
+    </form>
+  </div>
+</div>
+
+<div content-for="navbar-bottom-actions">
+  <div class="btn-group">
+    <button type="button" class="btn btn-submit" ng-click="submit(pin)" ng-disabled="deviceAuthForm.$invalid || loading">
+      <i class="fa" ng-class="{ 'fa-unlock-alt': !loading, 'fa-spinner fa-spin': loading }"></i>
+      &nbsp;Authenticate
+    </button>
+  </div>  
+</div>
+

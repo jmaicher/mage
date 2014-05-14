@@ -14,8 +14,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.memory = 2048
   end
 
-  # Use nfs!!
-  config.vm.synced_folder ".", "/vagrant", :nfs => true
+  # actimeo makes it faster :-)
+  # https://gist.github.com/fideloper/dab171a2aa646e86b782#comment-973847
+  config.vm.synced_folder ".", "/vagrant", :nfs => true, :mount_options => ['actimeo=2']
   # Private network necessary for nfs
   config.vm.network :private_network, ip: "10.11.12.13"
 
@@ -24,9 +25,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.hostname = hostname
 
-  config.vm.network :forwarded_port, guest: 8000, host: 8000
-  config.vm.network :forwarded_port, guest: 8080, host: 8080
+  # Nginx dev
+  config.vm.network :forwarded_port, guest: 8080, host: 3000
+  # Nginx prod
+  config.vm.network :forwarded_port, guest: 80, host: 8080
+  # Postgres
   config.vm.network :forwarded_port, guest: 5432, host: 5432
+  # Services
+  config.vm.network :forwarded_port, guest: 4000, host: 4000
+  config.vm.network :forwarded_port, guest: 5000, host: 5000
+  config.vm.network :forwarded_port, guest: 6000, host: 6000
+  config.vm.network :forwarded_port, guest: 9000, host: 9000
+  config.vm.network :forwarded_port, guest: 9999, host: 9999
+  # Livereload ports
+  config.vm.network :forwarded_port, guest: 33000, host: 33000
+  config.vm.network :forwarded_port, guest: 34000, host: 34000
+  config.vm.network :forwarded_port, guest: 35000, host: 35000
+  config.vm.network :forwarded_port, guest: 36000, host: 36000
 
 
   # -- Provisioning ----------------------------------------
@@ -55,13 +70,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   vm.provision :shell, path: "#{provision_dir}/vagrant_provision"
 
 end
-
-# mage-web
-# config.vm.network :forwarded_port, guest: 3000, host: 3000
-# mage-table
-# config.vm.network :forwarded_port, guest: 4000, host: 4000
-# config.vm.network :forwarded_port, guest: 4444, host: 4444
-# mage-mobile
-# config.vm.network :forwarded_port, guest: 5000, host: 5000
-# config.vm.network :forwarded_port, guest: 5555, host: 5555
 

@@ -7,6 +7,9 @@ gem 'pg', '~> 0.17.1'
 # Authentication
 gem 'devise', '~> 3.2.3'
 
+# HTTP
+gem 'faraday', '~> 0.9.0'
+
 # API / JSON
 gem "roar-rails", "~> 0.1.4"
 gem "json_spec", "~> 1.1.1"

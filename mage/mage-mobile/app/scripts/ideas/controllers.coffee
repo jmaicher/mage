@@ -2,16 +2,11 @@
 
 ideas = angular.module('mageMobile.ideas')
 
-mobile_host = window.location.host
-web_host = mobile_host.substr(mobile_host.indexOf('.') + 1)
-
-ideas.service 'Idea', ($q, $http) ->
-  # inject
-  api_root = "http://#{web_host}/api"
+ideas.service 'Idea', ($q, $http, Hosts) ->
 
   all = ->
     dfd = $q.defer()
-    url = "#{api_root}/ideas"
+    url = "#{Hosts.api}/ideas"
 
     success = (resp) -> dfd.resolve(resp.data)
     failure = (resp) -> dfd.reject()
@@ -22,7 +17,7 @@ ideas.service 'Idea', ($q, $http) ->
 
   create = (params) ->
     dfd = $q.defer()
-    url = "#{api_root}/ideas"
+    url = "#{Hosts.api}/ideas"
 
     success = (resp) ->
       dfd.resolve(resp.data)

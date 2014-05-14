@@ -2,7 +2,6 @@
 
 app = angular.module('mageTable')
 
-
 app.directive 'quicktagMenu', () ->
   restrict: 'E'
   transclude: true
@@ -34,7 +33,7 @@ app.directive 'quicktag', () ->
       evt.stopPropagation() if evt.type is 'tap'
       return
 
-  controller: ($scope, $timeout, $http, BacklogItemTaggingMapper, mageWeb) ->
+  controller: ($scope, $timeout, $http, BacklogItemTaggingMapper, Hosts) ->
     tag = $scope.quicktag.name
     tagging = $scope.item.find_tagging(tag)
     $scope.has_tag = !!tagging
@@ -44,7 +43,7 @@ app.directive 'quicktag', () ->
       $scope.enabled = false
       
       unless $scope.has_tag
-        url = "#{mageWeb.api}/backlog_items/#{$scope.item.id}/taggings"
+        url = "#{Hosts.api}/backlog_items/#{$scope.item.id}/taggings"
         $http.post(url, {
           tag: {
             name: tag
@@ -54,7 +53,7 @@ app.directive 'quicktag', () ->
           $scope.enabled = true
           $scope.has_tag = true
       else
-        url = "#{mageWeb.api}/backlog_items/#{$scope.item.id}/taggings/#{tagging.id}"
+        url = "#{Hosts.api}/backlog_items/#{$scope.item.id}/taggings/#{tagging.id}"
         $http(url: url, method: 'DELETE')
           .then ->
             $scope.enabled = true
