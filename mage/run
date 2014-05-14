@@ -3,6 +3,10 @@ set -e
 
 chown -R mage:www-data /var/mage/log
 
+# run nginx not as daemon!
+# echo "daemon off;" >> /etc/nginx/nginx.conf 
+service nginx start
+
 # -p important to preserve the environment (otherwise, docker env variables are lost)
 su -l -p mage <<'EOF'
 

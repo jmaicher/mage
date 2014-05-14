@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+su -l -p mage <<'EOF'
+
+  cd /mage && \
+    npm install && \
+    bundle install
+
+  cd /mage/mage-mobile && \
+    grunt build
+
+  cd /mage/mage-table && \
+    grunt build
+
+  cd /mage/mage-board && \
+    grunt build
+
+  cd /mage/mage-reactive && \
+    npm install
+
+EOF
+

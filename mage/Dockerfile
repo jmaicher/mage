@@ -56,5 +56,8 @@ RUN chown -R mage:www-data /mage
 WORKDIR /mage
 
 # Important: Run as login shell because of rvm
+RUN /bin/bash -l -c "/mage/build"
+
+# Important: Run as login shell because of rvm
 CMD /bin/bash -l -c "/mage/run"
 
