@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+chown -R mage /usr/local/lib/node_modules
+
 su -l -p mage <<'EOF'
 
   cd /mage && \
