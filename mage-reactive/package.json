@@ -1,7 +1,0 @@
-{
-  "name": "mage-reactive",
-  "version": "0.0.1",
-  "dependencies": {
-    "sockjs": "~0.3.8"
-  }
-}

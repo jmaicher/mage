@@ -2,10 +2,11 @@ class API::Devices::SessionsController < API::ApplicationController
   before_filter :authenticate_from_token!
 
   def create
-    device = Device.find_by_id(credentials[:id])
+    # device = Device.find_by_id(credentials[:id])
     pin = API::Devices::Pin.find_by_pin(credentials[:pin])
 
-    if device && pin && user_signed_in?
+    if pin # && user_signed_in?
+      Reactive.new.confirm_device_auth(pin.uuid, {})
       pin.destroy!
 
       status = :ok

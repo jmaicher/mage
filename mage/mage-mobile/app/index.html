@@ -44,9 +44,15 @@
   <script src="/vendor/scripts/mobile-angular-ui/mobile-angular-ui.js"></script>
   <!-- endbuild -->
 
-  <!-- build:js({.tmp,app}) scripts/app.js -->
+  <!-- build:js({.tmp,app,../mage-shared/dist}) scripts/app.js -->
+  <script src="/shared/scripts/utils.js"></script>
+  <script src="/shared/scripts/hosts.js"></script>
+  <script src="/shared/scripts/session.js"></script>
+  <script src="/shared/scripts/auth.js"></script>
   <script src="/scripts/ideas/ideas.js"></script>
   <script src="/scripts/ideas/controllers.js"></script>
+  <script src="/scripts/auth.js"></script>
+  <script src="/scripts/device_auth/module.js"></script>
   <script src="/scripts/main.js"></script>
   <!-- endbuild -->
 </head>
@@ -61,6 +67,7 @@
       <div class="list-group" toggle="off" bubble target="main-nav">
         <a class="list-group-item" href="#/">Home <i class="fa fa-chevron-right pull-right"></i></a>
         <a class="list-group-item" href="#/ideas">Project Ideas <i class="fa fa-chevron-right pull-right"></i></a>
+        <a class="list-group-item" href="#/device-auth">Device Auth <i class="fa fa-chevron-right pull-right"></i></a>
       </div>
     </div>
   </div>

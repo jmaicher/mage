@@ -1,12 +1,13 @@
 "use strict"
 
-deps = ['ngRoute', 'ngAnimate', 'ngResource', 'mage.services']
+deps = [
+  'ngRoute', 'ngAnimate', 'ngResource',
+  'mage.utils', 'mage.hosts', 'mage.auth', 'mage.reactive',
+  'mage.services', 'mage.table.auth'
+]
 app = angular.module('mageTable', deps)
 
-app.config (MageReactiveProvider) ->
-  MageReactiveProvider.setUrl "http://reactive.mage.dev/echo"
-
-app.config ($httpProvider, $routeProvider) ->
+app.config ($httpProvider, $routeProvider, AuthConfigProvider) ->
   $httpProvider.defaults.useXDomain = true
   delete $httpProvider.defaults.headers.common["X-Requested-With"]
 
@@ -20,12 +21,10 @@ app.config ($httpProvider, $routeProvider) ->
         backlog: (BacklogService) ->
           BacklogService.get()
 
-app.run (MageReactive) ->
-  MageReactive.connect().then ->
-    MageReactive.publish { foo: "bar" }
+  AuthConfigProvider.setSignInPath('/auth')
 
 app.controller 'AppController', ($scope) ->
-  $scope.loading = false
+  $scope.loading = true
   load = -> $scope.loading = true
   ready = -> $scope.loading = false
 

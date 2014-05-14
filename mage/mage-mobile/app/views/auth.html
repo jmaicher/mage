@@ -1,0 +1,54 @@
+<div content-for="title">
+  <i class="fa fa-lock"></i>&nbsp;
+  <span>Please sign in</span>
+</div>
+
+<div content-for="navbar-top-action-left">
+</div>
+
+<div class="auth scrollable">
+  <div class="scrollable-content section">
+    <div ng-show="!focused" class="app-logo">
+      <img src="/images/logo-black.png">
+    </div>
+    <form name="authForm" action="" class="form auth-form" novalidate>
+      <div class="panel">
+        <div class="panel-body">
+          <div class="form-group container-fluid"
+              ng-class="{ 'has-error': (error && authForm.$pristine) || ( authForm.email.$invalid && !authForm.email.$pristine ) }">
+            <div class="row">
+              <label for="auth-email-input" class="control-label col-sm-2">E-Mail *</label>
+              <div class="col-sm-10">
+                <input type="text" name="email" id="auth-email-input" class="form-control" required
+                  ng-model="credentials.email"
+                  ng-focus="focused=true">
+              </div>
+            </div>
+          </div> <!-- .form-group -->
+          <div class="form-group container-fluid"
+              ng-class="{ 'has-error': (error && authForm.$pristine) || ( authForm.password.$invalid && !authForm.password.$pristine ) }">
+            <div class="row">
+              <label for="auth-password-input" class="control-label col-sm-2">Password *</label>
+              <div class="col-sm-10">
+                <input type="password" name="password" id="auth-password-input" class="form-control" required
+                  ng-model="credentials.password"
+                  ng-focus="focused=true">
+                <p ng-show="error && authForm.$pristine" class="help-block">{{error}}</p>
+              </div>
+            </div>
+          </div> <!-- .form-group -->
+        </div>
+      </div> <!-- .panel -->
+    </form>
+  </div>
+</div>
+
+<div content-for="navbar-bottom-actions">
+  <div class="btn-group">
+    <button type="button" class="btn btn-submit" ng-click="submit(credentials)" ng-disabled="authForm.$invalid || loading">
+      <i class="fa" ng-class="{ 'fa-unlock-alt': !loading, 'fa-spinner fa-spin': loading }"></i>
+      &nbsp;Sign in
+    </button>
+  </div>  
+</div>
+

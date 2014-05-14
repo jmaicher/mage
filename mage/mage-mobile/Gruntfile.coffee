@@ -12,6 +12,7 @@ module.exports = (grunt) ->
       dist: 'dist'
       test: 'test'
       tmp: '.tmp'
+      shared: '../mage-shared/dist'
     }
 
 
@@ -69,12 +70,13 @@ module.exports = (grunt) ->
       options:
         port: 5000
         hostname: '0.0.0.0'
-        livereload: 5555
+        livereload: 35000
       dev:
         options:
           base: [
             '<%= config.tmp %>'
             '<%= config.app %>'
+            '<%= config.shared %>'
           ]
       dist:
         options:
