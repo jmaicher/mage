@@ -48,7 +48,7 @@ server {
 }
 
 server {
-  server_name reactive.mage.dev;
+  server_name reactive.magic.cs.upb.de reactive.mage.dev;
   listen 80;
   listen [::]:80;
 
