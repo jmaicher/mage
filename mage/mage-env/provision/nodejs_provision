@@ -5,6 +5,5 @@ if ! which node &> /dev/null; then
   apt-add-repository ppa:chris-lea/node.js &> /dev/null
   apt-get -y update
   apt-get -y install nodejs
-  npm install -g grunt-cli
 fi
 

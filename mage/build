@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-chown -R mage /usr/local/lib/node_modules
-
 su -l -p mage <<'EOF'
+
+  npm install -g grunt-cli
 
   cd /mage && \
     npm install && \
