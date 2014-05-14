@@ -1,9 +1,7 @@
 #!/bin/bash
 set -e
 
-su -l -p mage <<'EOF'
-
-  npm install -g grunt-cli
+su -l mage <<'EOF'
 
   cd /mage && \
     npm install && \
