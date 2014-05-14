@@ -53,7 +53,7 @@ describe 'Devices::Sessions API' do
 
     before :each do
       reactive_stubs = Faraday::Adapter::Test::Stubs.new do |stub|
-        stub.post('/confirm_device_auth') { [200, {}] }
+        stub.post('/api/devices/sessions/confirm') { [200, {uuid: 'xyz'}] }
       end
 
       Reactive.set_stubs reactive_stubs
