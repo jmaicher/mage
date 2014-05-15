@@ -49,7 +49,8 @@ private
   end # auth_new
 
   def confirm_auth(uuid, device)
-    Reactive.new.confirm_device_auth(uuid, device)
+    authenticable = AuthenticableRepresenter.new(device) 
+    Reactive.new.confirm_device_auth(uuid, authenticable)
   end
 
   def invalidate_pin(pin)

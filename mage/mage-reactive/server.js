@@ -17,14 +17,13 @@ var api_base = '/api'
 
 app.post(api_base + '/devices/sessions/confirm', function (req, res) {
   var uuid = req.body.uuid,
+      authenticable = req.body.authenticable,
       socket = uuidMap[uuid];
 
   if(socket) {
     socket.emit('message', {
       type: 'device.authenticated',
-      payload: {
-        auth_token: 1234567890
-      }
+      payload: authenticable
     });
 
     res.send(200);

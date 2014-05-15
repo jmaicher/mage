@@ -60,14 +60,6 @@ describe 'Devices::Sessions API' do
       }
     end
 
-    before :each do
-      reactive_stubs = Faraday::Adapter::Test::Stubs.new do |stub|
-        stub.post('/api/devices/sessions/confirm') { [200, {uuid: 'xyz'}] }
-      end
-
-      Reactive.set_stubs reactive_stubs
-    end
-
     after :each do
       Reactive.clear_stubs
     end
@@ -83,6 +75,18 @@ describe 'Devices::Sessions API' do
     end
 
     context 'authenticate existing device' do
+
+      before :each do
+        reactive_stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+          expected_args = {
+            uuid: pin.uuid,
+            authenticable: AuthenticableRepresenter.new(device).to_json
+          }
+          stub.post('/api/devices/sessions/confirm') { [200, {uuid: 'xyz'}] }
+        end
+
+        Reactive.set_stubs reactive_stubs
+      end
 
       it "should succeed if the given credentials are valid" do
         do_request valid_auth_existing_credentials
@@ -106,6 +110,15 @@ describe 'Devices::Sessions API' do
     end # existing
 
     context 'authenticate new device' do
+
+      before :each do
+        reactive_stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+          # Note: We do not validate that is has been called with the correct params :-(
+          stub.post('/api/devices/sessions/confirm') { [200, {}] }
+        end
+
+        Reactive.set_stubs reactive_stubs
+      end
 
       it "create a new device if the given credentials are valid" do
         do_request valid_auth_new_credentials

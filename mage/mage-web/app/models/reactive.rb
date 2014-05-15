@@ -15,7 +15,8 @@ class Reactive
 
   def confirm_device_auth(uuid, device)
     response = @conn.post '/api/devices/sessions/confirm', {
-      uuid: uuid
+      uuid: uuid,
+      authenticable: device.to_json
     }
 
     return response.status === 200
