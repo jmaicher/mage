@@ -44,11 +44,20 @@ describe 'Devices::Sessions API' do
       }
     end
 
-    let :valid_credentials do
+    let :valid_auth_existing_credentials do
       {
-        id: device.id,
-        pin: pin.pin
+        pin: pin.pin,
+        id: device.id
       } 
+    end
+
+    let :valid_auth_new_credentials do
+      {
+         pin: pin.pin,
+         device: {
+           name: 'new_device'
+         }
+      }
     end
 
     before :each do
@@ -67,29 +76,74 @@ describe 'Devices::Sessions API' do
       post "/api/devices/sessions", params.to_json, headers
     end
 
-    it "should succeed if the given credentials are valid" do
-      do_request valid_credentials
-
-      expect(response.status).to eq(200)
+    # extract
+    it "should fail with unauthorized if api token not provided" do
+      do_request valid_auth_existing_credentials, non_authenticated_headers
+      expect(response.status).to eq(401)
     end
 
-    it "should make the given pin invalid" do
-      do_request valid_credentials
-      do_request valid_credentials
+    context 'authenticate existing device' do
 
-      expect(response.status).to eq(400)
-    end
+      it "should succeed if the given credentials are valid" do
+        do_request valid_auth_existing_credentials
 
-    it "should fail with bad request if the given credentials are invalid" do
-      do_request id: '-1', pin: '-2'
+        expect(response.status).to eq(200)
+      end
 
-      expect(response.status).to eq(400)
-    end
+      it "should make the given pin invalid" do
+        do_request valid_auth_existing_credentials
+        do_request valid_auth_existing_credentials
 
-    it "should fail with unauthorized if the api token is not given" do
-      # do_request valid_credentials, non_authenticated_headers
-      # expect(response.status).to eq(401)
-    end
+        expect(response.status).to eq(400)
+      end
+
+      it "should fail with bad request if the given credentials are invalid" do
+        do_request id: '-1', pin: '-2'
+
+        expect(response.status).to eq(400)
+      end
+
+    end # existing
+
+    context 'authenticate new device' do
+
+      it "create a new device if the given credentials are valid" do
+        do_request valid_auth_new_credentials
+
+        expect(response.status).to eq(200)
+      end
+
+      it "should make the given pin invalid" do
+        do_request valid_auth_new_credentials
+        do_request valid_auth_new_credentials
+
+        expect(response.status).to eq(400)
+      end
+
+      it "should fail with bad request if the pin is invalid" do
+        do_request name: 'new_device', pin: '-2'
+
+        expect(response.status).to eq(400)
+      end
+
+      it "should respond with validation errors if the given device params are invalid" do
+        params = valid_auth_new_credentials
+        params[:device][:name] = ''
+
+        do_request pin: pin.pin, device: { name: params[:name] }
+        
+        params[:device][:device_type] = :table
+        device = Device.new params[:device]
+        device.valid?
+
+        expected_body = device.errors.to_json
+        actual_body = response.body
+
+        expect(response.status).to eq(422)
+        expect(actual_body).to be_json_eql(expected_body)
+      end
+
+    end # new
 
   end
 

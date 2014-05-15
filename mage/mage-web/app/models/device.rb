@@ -13,4 +13,8 @@ class Device < ActiveRecord::Base
     TYPE.key(read_attribute(:device_type))
   end
 
+  # -- Validations --------------------------------------
+
+  validates_presence_of :name
+
 end

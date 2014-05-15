@@ -1,10 +1,8 @@
 
 FactoryGirl.define do
-  factory :device do
-    factory :table do
-      device_type :table
-      sequence(:name) { |n| "Table #{n}" }
-    end
+  factory :device, aliases: [:table] do
+    device_type :table
+    sequence(:name) { |n| "Table #{n}" }
 
     factory :board do
       device_type :board

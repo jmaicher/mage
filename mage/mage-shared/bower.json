@@ -2,9 +2,13 @@
   "name": "mage-shared",
   "version": "0.0.1",
   "dependencies": {
+    "angular": "~2.1.14",
+    "angular-cookies": "~1.2.14",
     "emitter": "~1.1.0"
   },
   "exportsOverride": {
+    "angular": { "js": "angular.js" },
+    "angular-cookies": { "js": "angular-cookies.js" },
     "emitter": { "js": "emitter.js" }
   }
 }

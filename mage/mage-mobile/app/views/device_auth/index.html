@@ -1,5 +1,5 @@
 <div content-for="title">
-  <span>Device Auth</span>
+  <span>Device Authentication</span>
 </div>
 
 <div class="scrollable">
@@ -8,12 +8,22 @@
       <div class="panel">
         <div class="panel-body">
           <div class="form-group container-fluid"
-              ng-class="{ 'has-error': (error && deviceAuthForm.pin.$pristine) || ( deviceAuthForm.pin.$invalid && !deviceAuthForm.pin.$pristine ) }">
+              ng-class="{ 'has-error': (errors && errors.name && deviceAuthForm.name.$pristine) || ( deviceAuthForm.name.$invalid && !deviceAuthForm.name.$pristine ) }">
+            <div class="row">
+              <label for="device-auth-name-input" class="control-label col-sm-2">Device name *</label>
+              <div class="col-sm-10">
+                <input type="text" name="name" ng-model="name" id="device-auth-name-input" class="form-control" required>
+                <p ng-show="errors && errors.name && deviceAuthForm.name.$pristine" class="help-block">{{errors.name}}</p>
+              </div>
+            </div>
+          </div> <!-- .form-group -->
+          <div class="form-group container-fluid"
+              ng-class="{ 'has-error': (errors && errors.pin && deviceAuthForm.pin.$pristine) || ( deviceAuthForm.pin.$invalid && !deviceAuthForm.pin.$pristine ) }">
             <div class="row">
               <label for="device-auth-pin-input" class="control-label col-sm-2">Authentication Pin *</label>
               <div class="col-sm-10">
                 <input type="text" name="pin" ng-model="pin" id="device-auth-pin-input" class="form-control" required>
-                <p ng-show="error && deviceAuthForm.pin.$pristine" class="help-block">{{error}}</p>
+                <p ng-show="errors && errors.pin && deviceAuthForm.pin.$pristine" class="help-block">{{errors.pin}}</p>
               </div>
             </div>
           </div> <!-- .form-group -->
@@ -25,7 +35,7 @@
 
 <div content-for="navbar-bottom-actions">
   <div class="btn-group">
-    <button type="button" class="btn btn-submit" ng-click="submit(pin)" ng-disabled="deviceAuthForm.$invalid || loading">
+    <button type="button" class="btn btn-submit" ng-click="submit()" ng-disabled="deviceAuthForm.$invalid || loading">
       <i class="fa" ng-class="{ 'fa-unlock-alt': !loading, 'fa-spinner fa-spin': loading }"></i>
       &nbsp;Authenticate
     </button>

@@ -11,16 +11,14 @@ module.config ($routeProvider) ->
 
 module.service 'DeviceAuth', ($q, $http, Hosts) ->
   
-  auth = (pin) ->
+  auth = (params) ->
     dfd = $q.defer()
     url = "#{Hosts.api}/devices/sessions"
     
     success = (resp) -> dfd.resolve(resp.data)
-    failure = (resp) -> dfd.reject(resp.status)
+    failure = (resp) -> dfd.reject(resp.status, resp.data)
 
-    $http.post(url, {
-      pin: pin
-    }).then(success, failure)
+    $http.post(url, params).then(success, failure)
 
     dfd.promise
 
@@ -35,13 +33,27 @@ module.controller 'DeviceAuthController', ($scope, $location, DeviceAuth) ->
     $scope.loading = false
     $location.path '/'
 
-  failure = (status) ->
+  failure = (status, errors) ->
     $scope.loading = false
-    $scope.error = 'Invalid authentication pin'
+    if status is 400
+      $scope.errors = {}
+      $scope.errors.pin = 'Invalid authentication pin'
+    else
+      $scope.errors = errors
 
-  $scope.submit = (pin) ->
-    $scope.error = null
+  $scope.submit = ->
+    $scope.errors = null
     $scope.deviceAuthForm.$setPristine(true)
     $scope.loading = true
-    DeviceAuth.auth(pin).then(success, failure)
+
+    params = {
+      pin: $scope.pin,
+      device: {
+        name: $scope.name
+      }
+    }
+
+    DeviceAuth.auth(params).then(success, failure)
+      .finally ->
+        $scope.loading = false
 
