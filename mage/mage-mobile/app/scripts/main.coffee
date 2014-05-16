@@ -6,7 +6,7 @@ deps = [
   # app modules
   'mage.auth',
   'mageMobile.ideas', 'mage.mobile.auth',
-  'mage.mobile.deviceAuth'
+  'mage.mobile.deviceAuth', 'mage.mobile.grooming'
 ]
 app = angular.module('mageMobile', deps)
 

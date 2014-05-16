@@ -5,6 +5,13 @@ $darker-green: #4cae4c;
 $blue: #007aff;
 
 
+// -- Layout ------------------------------------------------------
+
+.navbar-app .btn {
+  
+}
+
+
 // -- Loading -----------------------------------------------------
 
 .loading-overlay {
@@ -58,6 +65,22 @@ $blue: #007aff;
 
 .auth {
 
+
+}
+
+
+// -- Grooming ----------------------------------------------------
+
+.grooming {
+
+  .navbar, .navbar-app {
+    background-color: $green;
+    color: #FFF;
+
+    .btn {
+      color: #FFF;
+    }
+  }
 
 }
 
