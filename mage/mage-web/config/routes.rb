@@ -15,7 +15,11 @@ MageWeb::Application.routes.draw do
     resources :sessions, only: [:create] do
     end
 
-    resources :meetings, only: [:index, :show, :create]
+    resources :meetings, only: [:index, :show, :create] do
+      scope :module => :meetings do
+        resources :participations, only: [:create]
+      end
+    end
 
     resources :devices, only: [:show]
 
