@@ -3,4 +3,7 @@ class Meeting < ActiveRecord::Base
 
   belongs_to :initiator, class_name: "Device"
   validates_presence_of :initiator
-end
+
+  has_many :meeting_participations
+  has_many :participants, through: :meeting_participations, source: :user
+end # Meeting
