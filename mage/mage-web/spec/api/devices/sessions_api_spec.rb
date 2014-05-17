@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Devices::Sessions API' do
-  let(:user) { create :user }
+  let(:authenticable) { create :user }
 
   describe 'POST /api/devices/sessions/pin' do
     let(:method) { :post }

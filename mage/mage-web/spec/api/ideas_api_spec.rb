@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Ideas API' do
 
-  let(:user) { create :user }
+  let(:authenticable) { create :user }
 
   describe 'GET /api/ideas' do
     let(:method) { :get }

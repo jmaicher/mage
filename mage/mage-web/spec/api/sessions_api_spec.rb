@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'Sessions API' do
   let(:user) { create :user }
+  let(:authenticable) { user }
 
   describe 'POST /api/sessions' do
     let(:method) { :post }
