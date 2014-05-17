@@ -3,7 +3,7 @@ class API::MeetingsController < API::ApplicationController
   before_filter :check_if_device, only: :create
 
   def index
-    meetings = Meeting.all.map { |m| MeetingRepresenter.new(m) }
+    meetings = Meeting.active.map { |m| MeetingRepresenter.new(m) }
     coll = API::Collection.new(meetings, {
       self: api_meetings_url
     })

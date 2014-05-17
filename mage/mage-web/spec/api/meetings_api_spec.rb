@@ -11,7 +11,7 @@ describe 'Meetings API' do
       [
         create(:meeting),
         create(:meeting),
-        create(:meeting)
+        create(:meeting, active: false)
       ]
     end
 
@@ -29,7 +29,7 @@ describe 'Meetings API' do
     end
 
     it "responds with all active meetings if there are any" do
-      meetings = create_meetings
+      meetings = create_meetings.select { |m| m.active }
 
       do_api_request
 

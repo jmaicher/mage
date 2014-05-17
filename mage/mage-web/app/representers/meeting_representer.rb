@@ -2,7 +2,7 @@ class MeetingRepresenter < Roar::Decorator
   include Roar::Representer::JSON::HAL
 
   property :id
-  property :name
+  property :name, default: ""
   property :initiator, decorator: Embedded::Device
   property :created_at, as: :started_at
   
