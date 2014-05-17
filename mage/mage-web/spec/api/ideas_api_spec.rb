@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe 'Ideas API' do
 
-  let :user do
-    create :user
-  end
+  let(:user) { create :user }
 
   describe 'GET /api/ideas' do
+    let(:method) { :get }
+    let(:endpoint) { "/api/ideas" }
 
     before :each do
       3.times do |i|
@@ -14,13 +14,10 @@ describe 'Ideas API' do
       end
     end
 
-    def do_request
-      headers = { 'API-TOKEN' => user.api_token.token }
-      get "/api/ideas", {}, headers
-    end
+    it_behaves_like "authenticated API endpoint"
 
     it "responds with serializd ideas collection" do
-      do_request
+      do_api_request
 
       ideas = Idea.all.map { |idea| IdeaRepresenter.new(idea) }
       # Note: Missing host to link to! error when generating urls in test
@@ -36,18 +33,12 @@ describe 'Ideas API' do
 
 
   describe 'POST /api/ideas' do
-
-    def do_request(params)
-      headers = {
-        'CONTENT-TYPE' => 'application/json',
-        'API-TOKEN' => user.api_token.token
-      }
-      post "/api/ideas", params.to_json, headers
-    end
+    let(:method) { :post }
+    let(:endpoint) { "/api/ideas" }
 
     it "should create an idea with the given params and respond with the json representation" do
       params = { idea: attributes_for(:idea) }
-      do_request params
+      do_api_request params
 
       expect(Idea.count).to eq 1
       idea = Idea.first
@@ -64,7 +55,7 @@ describe 'Ideas API' do
 
     it "should not create an idea when the params are invalid and should respond with validation errors" do
       params = { idea: { title: "", description: "" } } 
-      do_request params
+      do_api_request params
 
       expect(Idea.count).to eq 0
 
