@@ -1,6 +1,6 @@
-class CreatePoker < ActiveRecord::Migration
+class CreatePokerSessions < ActiveRecord::Migration
   def change
-    create_table :poker do |t|
+    create_table :poker_sessions do |t|
       t.references :meeting, index: true
       t.references :backlog_item, index: true
 

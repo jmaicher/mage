@@ -99,15 +99,15 @@ ActiveRecord::Schema.define(version: 20140518095825) do
     t.boolean  "active",       default: true
   end
 
-  create_table "poker", force: true do |t|
+  create_table "poker_sessions", force: true do |t|
     t.integer  "meeting_id"
     t.integer  "backlog_item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "poker", ["backlog_item_id"], name: "index_poker_on_backlog_item_id", using: :btree
-  add_index "poker", ["meeting_id"], name: "index_poker_on_meeting_id", using: :btree
+  add_index "poker_sessions", ["backlog_item_id"], name: "index_poker_sessions_on_backlog_item_id", using: :btree
+  add_index "poker_sessions", ["meeting_id"], name: "index_poker_sessions_on_meeting_id", using: :btree
 
   create_table "poker_vote_options", force: true do |t|
     t.string   "value"
@@ -116,14 +116,14 @@ ActiveRecord::Schema.define(version: 20140518095825) do
   end
 
   create_table "poker_votes", force: true do |t|
-    t.integer  "poker_id"
+    t.integer  "poker_session_id"
     t.integer  "user_id"
     t.integer  "poker_vote_option_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "poker_votes", ["poker_id"], name: "index_poker_votes_on_poker_id", using: :btree
+  add_index "poker_votes", ["poker_session_id"], name: "index_poker_votes_on_poker_session_id", using: :btree
   add_index "poker_votes", ["poker_vote_option_id"], name: "index_poker_votes_on_poker_vote_option_id", using: :btree
   add_index "poker_votes", ["user_id"], name: "index_poker_votes_on_user_id", using: :btree
 

@@ -1,6 +1,6 @@
 
 FactoryGirl.define do
-  factory :poker do
+  factory :poker_session do
     association :meeting
     association :backlog_item  
   end
