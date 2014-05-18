@@ -6,5 +6,7 @@ describe Meeting do
 
   it { should have_many(:meeting_participations) }
   it { should have_many(:participants).through(:meeting_participations).source(:user) }
+
+  it { should have_many(:poker_sessions) }
 end # Meeting
 

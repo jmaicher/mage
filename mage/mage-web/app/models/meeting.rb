@@ -6,4 +6,6 @@ class Meeting < ActiveRecord::Base
 
   has_many :meeting_participations
   has_many :participants, through: :meeting_participations, source: :user
+
+  has_many :poker_sessions
 end # Meeting

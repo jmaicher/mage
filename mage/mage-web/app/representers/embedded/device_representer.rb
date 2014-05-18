@@ -1,4 +1,4 @@
-class Embedded::Device < Roar::Decorator
+class Embedded::DeviceRepresenter < Roar::Decorator
   include Roar::Representer::JSON::HAL
 
   property :id

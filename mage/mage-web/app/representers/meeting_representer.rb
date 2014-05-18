@@ -3,7 +3,7 @@ class MeetingRepresenter < Roar::Decorator
 
   property :id
   property :name, default: ""
-  property :initiator, decorator: Embedded::Device
+  property :initiator, decorator: Embedded::DeviceRepresenter
   property :created_at, as: :started_at
   
   link :self do
