@@ -1,6 +1,4 @@
-class Embedded::DeviceRepresenter < Roar::Decorator
-  include Roar::Representer::JSON::HAL
-
+class Embedded::DeviceRepresenter < JSONDecorator
   property :id
   property :name
   property :device_type
@@ -8,4 +6,4 @@ class Embedded::DeviceRepresenter < Roar::Decorator
   link :self do
     api_device_url(represented)
   end
-end
+end # Embedded::DeviceRepresenter

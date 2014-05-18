@@ -1,6 +1,4 @@
-class MeetingRepresenter < Roar::Decorator
-  include Roar::Representer::JSON::HAL
-
+class MeetingRepresenter < JSONDecorator
   property :id
   property :name, default: ""
   property :initiator, decorator: Embedded::DeviceRepresenter
@@ -9,4 +7,4 @@ class MeetingRepresenter < Roar::Decorator
   link :self do
     api_meeting_url(represented)
   end
-end
+end # MeetingRepresenter

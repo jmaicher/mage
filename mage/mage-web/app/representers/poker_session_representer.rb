@@ -1,6 +1,4 @@
-class PokerSessionRepresenter < Roar::Decorator
-  include Roar::Representer::JSON::HAL
-
+class PokerSessionRepresenter < JSONDecorator
   property :id
-  property :backlog_item, decorator: BacklogItemRepresenter
-end
+  property :backlog_item, decorator: Embedded::BacklogItemRepresenter
+end # PokerSessionRepresenter

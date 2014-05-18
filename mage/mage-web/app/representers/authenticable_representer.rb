@@ -1,6 +1,4 @@
-class AuthenticableRepresenter < Roar::Decorator
-  include Roar::Representer::JSON::HAL
-
+class AuthenticableRepresenter < JSONDecorator
   property :api_token, :getter => lambda { |*| api_token.token }
-end
+end # AuthenticableRepresenter
 
