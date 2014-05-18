@@ -1,7 +1,7 @@
 class API::Meetings::ParticipationsController < API::ApplicationController
   before_filter :authenticate_from_token!
   before_filter :authorize_user!
-  before_filter :get_meeting
+  before_filter :meeting_filter
 
   def create
     unless current_user.participates_in?(@meeting)
@@ -19,10 +19,6 @@ private
 
   def authorize_user!
     head :not_authorized if !user_signed_in?
-  end
-
-  def get_meeting
-    @meeting = Meeting.find params[:meeting_id]
   end
 
 end # ::ParticipationController

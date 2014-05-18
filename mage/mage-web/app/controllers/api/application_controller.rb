@@ -38,4 +38,10 @@ protected
     render :json => ex.message, :status => :not_found
   end
 
+  # -- Filter --------------------------------------------------
+
+  def meeting_filter
+    @meeting = Meeting.find params[:meeting_id]
+  end
+
 end
