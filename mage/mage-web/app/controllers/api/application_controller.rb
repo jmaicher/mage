@@ -44,4 +44,12 @@ protected
     @meeting = Meeting.find params[:meeting_id]
   end
 
+  def authorize_device!
+    head :not_authorized if !device_signed_in?
+  end
+
+  def authorize_user!
+    head :not_authorized if !user_signed_in?
+  end
+
 end

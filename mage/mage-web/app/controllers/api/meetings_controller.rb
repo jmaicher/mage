@@ -25,11 +25,4 @@ class API::MeetingsController < API::ApplicationController
     render json: response, status: status
   end # index
 
-private
-
-  def authorize_device!
-    # TODO: Check with cancan
-    head :not_authorized if !device_signed_in?
-  end
-
 end
