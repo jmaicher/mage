@@ -18,7 +18,11 @@ MageWeb::Application.routes.draw do
     resources :meetings, only: [:index, :show, :create] do
       scope :module => :meetings do
         resources :participations, only: [:create]
-        resources :poker_sessions, only: [:create]
+        resources :poker_sessions, only: [:create] do
+          resources :rounds, only: [:create], controller: :poker_sessions, action: :create_round
+          resources :votes, only: [:create], controller: :poker_sessions, action: :create_vote
+          resource :decision, only: [:create], controller: :poker_sessions, action: :complete
+        end
       end
     end
 

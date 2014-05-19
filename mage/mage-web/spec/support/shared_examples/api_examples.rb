@@ -11,3 +11,4 @@ shared_examples "authenticated API endpoint" do
   end
 
 end # authenticated API action
+

@@ -38,11 +38,7 @@ protected
     render :json => ex.message, :status => :not_found
   end
 
-  # -- Filter --------------------------------------------------
-
-  def meeting_filter
-    @meeting = Meeting.find params[:meeting_id]
-  end
+  # -- Authorization -------------------------------------------
 
   def authorize_device!
     head :not_authorized if !device_signed_in?
@@ -50,6 +46,23 @@ protected
 
   def authorize_user!
     head :not_authorized if !user_signed_in?
+  end
+
+  def authorize_meeting_participant!
+    unless current_user.participates_in?(@meeting)
+      render status: :forbidden, json: { error: "Nope, you're no meeting participant" }.to_json
+    end
+  end
+
+
+  # -- Filter --------------------------------------------------
+
+  def meeting_filter
+    @meeting = Meeting.find params[:meeting_id]
+  end
+
+  def poker_session_filter
+    @poker_session = @meeting.poker_sessions.find params[:poker_session_id]
   end
 
 end
