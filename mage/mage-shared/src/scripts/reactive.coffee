@@ -13,7 +13,7 @@ reactive.service 'MageReactive', ($q, Hosts) ->
 
   on_message = (msg) ->
     type = msg.type
-    payload = msg.payload
+    payload = JSON.parse(msg.payload)
 
     if(type)
       emitter.emit type, payload
