@@ -49,6 +49,9 @@ RSpec.configure do |config|
   # URL Helper
   config.include Rails.application.routes.url_helpers
 
+  # Helper
+  config.include MageSpecHelper
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
 

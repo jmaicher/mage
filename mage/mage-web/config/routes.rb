@@ -15,6 +15,19 @@ MageWeb::Application.routes.draw do
     resources :sessions, only: [:create] do
     end
 
+    resources :meetings, only: [:index, :show, :create] do
+      scope :module => :meetings do
+        resources :participations, only: [:create]
+        resources :poker_sessions, only: [:create] do
+          resources :rounds, only: [:create], controller: :poker_sessions, action: :create_round
+          resources :votes, only: [:create], controller: :poker_sessions, action: :create_vote
+          resource :decision, only: [:create], controller: :poker_sessions, action: :complete
+        end
+      end
+    end
+
+    resources :devices, only: [:show]
+
     namespace :devices do
     
       resources :sessions, only: [:create]
@@ -33,6 +46,9 @@ MageWeb::Application.routes.draw do
   end
 
   devise_for :users
+  # This is actually needed so that devise creates a mapping for devices
+  # (doesn't really make sense, but whatever :-)
+  devise_for :device, only: []
 
   # Test routes
   get 'home/index'

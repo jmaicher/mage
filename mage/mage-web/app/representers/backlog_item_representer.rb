@@ -1,11 +1,8 @@
-class BacklogItemRepresenter < Roar::Decorator
-  include Roar::Representer::JSON::HAL
-
+class BacklogItemRepresenter < JSONDecorator
   property :id  
   property :title  
   property :description
 
-  #property :backlog, decorator: ProductBacklogRepresenter
   collection :taggings, decorator: BacklogItems::TaggingRepresenter
 
   link :self do
@@ -15,5 +12,4 @@ class BacklogItemRepresenter < Roar::Decorator
   link :taggings do
     api_backlog_item_taggings_url(represented)
   end
-
-end
+end # BacklogItemRepresenter

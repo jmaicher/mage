@@ -1,15 +1,25 @@
 class API::ApplicationController < ActionController::Base
-  protect_from_forgery with: :null_session
   respond_to :json
+
+  protect_from_forgery with: :null_session
 
   before_filter :cors_set_access_control_headers
   skip_before_filter :verify_authenticity_token
 
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   def handle_options_request
     head(:ok) if request.request_method == 'OPTIONS'
   end
-  
-private
+
+protected
+
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
+    headers['Access-Control-Request-Method'] = '*'
+    headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization, API-TOKEN'
+  end
 
   def authenticate_from_token!
     given_token = request.headers['API-TOKEN'].presence
@@ -24,11 +34,35 @@ private
     end
   end
 
-  def cors_set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
-    headers['Access-Control-Request-Method'] = '*'
-    headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization, API-TOKEN'
+  def record_not_found(ex)
+    render :json => ex.message, :status => :not_found
+  end
+
+  # -- Authorization -------------------------------------------
+
+  def authorize_device!
+    head :not_authorized if !device_signed_in?
+  end
+
+  def authorize_user!
+    head :not_authorized if !user_signed_in?
+  end
+
+  def authorize_meeting_participant!
+    unless current_user.participates_in?(@meeting)
+      render status: :forbidden, json: { error: "Nope, you're no meeting participant" }.to_json
+    end
+  end
+
+
+  # -- Filter --------------------------------------------------
+
+  def meeting_filter
+    @meeting = Meeting.find params[:meeting_id]
+  end
+
+  def poker_session_filter
+    @poker_session = @meeting.poker_sessions.find params[:poker_session_id]
   end
 
 end

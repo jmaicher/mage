@@ -1,6 +1,4 @@
-class IdeaRepresenter < Roar::Decorator
-  include Roar::Representer::JSON::HAL
-
+class IdeaRepresenter < JSONDecorator
   property :id
   property :title
   property :description
@@ -8,4 +6,4 @@ class IdeaRepresenter < Roar::Decorator
 
   link :self do
   end
-end
+end # IdeaRepresenter
