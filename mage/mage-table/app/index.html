@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:ng="http://angularjs.org" ng-app="mageTable">
+<html xmlns:ng="http://angularjs.org" ng-app="mage.table">
 <head>
   <title>mageTable</title>
 
@@ -46,15 +46,15 @@
   <script src="/scripts/mapper/mapper.js"></script>
   <script src="/scripts/services/services.js"></script>
   <script src="/scripts/main.js"></script>
-  <script src="/scripts/auth/module.js">
+  <script src="/scripts/auth.js">
   <script src="/scripts/directives/quicktags.js"></script>
-  <script src="/scripts/grooming.js"></script>
+  <script src="/scripts/meeting.js"></script>
   <!-- endbuild -->
 
 </head>
 <body ng-controller="AppController">
   <div id="focus-overlay" class="focus-overlay"></div>
-  <div ng-show="loading" class="loading-overlay animate-fade">
+  <div ng-hide="!loading" class="loading-overlay animate-fade">
     <div class="spinner"></div>
   </div>
   <div class="content" ng-view></div>

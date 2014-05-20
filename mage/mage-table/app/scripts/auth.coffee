@@ -45,6 +45,6 @@ module.controller 'mage.table.AuthController', ($scope, $rootScope, $location, M
 
   MageReactive.once 'device.authenticated', (device) ->
     SessionService.setDevice(device)
-    $rootScope.$apply ->
-      $location.path '/grooming'
+    redirect_url = $route.current.params.redirect_to ? '/'
+    $location.path(redirect_url)
 
