@@ -2,7 +2,7 @@
 
 deps = [
   'ngRoute', 'ngAnimate', 'ngResource',
-  'mage.utils', 'mage.hosts', 'mage.auth', 'mage.reactive',
+  'mage.utils', 'mage.hosts', 'mage.auth', 'mage.reactive', 'mage.meetings',
   'mage.services', 'mage.table.auth', 'mage.table.meeting'
 ]
 app = angular.module('mage.table', deps)

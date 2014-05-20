@@ -1,6 +1,8 @@
 "use strict"
 
-module = angular.module('mage.table.meeting', ['mage.table.quicktags'])
+module = angular.module('mage.table.meeting', [
+  'mage.meetings', 'mage.table.quicktags'
+])
 
 module.config ($routeProvider) ->
   $routeProvider
@@ -21,46 +23,6 @@ module.config ($routeProvider) ->
           BacklogService.get()
 
  
-module.service 'MeetingService', ($q, $http, Hosts) ->
-
-  get = (id) ->
-    dfd = $q.defer()
-    url = "#{Hosts.api}/meetings/#{id}"
-
-    success = (resp) ->
-      dfd.resolve(resp.data)
-
-    failure = (resp) ->
-      dfd.reject(status: resp.status, reason: resp.data)
-
-    $http.get(url).then success, failure
-    
-    return dfd.promise
-  # get
-  
-  create = ->
-    dfd = $q.defer()
-    url = "#{Hosts.api}/meetings"
-
-    success = (resp) ->
-      dfd.resolve(resp.data)
-
-    failure = (resp) ->
-      dfd.reject(status: resp.status, errors: resp.data)
-
-    $http.post(url).then success, failure
-    
-    return dfd.promise
-  # create
-  
-  return {
-    get: get
-    create: create
-  }
-
-# MeetingService
-
-
 module.controller 'MeetingController', ($scope, backlog) ->
   $scope.backlog = backlog
 
