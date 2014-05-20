@@ -1,13 +1,70 @@
 "use strict"
 
-app = angular.module('mageTable')
+module = angular.module('mage.table.meeting', [])
+
+module.config ($routeProvider) ->
+  $routeProvider
+    .when '/meetings/:id',
+      templateUrl: '/views/meeting.html'
+      controller: 'MeetingController'
+      resolve:
+        meeting: ($rootScope, $route, MeetingService) ->
+          if $rootScope.meeting
+            meeting = $rootScope.meeting
+            # remove global tmp variable
+            delete $rootScope.meeting
+            meeting
+          else
+            id = $route.current.params['id']
+            MeetingService.get(id)
+        backlog: (BacklogService) ->
+          BacklogService.get()
+
+ 
+module.service 'MeetingService', ($q, $http, Hosts) ->
+
+  get = (id) ->
+    dfd = $q.defer()
+    url = "#{Hosts.api}/meetings/#{id}"
+
+    success = (resp) ->
+      dfd.resolve(resp.data)
+
+    failure = (resp) ->
+      dfd.reject(status: resp.status, reason: resp.data)
+
+    $http.get(url).then success, failure
+    
+    return dfd.promise
+  # get
+  
+  create = ->
+    dfd = $q.defer()
+    url = "#{Hosts.api}/meetings"
+
+    success = (resp) ->
+      dfd.resolve(resp.data)
+
+    failure = (resp) ->
+      dfd.reject(status: resp.status, errors: resp.data)
+
+    $http.post(url).then success, failure
+    
+    return dfd.promise
+  # create
+  
+  return {
+    get: get
+    create: create
+  }
+
+# MeetingService
 
 
-app.controller 'GroomingController', ($scope, backlog) ->
+module.controller 'MeetingController', ($scope, backlog) ->
   $scope.backlog = backlog
 
-
-app.directive 'surface', () ->
+module.directive 'surface', () ->
   restrict: 'E'
   scope:
     backlog: '='
@@ -41,7 +98,7 @@ app.directive 'surface', () ->
     )
 
 
-app.service 'Focus', ($window, $q) ->
+module.service 'Focus', ($window, $q) ->
   $overlay = $('#focus-overlay')
   active = null
 
@@ -145,7 +202,7 @@ app.service 'Focus', ($window, $q) ->
     dfd.promise
 
 
-app.directive 'backlogItem', () ->
+module.directive 'backlogItem', () ->
   restrict: 'E'
   priority: 1
   scope:
@@ -222,7 +279,7 @@ app.directive 'backlogItem', () ->
     return
 
 
-app.directive 'transformable', () ->
+module.directive 'transformable', () ->
   restrict: 'A'
   require: 'backlogItem'
   link: ($scope, $element, attrs, backlogItemCtrl) ->

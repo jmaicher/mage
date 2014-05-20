@@ -3,32 +3,32 @@
 deps = [
   'ngRoute', 'ngAnimate', 'ngResource',
   'mage.utils', 'mage.hosts', 'mage.auth', 'mage.reactive',
-  'mage.services', 'mage.table.auth'
+  'mage.services', 'mage.table.auth', 'mage.table.meeting'
 ]
-app = angular.module('mageTable', deps)
+app = angular.module('mage.table', deps)
 
-app.config ($httpProvider, $routeProvider, AuthConfigProvider) ->
-  $httpProvider.defaults.useXDomain = true
-  delete $httpProvider.defaults.headers.common["X-Requested-With"]
+app.config ($routeProvider, AuthConfigProvider) ->
+  AuthConfigProvider.setSignInPath('/auth')
 
   $routeProvider
     .when '/',
-      redirectTo: '/grooming'
-    .when '/grooming',
-      templateUrl: '/views/grooming.html'
-      controller: 'GroomingController'
+      controller: ($rootScope, $location, meeting) ->
+        # hand model to meeting ctrl via global tmp variable
+        $rootScope.meeting = meeting
+        $location.path "/meetings/#{meeting.id}"
+      template: ''
       resolve:
-        backlog: (BacklogService) ->
-          BacklogService.get()
+        meeting: (MeetingService) ->
+          MeetingService.create()
 
-  AuthConfigProvider.setSignInPath('/auth')
+  return
 
-app.controller 'AppController', ($scope) ->
-  $scope.loading = true
-  load = -> $scope.loading = true
-  ready = -> $scope.loading = false
+app.controller 'AppController', ($rootScope) ->
+  $rootScope.loading = true
+  load = $rootScope.load = -> $rootScope.loading = true
+  ready = $rootScope.ready = -> $rootScope.loading = false
 
-  $scope.$on '$routeChangeStart', -> load()
-  $scope.$on '$routeChangeError', -> ready()
-  $scope.$on '$routeChangeSuccess', -> ready()
+  $rootScope.$on '$routeChangeStart', -> load()
+  $rootScope.$on '$routeChangeError', -> ready()
+  $rootScope.$on '$routeChangeSuccess', -> ready()
 

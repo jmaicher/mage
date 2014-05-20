@@ -188,7 +188,6 @@ body {
 /* loading overlay */
 
 .loading-overlay, .focus-overlay {
-  display: none;
   background-color: rgba(0, 0, 0, .5);
   height: 100%;
   left: 0;
@@ -201,6 +200,10 @@ body {
 .loading-overlay {
   opacity: 1;
   transition: 0.8s all ease-out;
+}
+
+.focus-overlay {
+  display: none;
 }
 
 .loading-overlay.ng-hide-add, .animate-fade.ng-hide-remove {

@@ -16,7 +16,7 @@
     on_message = function(msg) {
       var payload, type;
       type = msg.type;
-      payload = msg.payload;
+      payload = JSON.parse(msg.payload);
       if (type) {
         return emitter.emit(type, payload);
       }
