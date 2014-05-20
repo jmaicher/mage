@@ -58,7 +58,8 @@ protected
   # -- Filter --------------------------------------------------
 
   def meeting_filter
-    @meeting = Meeting.find params[:meeting_id]
+    id = (params[:meeting_id].nil?) ? params[:id] : params[:meeting_id]
+    @meeting = Meeting.find id
   end
 
   def poker_session_filter
