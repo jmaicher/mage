@@ -1,8 +1,8 @@
 "use strict"
 
-app = angular.module('mageTable')
+module = angular.module('mage.table.quicktags', [])
 
-app.directive 'quicktagMenu', () ->
+module.directive 'quicktagMenu', () ->
   restrict: 'E'
   transclude: true
   templateUrl: '/views/quicktag-menu.html'
@@ -20,7 +20,7 @@ app.directive 'quicktagMenu', () ->
     $scope.opened = false
 
 
-app.directive 'quicktag', () ->
+module.directive 'quicktag', () ->
   restrict: 'E'
   replace: true
   scope:

@@ -1,6 +1,6 @@
 "use strict"
 
-module = angular.module('mage.table.meeting', [])
+module = angular.module('mage.table.meeting', ['mage.table.quicktags'])
 
 module.config ($routeProvider) ->
   $routeProvider
