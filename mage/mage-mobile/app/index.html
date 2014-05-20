@@ -59,7 +59,7 @@
   <script src="/scripts/main.js"></script>
   <!-- endbuild -->
 </head>
-<body>
+<body ng-class="screenName">
 
 <div id="main-nav" class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in">
   <div class="scrollable">
@@ -86,7 +86,7 @@
   </div>
 </div> <!-- #context-nav -->
 
-<div class="app" ng-class="screenClass">
+<div class="app">
   <div ng-show="loading" class="loading-overlay">
     <i class="fa fa-spinner fa-spin loading-spinner"></i>
   </div>

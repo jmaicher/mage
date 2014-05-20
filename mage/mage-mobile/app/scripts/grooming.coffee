@@ -11,5 +11,5 @@ grooming.config ($routeProvider) ->
       controller: 'GroomingController'
 
 grooming.controller 'GroomingController', ($rootScope, $scope) ->
-  $rootScope.screenClass = 'grooming'
+  $rootScope.screenName = 'grooming'
 

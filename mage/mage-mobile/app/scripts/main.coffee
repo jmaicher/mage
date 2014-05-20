@@ -16,3 +16,7 @@ app.config ($routeProvider, $httpProvider, AuthConfigProvider) ->
   
   AuthConfigProvider.setSignInPath('/auth')
 
+app.run ($rootScope) ->
+  $rootScope.$on '$routeChangeSuccess', (event, currentRoute) ->
+    $rootScope.screenName = ''
+
