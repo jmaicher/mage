@@ -22,6 +22,21 @@ module.exports = (grunt) ->
         tasks: ['newer:coffee:dist']
     }
 
+
+    # -- clean ----------------------------------------
+
+    clean: {
+      dist:
+        files:
+          src: [
+            '<%= config.dist %>'
+          ]
+    }
+
+
+    # -- coffee---------------------------------------
+
+
     coffee: {
       options:
         sourceMap: true
@@ -34,10 +49,21 @@ module.exports = (grunt) ->
         ext: '.js'
     }
 
+    copy: {
+      dist:
+        expand: true
+        dot: true
+        cwd: '<%= config.src %>'
+        dest: '<%= config.dist %>'
+        src: [
+          'vendor/scripts/**/*.js'
+        ]
+    }
+
     bower: {
       install:
         options:
-          targetDir: '<%= config.dist %>/vendor'
+          targetDir: '<%= config.src %>/vendor'
           layout: (type, component) ->
             type_dir = switch type
               when 'js' then 'scripts'
@@ -51,15 +77,19 @@ module.exports = (grunt) ->
   } # grunt.initConfig
 
   grunt.registerTask 'dev', [
+    'clean:dist'
+    'copy:dist'
     'coffee'
     'watch'
   ]
 
-  grunt.registerTask 'dist', [
+  grunt.registerTask 'build', [
+    'clean:dist'
+    'copy:dist'
     'coffee'
   ]
 
   grunt.registerTask 'default', [
-    'dist'
+    'build'
   ]
 

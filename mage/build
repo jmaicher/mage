@@ -7,6 +7,9 @@ su -l mage <<'EOF'
     npm install && \
     bundle install
 
+  cd /mage/mage-shared && \
+    grunt build
+
   cd /mage/mage-mobile && \
     grunt build
 
