@@ -10,16 +10,21 @@ module.service 'MeetingParticipationResource', ($resource, Hosts) ->
   return MeetingParticipationResource
     
 
-module.service 'MeetingResource', ($resource, Hosts, MeetingParticipationResource) ->
+module.service 'MeetingResource', ($resource, $q, Hosts, MeetingParticipationResource) ->
   MeetingResource = $resource "#{Hosts.api}/meetings/:id", id: '@id', {
     query: {
       method: 'GET',
       isArray: false,
       transformResponse: (data, header) ->
-        wrapped = angular.fromJson(data)
-        angular.forEach wrapped.items, (item, idx) ->
-          wrapped.items[idx] = new MeetingResource(item)
-        return wrapped
+        # Note: In case the server responds with 401, this handler is still called
+        # and data will be empty. Can we check the status somehow?
+        # Not sure..got no time for that now :-)
+        if data.trim() != ""
+          wrapped = angular.fromJson(data)
+          angular.forEach wrapped.items, (item, idx) ->
+            wrapped.items[idx] = new MeetingResource(item)
+          return wrapped
+        else return data
     }
   }
 
@@ -28,8 +33,11 @@ module.service 'MeetingResource', ($resource, Hosts, MeetingParticipationResourc
     else "Meeting @ #{@initiator.name}"
 
   MeetingResource.prototype.join = ->
+    if @is_participating then return $q.when(@)
     participation = new MeetingParticipationResource meeting_id: @id
-    participation.$save()
+    self = @
+    participation.$save().then ->
+      return self
   
   return MeetingResource
 
