@@ -33,7 +33,8 @@ module.service 'UserAuth', ($q, $http, Hosts) ->
   }
 
 
-module.controller 'AuthController', ($scope, $location, $route, UserAuth, SessionService) ->
+module.controller 'AuthController', ($rootScope, $scope, $location, $route, UserAuth, SessionService) ->
+  $rootScope.screenName = 'auth'
 
   on_success = (user) ->
     SessionService.setUser(user)

@@ -13,8 +13,7 @@ meeting.config ($routeProvider) ->
         meeting: ($route, MeetingService) ->
           id = $route.current.params.id
           MeetingService.get(id).then (meeting) ->
-            meeting.join().then () ->
-              return meeting
+            meeting.join()
 
 meeting.controller 'MeetingController', ($rootScope, $scope, meeting, $timeout) ->
   $rootScope.screenName = 'meeting'

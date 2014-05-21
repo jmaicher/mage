@@ -27,8 +27,9 @@ module.service 'DeviceAuth', ($q, $http, Hosts) ->
   }
 
  
-module.controller 'DeviceAuthController', ($scope, $location, DeviceAuth) ->
-  
+module.controller 'DeviceAuthController', ($rootScope, $scope, $location, DeviceAuth) ->
+  $rootScope.screenName = 'device-auth'
+
   success = ->
     $scope.loading = false
     $location.path '/'

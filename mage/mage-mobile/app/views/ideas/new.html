@@ -41,12 +41,14 @@
   </div>
 </div>
 
-<div content-for="navbar-bottom-actions">
-  <div class="btn-group">
-    <button type="button" class="btn btn-submit" ng-click="submit(idea)" ng-disabled="ideaForm.$invalid || isUnchanged(idea) || loading">
-      <i class="fa" ng-class="{ 'fa-save': !loading, 'fa-spinner fa-spin': loading }"></i>
-      &nbsp;Submit
-    </button>
-  </div>  
+<div content-for="navbar-bottom">
+  <div class="btn-group btn-group-justified">
+    <div class="btn-group">
+      <button type="button" class="btn btn-submit" ng-click="submit(idea)" ng-disabled="ideaForm.$invalid || isUnchanged(idea) || loading">
+        <i class="fa" ng-class="{ 'fa-save': !loading, 'fa-spinner fa-spin': loading }"></i>
+        &nbsp;Submit
+      </button>
+    </div>
+  </div>
 </div>
 

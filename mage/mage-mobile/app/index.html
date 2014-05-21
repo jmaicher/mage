@@ -64,7 +64,7 @@
 </head>
 <body ng-class="screenName">
 
-<div id="main-nav" class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in">
+<div id="main-nav" class="main-nav sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in">
   <div class="scrollable">
     <div class="scrollable-content">
       <div class="app-logo">
@@ -80,14 +80,16 @@
 </div> <!-- #main-nav -->
 
 <div id="context-nav" class="context-nav sidebar sidebar-right" toggleable parent-active-class="sidebar-right-in">
-  <div class="context-nav-top navbar-app">
+  <div class="context-nav-top navbar-app navbar-absolute-top">
     <div class="navbar-brand navbar-brand-center" yield-to="context-nav-title">
       &nbsp;
     </div>
   </div>
   <div class="context-nav-body">
-    <div class="scrollable">
-      <div class="scrollable-content" yield-to="context-nav-body">
+    <div class="context-nav-content">
+      <div class="scrollable">
+        <div class="scrollable-content" yield-to="context-nav-body">
+        </div>
       </div>
     </div>
   </div>
@@ -112,10 +114,7 @@
     </div>
   </div> <!-- .navbar (top) -->
 
-  <div class="navbar navbar-app navbar-absolute-bottom">
-    <div class="btn-group btn-group-justified" yield-to="navbar-bottom-actions">
-      <a href="/#/" class="btn btn-navbar btn-icon-only"><i class="fa fa-home fa-navbar"></i></a>
-    </div>
+  <div class="navbar navbar-app navbar-absolute-bottom" yield-to="navbar-bottom">
   </div> <!-- .navbar (bottom) -->
 
   <div class="app-body">
