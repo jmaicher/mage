@@ -1,13 +1,9 @@
 require 'spec_helper'
 
 describe Device do
+  let(:subject) { build :device }
+  let(:persistent_subject) { create :device }
 
-  let :device do
-    build :device
-  end
-
-  it "has api_token" do
-    expect(device.api_token).not_to be_blank
-  end
-
+  it_behaves_like "meeting participant"
+  it_behaves_like "api authenticable"
 end # Device

@@ -1,8 +1,12 @@
 FactoryGirl.define do
 
-  factory :meeting_participation do
+  factory :meeting_participation, aliases: [:participating_user] do
     association :meeting
-    association :user
+    association :meeting_participant, factory: :user
+
+    factory :participating_device do
+      association :meeting_participant, factory: :device
+    end
   end
 
 end

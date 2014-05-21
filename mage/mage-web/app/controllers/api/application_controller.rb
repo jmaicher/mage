@@ -12,6 +12,14 @@ class API::ApplicationController < ActionController::Base
     head(:ok) if request.request_method == 'OPTIONS'
   end
 
+  def current_authenticable
+    if user_signed_in?
+      current_user
+    else device_signed_in?
+      current_device
+    end
+  end
+
 protected
 
   def cors_set_access_control_headers

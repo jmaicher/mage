@@ -22,7 +22,7 @@ describe BacklogItemRepresenter do
     #})
     
     expected_taggings = backlog_item.taggings.map do |tagging|
-      BacklogItems::TaggingRepresenter.new(tagging)
+      BacklogItemTaggingRepresenter.new(tagging)
     end.to_json
 
     actual = decorator.to_json

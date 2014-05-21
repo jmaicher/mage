@@ -11,7 +11,7 @@ describe 'BacklogItems/Tags API' do
     it "respond with serialized taggings collection" do
       get "/api/backlog_items/#{@item.id}/taggings"
 
-      taggings = @item.taggings.map { |item| BacklogItems::TaggingRepresenter.new(item) }      
+      taggings = @item.taggings      
       expected_body = CollectionRepresenter.new(API::Collection.new(taggings)).to_json
       actual_body = response.body
 
@@ -30,7 +30,7 @@ describe 'BacklogItems/Tags API' do
     it "should respond with the serialized tagging" do
       get "/api/backlog_items/#{@item.id}/taggings/#{tagging.id}"
       
-      expected_body = BacklogItems::TaggingRepresenter.new(tagging).to_json
+      expected_body = BacklogItemTaggingRepresenter.new(tagging).to_json
       actual_body = response.body
 
       expect(response.status).to eq(200)
@@ -63,7 +63,7 @@ describe 'BacklogItems/Tags API' do
       expect(tagging.tag).to be_persisted
 
       # .. and responds with serialized tagging
-      expected_body = BacklogItems::TaggingRepresenter.new(tagging).to_json
+      expected_body = BacklogItemTaggingRepresenter.new(tagging).to_json
       actual_body = response.body
 
       expect(response.status).to eq(201)
@@ -84,7 +84,7 @@ describe 'BacklogItems/Tags API' do
       expect(tagging.tag.name).to eq(existing_tag_name)
 
       # .. and responds with serialized tagging
-      expected_body = BacklogItems::TaggingRepresenter.new(tagging).to_json
+      expected_body = BacklogItemTaggingRepresenter.new(tagging).to_json
       actual_body = response.body
 
       expect(response.status).to eq(201)
@@ -103,7 +103,7 @@ describe 'BacklogItems/Tags API' do
       expect(@item.taggings.count).to eql(tagging_count)
 
       # .. and responds with serialized tagging
-      expected_body = BacklogItems::TaggingRepresenter.new(existing_tagging).to_json
+      expected_body = BacklogItemTaggingRepresenter.new(existing_tagging).to_json
       actual_body = response.body
 
       expect(response.status).to eq(409) # conflict

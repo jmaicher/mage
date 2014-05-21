@@ -1,4 +1,4 @@
-class BacklogItems::TaggingRepresenter < Roar::Decorator
+class BacklogItemTaggingRepresenter < Roar::Decorator
   include Roar::Representer::JSON::HAL
 
   property :id

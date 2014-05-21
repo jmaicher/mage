@@ -2,7 +2,7 @@ class API::IdeasController < API::ApplicationController
   before_filter :authenticate_from_token!
 
   def index
-    ideas = Idea.all.map { |idea| IdeaRepresenter.new(idea) }
+    ideas = Idea.all
     coll = API::Collection.new(ideas, self: api_ideas_url)
     
     render json: CollectionRepresenter.new(coll)

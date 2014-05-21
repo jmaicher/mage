@@ -1,5 +1,6 @@
 class Device < ActiveRecord::Base
-  include API::Authenticable
+  include Roles::APIAuthenticable
+  include Roles::MeetingParticipant
 
   devise :trackable
 
