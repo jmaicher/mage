@@ -40,11 +40,12 @@ module.service 'DeviceAuthService', ($q, $http, Hosts) ->
   }
 
 
-module.controller 'mage.table.AuthController', ($scope, $rootScope, $location, MageReactive, SessionService, pin) ->
+module.controller 'mage.table.AuthController', ($scope, $route, $location, MageReactive, SessionService, pin) ->
   $scope.pin = pin
 
   MageReactive.once 'device.authenticated', (device) ->
-    SessionService.setDevice(device)
-    redirect_url = $route.current.params.redirect_to ? '/'
-    $location.path(redirect_url)
+    $scope.$apply ->
+      SessionService.setDevice(device)
+      redirect_url = $route.current.params.redirect_to ? '/'
+      $location.path(redirect_url)
 

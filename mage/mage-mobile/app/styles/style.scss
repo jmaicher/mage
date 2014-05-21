@@ -12,6 +12,7 @@ $blue: #007aff;
 }
 
 
+
 // -- Loading -----------------------------------------------------
 
 .loading-overlay {
@@ -42,6 +43,22 @@ $blue: #007aff;
   }
 }
 
+.context-nav {
+
+  .context-nav-top {
+    height: 51px;
+  }
+
+  .context-nav-body {
+    height: 100%;
+    width: 100%;
+    padding-top: 51px;
+    position: relative;
+    overflow: hidden;
+  }
+
+}
+
 
 // -- Ideas -------------------------------------------------------
 
@@ -69,9 +86,38 @@ $blue: #007aff;
 }
 
 
-// -- Grooming ----------------------------------------------------
+// -- Home --------------------------------------------------------
 
-.grooming {
+.home {
+
+  .context-nav {
+
+    .context-nav-top {
+      background: $green;
+      color: #FFF;
+    }
+
+    .meetings {
+
+      .meeting {
+
+        .icon {
+          font-size: 40px;
+          margin-right: 30px;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+// -- Meeting -----------------------------------------------------
+
+.meeting {
 
   .navbar, .navbar-app {
     background-color: $green;
@@ -116,6 +162,10 @@ textarea.ng-invalid,
 
 
 // -- Media ------------------------------------------------------
+
+.list-group {
+  margin-bottom: 0;
+}
 
 .list-group-item.media {
 

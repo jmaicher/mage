@@ -2,15 +2,29 @@
   <span>Home</span>
 </div>
 
+
 <div content-for="navbar-top-action-right">
   <div ng-click="toggle('context-nav')" class="btn btn-navbar sidebar-toggle">
     <i class="fa fa-bars"></i> 
   </div>
 </div>
 
-<div content-for="context-menu">
+<div content-for="context-nav-title">
+  Meetings
 </div>
 
+<div content-for="context-nav-body">
+  <div class="meetings list-group" toggle="off" bubble target="context-nav">
+    <a ng-href="#/meetings/{{meeting.id}}" class="meeting list-group-item media" ng-repeat="meeting in meetings">
+      <div class="icon pull-left">
+        <i class="fa fa-group chat-user-avatar"></i>
+      </div>
+      <div class="media-body">
+        <p class="lead media-heading">{{ meeting.name ? meeting.name : 'Meeting @ ' + meeting.initiator.name }}</p>
+      </div>
+    </a>
+  </div>
+</div>
 
 <div class="scrollable">
   <div class="scrollable-content section">

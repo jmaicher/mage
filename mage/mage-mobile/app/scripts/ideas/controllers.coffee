@@ -1,6 +1,6 @@
 "use strict"
 
-ideas = angular.module('mageMobile.ideas')
+ideas = angular.module('mage.mobile.ideas')
 
 ideas.service 'Idea', ($q, $http, Hosts) ->
 

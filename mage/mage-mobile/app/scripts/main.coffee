@@ -4,19 +4,27 @@ deps = [
   # vendor
   'ngRoute', 'ngTouch', 'mobile-angular-ui',
   # app modules
-  'mage.auth',
-  'mageMobile.ideas', 'mage.mobile.auth',
-  'mage.mobile.deviceAuth', 'mage.mobile.grooming'
+  'mage.auth', 'mage.meetings',
+  'mage.mobile.ideas', 'mage.mobile.auth',
+  'mage.mobile.home', 'mage.mobile.deviceAuth', 'mage.mobile.meetings'
 ]
-app = angular.module('mageMobile', deps)
+app = angular.module('mage.mobile', deps)
 
 app.config ($routeProvider, $httpProvider, AuthConfigProvider) ->
-  $routeProvider
-    .when '/', templateUrl: "/views/home.html"
-  
   AuthConfigProvider.setSignInPath('/auth')
 
+  $routeProvider
+    .when '/',
+      redirectTo: '/home'
+
 app.run ($rootScope) ->
-  $rootScope.$on '$routeChangeSuccess', (event, currentRoute) ->
+  $rootScope.loading = true
+  load = $rootScope.load = -> $rootScope.loading = true
+  ready = $rootScope.ready = -> $rootScope.loading = false
+
+  $rootScope.$on '$routeChangeStart', -> load()
+  $rootScope.$on '$routeChangeError', -> ready()
+  $rootScope.$on '$routeChangeSuccess', ->
+    ready()
     $rootScope.screenName = ''
 
