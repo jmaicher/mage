@@ -111,6 +111,12 @@ $blue: #007aff;
   @include with-bottom-navbar;
 }
 
+.auth {
+  .app-logo {
+    padding: 10%;
+  }
+}
+
 .home {
 
   .context-nav {
