@@ -1,0 +1,21 @@
+<div ng-class="currentIndex % 2 == 0 ? 'heart': 'peek'" class="poker-card" ng-swipe-right="prev()" ng-swipe-left="next()">
+  <span class="option small top">{{currentOption.value}}</span>
+  <i class="icon top fa fa-heart"></i>
+
+  <span class="option big center">{{currentOption.value}}</span>
+
+  <i class="icon bottom fa fa-heart"></i>
+  <span class="option small bottom">{{currentOption.value}}</span>
+</div>
+
+<div content-for="navbar-bottom">
+  <div class="btn-group btn-group-justified">
+    <div class="btn-group">
+      <button type="button" class="btn btn-submit" ng-click="submit(credentials)" ng-disabled="authForm.$invalid || loading">
+        <i class="fa" ng-class="{ 'fa-lock': !loading, 'fa-spinner fa-spin': loading }"></i>
+        &nbsp;Lock decision
+      </button>
+    </div>  
+  </div>
+</div>
+

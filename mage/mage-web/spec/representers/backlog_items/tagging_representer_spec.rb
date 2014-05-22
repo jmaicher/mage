@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe BacklogItems::TaggingRepresenter do
+describe BacklogItemTaggingRepresenter do
 
   before :each do
     default_url_options = Rails.application.config.representer.default_url_options
@@ -12,7 +12,7 @@ describe BacklogItems::TaggingRepresenter do
   end
 
   it "should correctly serialize the represented tag to json" do
-    decorator = BacklogItems::TaggingRepresenter.new(tagging)
+    decorator = BacklogItemTaggingRepresenter.new(tagging)
 
     actual = decorator.to_json
 
@@ -26,5 +26,5 @@ describe BacklogItems::TaggingRepresenter do
     expect(actual).to be_json_eql(expected).excluding('_links')
   end
 
-end # TagRepresenter
+end # BacklogItemTaggingRepresenter
 

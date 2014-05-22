@@ -1,6 +1,6 @@
 "use strict"
 
-ideas = angular.module('mageMobile.ideas')
+ideas = angular.module('mage.mobile.ideas')
 
 ideas.service 'Idea', ($q, $http, Hosts) ->
 
@@ -49,7 +49,8 @@ ideas.controller 'ideas.IndexCtrl', ($scope, $rootScope, Idea) ->
   Idea.all().then success, failure
 
 
-ideas.controller 'ideas.NewCtrl', ($scope, $location, Idea) ->
+ideas.controller 'ideas.NewCtrl', ($rootScope, $scope, $location, Idea) ->
+  $rootScope.screenName = "new-idea"
   
   success = (idea) ->
     $scope.loading = false

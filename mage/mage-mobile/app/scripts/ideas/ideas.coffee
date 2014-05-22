@@ -1,6 +1,6 @@
 "use strict"
 
-ideas = angular.module('mageMobile.ideas', ['mage.hosts'])
+ideas = angular.module('mage.mobile.ideas', ['mage.hosts'])
 
 ideas.config ($routeProvider) ->
   $routeProvider

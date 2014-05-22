@@ -1,11 +1,10 @@
 class API::Meetings::ParticipationsController < API::ApplicationController
   before_filter :authenticate_from_token!
-  before_filter :authorize_user!
   before_filter :meeting_filter
 
   def create
-    unless current_user.participates_in?(@meeting)
-      current_user.participate! @meeting
+    unless current_authenticable.participates_in?(@meeting)
+      current_authenticable.participate! @meeting
       status = :ok
     else
       status = :forbidden

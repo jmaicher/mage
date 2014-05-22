@@ -4,13 +4,13 @@ class API::BacklogItems::TaggingsController < API::ApplicationController
   before_action :get_and_set_tagging, only: [:show, :destroy]
 
   def index
-    taggings = @backlog_item.taggings.map { |item| BacklogItems::TaggingRepresenter.new(item) }
+    taggings = @backlog_item.taggings
     decorator = CollectionRepresenter.new(API::Collection.new(taggings))
     respond_with decorator
   end
 
   def show
-    decorator = ::BacklogItems::TaggingRepresenter.new(@tagging)
+    decorator = BacklogItemTaggingRepresenter.new(@tagging)
     respond_with decorator
   end
 
@@ -25,7 +25,7 @@ class API::BacklogItems::TaggingsController < API::ApplicationController
       status = 409 # conflict
     end
 
-    decorator = ::BacklogItems::TaggingRepresenter.new(tagging)
+    decorator = BacklogItemTaggingRepresenter.new(tagging)
     respond_with decorator, {
       status: status,
       location: api_backlog_item_tagging_url(@backlog_item, 3)

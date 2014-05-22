@@ -3,7 +3,7 @@ class BacklogItemRepresenter < JSONDecorator
   property :title  
   property :description
 
-  collection :taggings, decorator: BacklogItems::TaggingRepresenter
+  collection :taggings, decorator: BacklogItemTaggingRepresenter
 
   link :self do
     api_backlog_item_url(represented)

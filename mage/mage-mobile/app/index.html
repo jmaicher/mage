@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:ng="http://angularjs.org" ng-app="mageMobile">
+<html xmlns:ng="http://angularjs.org" ng-app="mage.mobile">
 <head>
   <title>mageMobile</title>
   <meta charset="utf-8">
@@ -40,6 +40,7 @@
   <script src="/vendor/scripts/lodash/lodash.js"></script>
   <script src="/vendor/scripts/angular/angular.js"></script>
   <script src="/shared/vendor/scripts/angular-cookies/angular-cookies.js"></script>
+  <script src="/vendor/scripts/angular-resource/angular-resource.js"></script>
   <script src="/vendor/scripts/angular-route/angular-route.js"></script>
   <script src="/vendor/scripts/angular-touch/angular-touch.js"></script>
   <script src="/vendor/scripts/mobile-angular-ui/mobile-angular-ui.js"></script>
@@ -50,16 +51,20 @@
   <script src="/shared/scripts/hosts.js"></script>
   <script src="/shared/scripts/session.js"></script>
   <script src="/shared/scripts/auth.js"></script>
+  <script src="/shared/scripts/meetings.js"></script>
+  <script src="/scripts/home.js"></script>
   <script src="/scripts/ideas/ideas.js"></script>
   <script src="/scripts/ideas/controllers.js"></script>
   <script src="/scripts/auth.js"></script>
   <script src="/scripts/device_auth/module.js"></script>
+  <script src="/scripts/meetings/poker.js"></script>
+  <script src="/scripts/meetings.js"></script>
   <script src="/scripts/main.js"></script>
   <!-- endbuild -->
 </head>
-<body>
+<body ng-class="screenName">
 
-<div id="main-nav" class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in" >
+<div id="main-nav" class="main-nav sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in">
   <div class="scrollable">
     <div class="scrollable-content">
       <div class="app-logo">
@@ -74,8 +79,24 @@
   </div>
 </div> <!-- #main-nav -->
 
+<div id="context-nav" class="context-nav sidebar sidebar-right" toggleable parent-active-class="sidebar-right-in">
+  <div class="context-nav-top navbar-app navbar-absolute-top">
+    <div class="navbar-brand navbar-brand-center" yield-to="context-nav-title">
+      &nbsp;
+    </div>
+  </div>
+  <div class="context-nav-body">
+    <div class="context-nav-content">
+      <div class="scrollable">
+        <div class="scrollable-content" yield-to="context-nav-body">
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <!-- #context-nav -->
+
 <div class="app">
-  <div ng-show="loading" class="loading-overlay">
+  <div ng-hide="!loading" class="loading-overlay">
     <i class="fa fa-spinner fa-spin loading-spinner"></i>
   </div>
 
@@ -93,13 +114,16 @@
     </div>
   </div> <!-- .navbar (top) -->
 
-  <div class="navbar navbar-app navbar-absolute-bottom">
-    <div class="btn-group btn-group-justified" yield-to="navbar-bottom-actions">
-      <a href="/#/" class="btn btn-navbar btn-icon-only"><i class="fa fa-home fa-navbar"></i></a>
-    </div>
+  <div class="navbar navbar-app navbar-absolute-bottom" yield-to="navbar-bottom">
   </div> <!-- .navbar (bottom) -->
 
   <div class="app-body">
+    <div class="loading-bg" ng-hide="!loading">
+      <div class="scrollable">
+        <div class="scrollable-content section"></div>
+      </div>
+    </div> <!-- .loading-bg -->
+
     <ng-view class="app-content"></ng-view>
   </div> <!-- .app-body -->
 </div> <!-- .app -->

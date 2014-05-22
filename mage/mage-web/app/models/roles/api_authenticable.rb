@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-module API::Authenticable
+module Roles::APIAuthenticable
   extend ActiveSupport::Concern
 
   included do

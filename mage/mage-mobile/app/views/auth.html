@@ -43,12 +43,14 @@
   </div>
 </div>
 
-<div content-for="navbar-bottom-actions">
-  <div class="btn-group">
-    <button type="button" class="btn btn-submit" ng-click="submit(credentials)" ng-disabled="authForm.$invalid || loading">
-      <i class="fa" ng-class="{ 'fa-unlock-alt': !loading, 'fa-spinner fa-spin': loading }"></i>
-      &nbsp;Sign in
-    </button>
-  </div>  
+<div content-for="navbar-bottom">
+  <div class="btn-group btn-group-justified">
+    <div class="btn-group">
+      <button type="button" class="btn btn-submit" ng-click="submit(credentials)" ng-disabled="authForm.$invalid || loading">
+        <i class="fa" ng-class="{ 'fa-unlock-alt': !loading, 'fa-spinner fa-spin': loading }"></i>
+        &nbsp;Sign in
+      </button>
+    </div>  
+  </div>
 </div>
 

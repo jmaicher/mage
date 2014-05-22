@@ -21,7 +21,7 @@ describe 'Meetings API' do
       do_api_request
       
       coll = API::Collection.new([])
-      expected_body = CollectionRepresenter.new(coll).to_json
+      expected_body = CollectionRepresenter.new(coll).to_json(participant: authenticable)
       actual_body = response.body
 
       expect(response.status).to eq(200)
@@ -33,8 +33,8 @@ describe 'Meetings API' do
 
       do_api_request
 
-      coll = API::Collection.new(meetings.map { |m| MeetingRepresenter.new(m) })
-      expected_body = CollectionRepresenter.new(coll).to_json
+      coll = API::Collection.new(meetings)
+      expected_body = CollectionRepresenter.new(coll).to_json(participant: authenticable)
       actual_body = response.body
 
       expect(response.status).to eq(200)
@@ -58,7 +58,7 @@ describe 'Meetings API' do
       meeting = Meeting.first
       expect(meeting.initiator).to eq(device)
 
-      expected_body = MeetingRepresenter.new(meeting).to_json
+      expected_body = MeetingRepresenter.new(meeting).to_json(participant: authenticable)
       actual_body = response.body
 
       expect(response.status).to eq(201)

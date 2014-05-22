@@ -12,13 +12,13 @@ describe 'Meetings::Participation API' do
     it_behaves_like "authenticated API endpoint"
     it_behaves_like "meeting action"
 
-    it "adds the current user to the meeting participants" do
+    it "adds the current authenticable to the meeting participants" do
       do_api_request
-      current_user.participates_in?(meeting).should be_true
+      authenticable.participates_in?(meeting).should be_true
     end
 
     it "forbids the request when already participating" do
-      current_user.participate! meeting
+      authenticable.participate! meeting
       do_api_request
       expect(response.status).to eq(403)
     end

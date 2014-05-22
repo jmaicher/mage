@@ -19,7 +19,7 @@ describe 'Ideas API' do
     it "responds with serializd ideas collection" do
       do_api_request
 
-      ideas = Idea.all.map { |idea| IdeaRepresenter.new(idea) }
+      ideas = Idea.all
       # Note: Missing host to link to! error when generating urls in test
       coll = API::Collection.new(ideas, self: "")
       expected_body = CollectionRepresenter.new(coll).to_json
