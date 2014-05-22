@@ -2,46 +2,79 @@
 
 reactive = angular.module('mage.reactive', ['mage.hosts'])
 
-reactive.service 'MageReactive', ($q, Hosts) ->
-  connected = false
-  socket = null
-  emitter = new Emitter
+queryStringFromParams = (params) ->
+  queryString = ""
+  appendToQueryString = (keyValue) ->
+    queryString = if queryString != "" then "#{queryString}&#{keyValue}" else keyValue
 
-  on_connect = ->
-    socket.on 'message', on_message
-    socket.on 'disconnect', on_disconnect
+  angular.forEach params, (value, key) ->
+    appendToQueryString("#{key}=#{value}")
 
-  on_message = (msg) ->
-    type = msg.type
-    payload = JSON.parse(msg.payload)
+  queryString
 
-    if(type)
-      emitter.emit type, payload
 
-  on_disconnect = ->
-    console.warn "Disconnected from mage-reactive"
+reactive.factory 'MageReactiveConnection', ($q, Hosts) ->
+  
+  MageReactiveConnection = (ns) ->
+    this.connected = false
+    # indicates graceful disconnect
+    this.graceful = false
+    this.socket = undefined
+    this.ns = ns
 
-  on_error = ->
-    console.error "Could not establish connection to mage-reactive (#{Hosts.reactive})"
+  MageReactiveConnection.prototype = Object.create(EventEmitter.prototype)
 
-  connect = (uuid) ->
+  MageReactiveConnection.prototype.connect = (params={}) ->
     dfd = $q.defer()
-    socket = io.connect(Hosts.reactive, {
-      query: 'uuid=' + uuid
+    self = this
+
+    on_message = (msg) ->
+      type = msg.type
+      payload = JSON.parse(msg.payload)
+
+      if(type)
+        self.emit type, payload
+
+    on_connect = ->
+      self.socket.of(self.ns).on 'message', on_message
+      self.socket.of(self.ns).on 'disconnect', on_disconnect
+      self.connected = true
+      dfd.resolve(self)
+
+    on_error = ->
+      console.error "Could not establish connection to mage-reactive (#{Hosts.reactive}#{self.ns})"
+      dfd.reject()
+
+    on_disconnect = ->
+      unless self.graceful then console.warn "Disconnected from mage-reactive"
+      else self.graceful = false
+      self.connected = false
+
+
+    this.socket = io.connect("#{Hosts.reactive}#{this.ns}", {
+      query: queryStringFromParams(params)
+      'force new connection': true
     })
 
-    socket.on 'error', on_error
-    socket.on 'connect', ->
-      on_connect()
-      dfd.resolve()
+    this.socket.of(this.ns)
+      .on('error', on_error)
+      .on('connect_failed', on_error)
+      .on('connect', on_connect)
 
     dfd.promise
 
+  MageReactiveConnection.prototype.disconnect = ->
+    this.graceful = true
+    this.socket.disconnect()
+
+  return MageReactiveConnection
+  
+
+reactive.service 'MageReactive', (MageReactiveConnection) ->
+  connect = (ns, params) ->
+    new MageReactiveConnection(ns).connect(params)
 
   return {
     connect: connect
-    on: (ev, fn) -> emitter.on(ev, fn)
-    off: (ev, fn) -> emitter.off(ev, fn)
-    once: (ev, fn) -> emitter.once(ev, fn)
   }
 

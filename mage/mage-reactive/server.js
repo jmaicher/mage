@@ -37,35 +37,40 @@ app.post(api_base + '/devices/sessions/confirm', function (req, res) {
 app.listen(9000);
 
 
+// -------------------------------------------------
 // -- ws api ---------------------------------------
+// -------------------------------------------------
+
+// -- /device/auth ---------------------------------
+
+io.of('/devices/auth').authorization(function (handshake, callback) {
+  uuid = handshake.query.uuid;
+  if (uuid) {
+    handshake.uuid = uuid;
+    callback(null, true);
+  } else {
+    callback("No uuid provided", false);
+  }
+});
+
+io.of('/devices/auth').on('connection', function (socket) {
+  uuidMap[socket.handshake.uuid] = socket;
+  io.log.info('New device connected: ' + socket.handshake.uuid);
+  socket.on('disconnect', function(){
+    io.log.info('Device disconnected: ' + socket.handshake.uuid);
+    delete uuidMap[socket.handshake.uuid];
+  });
+});
+
 
 
 io.configure(function () {
   io.set('transports', ['websocket']);
 
   io.set('authorization', function (handshake, callback) {
-    uuid = handshake.query.uuid;
-    if (uuid) {
-      handshake.uuid = uuid;
-      callback(null, true);
-    } else {
-      callback("No uuid provided", false);
-    }
+    callback(null, true);
   });
 });
 
 
-io.sockets.on('connection', function (socket) {
-  uuidMap[socket.handshake.uuid] = socket;
-  io.log.info('New client connected: ' + socket.handshake.uuid);
-
-  socket.on('message', function (from, msg) {
-    console.log(msg);
-  });
-
-  socket.on('disconnect', function(){
-    io.log.info('Client disconnected: ' + socket.handshake.uuid);
-    delete uuidMap[socket.handshake.uuid];
-  });
-});
 
