@@ -35,13 +35,23 @@ $blue: #007aff;
   display: none;
 }
 
-@mixin has-bottom-navbar {
+@mixin with-bottom-navbar {
   .app-body {
     padding-bottom: 51px !important;
   }  
 
   .navbar-absolute-bottom {
     display: block;
+  }
+}
+
+@mixin without-top-navbar {
+  .app-body {
+    padding-top: 0 !important;
+  }
+
+  .navbar-absolute-top  {
+    display: none;
   }
 }
 
@@ -98,7 +108,7 @@ $blue: #007aff;
 // -- Screens -----------------------------------------------------
 
 .auth, .device-auth, .new-idea {
-  @include has-bottom-navbar;
+  @include with-bottom-navbar;
 }
 
 .home {
@@ -153,7 +163,7 @@ $blue: #007aff;
 }
 
 
-// -- Meeting -----------------------------------------------------
+// -- Meetings ----------------------------------------------------
 
 .meeting {
 
@@ -164,6 +174,94 @@ $blue: #007aff;
     .btn {
       color: #FFF;
     }
+  }
+
+}
+
+.poker {
+  @include without-top-navbar;
+  @include with-bottom-navbar;
+
+  .poker-card {
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+    position: relative;
+
+    // disallow text selection
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    .icon, .option {
+      display: block;
+      position: absolute;
+    }
+
+    .option {
+      font-weight: bold;
+    }
+
+    .icon, .option.small {
+      width: 80px;
+      height: 45px;
+      font-size: 45px;
+      line-height: 45px;
+      text-align: center;
+    }
+
+    .option.big {
+      width: 100%;
+      height: 150px;
+      top: 50%;
+      margin: -55px 0 0 0;
+      font-size: 110px;
+      line-height: 110px;
+      text-align: center;
+    }
+
+    .option.small {
+      &.top {
+        top: 7px;
+        left: 7px;
+      }
+      &.bottom {
+        bottom: 7px;
+        right: 7px;
+      }
+    }
+
+    .icon {
+      &.top {
+        top: 65px;
+        left: 7px;
+      }
+      &.bottom {
+        bottom: 65px;
+        right: 7px;
+      }
+    }
+    
+    &.heart {
+      color: red;
+    }
+
+    &.peek {
+      color: black;
+
+      .icon {
+        // mirror along horizontal axis
+        //-webkit-transform: scale(1, -1);
+        //-moz-transform: scale(1, -1);
+        //-o-transform: scale(1, -1);
+        //-ms-transform: scale(1, -1);
+        //transform: scale(1, -1);
+      }
+    }
+
   }
 
 }
