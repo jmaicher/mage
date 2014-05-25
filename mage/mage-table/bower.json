@@ -11,8 +11,7 @@
     "angular-route": "~1.2.14",
     "angular-animate": "~1.2.14",
     "angular-resource": "~1.2.14",
-    "components-font-awesome": "~4.0.3",
-    "socket.io-client": "~0.9.16"
+    "components-font-awesome": "~4.0.3"
   },
   "exportsOverride": {
     "jquery": { "js": "dist/jquery.js" },
@@ -34,8 +33,7 @@
     "components-font-awesome": {
       "css": "scss/*.scss",
       "fonts": "fonts/*"
-    },
-    "socket.io-client": { "js": "dist/socket.io.js" }
+    }
   }
 }
 

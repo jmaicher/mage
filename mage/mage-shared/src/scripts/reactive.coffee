@@ -8,7 +8,10 @@ queryStringFromParams = (params) ->
     queryString = if queryString != "" then "#{queryString}&#{keyValue}" else keyValue
 
   angular.forEach params, (value, key) ->
-    appendToQueryString("#{key}=#{value}")
+    stringifiedValue = if typeof value == 'string' then value
+    else JSON.stringify(value)
+
+    appendToQueryString("#{key}=#{stringifiedValue}")
 
   queryString
 
@@ -30,7 +33,8 @@ reactive.factory 'MageReactiveConnection', ($q, Hosts) ->
 
     on_message = (msg) ->
       type = msg.type
-      payload = JSON.parse(msg.payload)
+      #payload = JSON.parse(msg.payload)
+      payload = msg.payload
 
       if(type)
         self.emit type, payload
@@ -51,6 +55,8 @@ reactive.factory 'MageReactiveConnection', ($q, Hosts) ->
       self.connected = false
 
 
+    # send namespace to server to dynamically create it when needed
+    params.ns = this.ns
     this.socket = io.connect("#{Hosts.reactive}#{this.ns}", {
       query: queryStringFromParams(params)
       'force new connection': true
@@ -71,6 +77,7 @@ reactive.factory 'MageReactiveConnection', ($q, Hosts) ->
   
 
 reactive.service 'MageReactive', (MageReactiveConnection) ->
+  # TODO: Maintain global connection pool
   connect = (ns, params) ->
     new MageReactiveConnection(ns).connect(params)
 

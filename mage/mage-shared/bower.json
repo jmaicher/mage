@@ -4,11 +4,13 @@
   "dependencies": {
     "angular": "~2.1.14",
     "angular-cookies": "~1.2.14",
+    "socket.io-client": "~0.9.16",
     "event-emitter": "https://github.com/Wolfy87/EventEmitter.git#4.2.7"
   },
   "exportsOverride": {
     "angular": { "js": "angular.js" },
     "angular-cookies": { "js": "angular-cookies.js" },
+    "socket.io-client": { "js": "dist/socket.io.js" },
     "event-emitter": { "js": "EventEmitter.js" }
   }
 }
