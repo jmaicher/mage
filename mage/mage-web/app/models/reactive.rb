@@ -1,33 +1,47 @@
 class Reactive
-  @@stubs = Faraday::Adapter::Test::Stubs.new
 
   def initialize
     @conn = Faraday.new :url => 'http://localhost:9000' do |f|
-      f.request  :url_encoded
-      if ! Rails.env.test?
-        f.response :logger
-        f.adapter Faraday.default_adapter
-      else
-        f.adapter :test, @@stubs
-      end
+      f.request  :json
+      f.response :logger
+      f.adapter Faraday.default_adapter
     end
+  end
+
+  def self.instance
+    @@instance ||= Reactive.new
   end
 
   def confirm_device_auth(uuid, device)
     response = @conn.post '/api/devices/sessions/confirm', {
       uuid: uuid,
-      authenticable: device.to_json
+      authenticable: device.to_hash
     }
 
     return response.status === 200
   end
 
-  def self.set_stubs(stubs)
-    @@stubs = stubs
-  end
+  def message_to(recipient, type, payload)
+    payload = payload.to_hash unless payload.is_a?(Hash)
 
-  def self.clear_stubs
-    @@stubs = Faraday::Adapter::Test::Stubs.new
+    response = @conn.post '/api/messages', {
+      type: type,
+      payload: payload
+    }
+
+    return response.status == 200
   end
 
 end
+
+class ReactiveStub < Reactive
+
+  def initialize(stubs)
+    @conn = Faraday.new :url => 'http://localhost:9000' do |f|
+      f.request  :json 
+      f.adapter :test, stubs
+    end
+  end
+
+end
+

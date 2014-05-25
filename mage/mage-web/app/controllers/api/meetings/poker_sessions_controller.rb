@@ -12,6 +12,7 @@ class API::Meetings::PokerSessionsController < API::ApplicationController
     if poker_session.save
       status = :created
       response = PokerSessionRepresenter.new(poker_session)
+      notify_participants('poker.started', PokerSessionRepresenter.new(poker_session))
     else
       status = :unprocessable_entity
       response = poker_session.errors
@@ -71,6 +72,10 @@ class API::Meetings::PokerSessionsController < API::ApplicationController
   end
 
 private
+
+  def notify_participants(type, payload)
+    Reactive.instance.message_to("/meetings/#{@meeting.id}", type, payload)
+  end
 
   def forbid! message
     render status: :forbidden, json: { error: message }

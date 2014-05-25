@@ -13,6 +13,19 @@ describe 'Meeting::PokerSessions API' do
 
     let(:authenticable) { current_device }
 
+
+    before :each do
+      reactive_stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+        expected_params = {
+          type: "*",
+          payload: "*"
+        }
+        stub.post('/api/messages') { [200, expected_params] }
+      end
+
+      Reactive.stub(:instance).and_return ReactiveStub.new(reactive_stubs)
+    end
+
     it_behaves_like "authenticated API endpoint"
     it_behaves_like "meeting action"
 
