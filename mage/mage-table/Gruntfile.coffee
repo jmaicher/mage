@@ -86,6 +86,7 @@ module.exports = (grunt) ->
         options:
           livereload: false
           base: '<%= config.dist %>'
+          directory: '<%= config.dist %>/vendor'
     }
 
     # -- usemin ---------------------------------------

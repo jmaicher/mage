@@ -1,0 +1,8 @@
+<a href="javascript:;"
+  ng-class="{'blocked':isBlocked && !loading}"
+  ng-click="restart()">
+  <div class="content">
+    <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+    <i ng-show="!loading" class="fa fa-refresh"></i>
+  </div>
+</a>

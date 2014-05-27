@@ -15,7 +15,7 @@ app.config ($routeProvider, AuthConfigProvider) ->
       controller: ($rootScope, $location, meeting) ->
         # hand model to meeting ctrl via global tmp variable
         $rootScope.meeting = meeting
-        $location.path "/meetings/#{meeting.id}"
+        $location.path "/meetings/#{meeting.model.id}"
       template: ''
       resolve:
         meeting: (MeetingService) ->

@@ -3,11 +3,11 @@
 
 @font-face {
   font-family: 'FontAwesome';
-  src: url('../../fonts/mobile-angular-ui/fontawesome-webfont.eot?v=4.0.3');
-  src: url('../../fonts/mobile-angular-ui/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'),
-    url('../../fonts/mobile-angular-ui/fontawesome-webfont.woff?v=4.0.3') format('woff'),
-    url('../../fonts/mobile-angular-ui/fontawesome-webfont.ttf?v=4.0.3') format('truetype'),
-    url('../../fonts/mobile-angular-ui/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+  src: url('/vendorfonts/mobile-angular-ui/fontawesome-webfont.eot?v=4.0.3');
+  src: url('/vendor/fonts/mobile-angular-ui/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'),
+    url('/vendor/fonts/mobile-angular-ui/fontawesome-webfont.woff?v=4.0.3') format('woff'),
+    url('/vendor/fonts/mobile-angular-ui/fontawesome-webfont.ttf?v=4.0.3') format('truetype'),
+    url('/vendor/fonts/mobile-angular-ui/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }

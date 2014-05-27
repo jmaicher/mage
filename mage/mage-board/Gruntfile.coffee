@@ -54,7 +54,7 @@ module.exports = (grunt) ->
         tasks: [] # ['karma:watch:run']
       styles:
         files: ['<%= config.app %>/styles/{,*/}*.scss']
-        tasks: ['newer:sass']
+        tasks: ['sass']
       gruntfile:
         files: ['Gruntfile.coffee']
       livereload:
@@ -85,6 +85,7 @@ module.exports = (grunt) ->
           ]
       dist:
         options:
+          port: 36000
           livereload: false
           base: '<%= config.dist %>'
     }
@@ -180,9 +181,9 @@ module.exports = (grunt) ->
         src: [
           '*.{ico,png,txt}'
           '*.html'
-          'views/{,*/}*.html'
+          'views/**/*.html'
           'images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-          'fonts/**/*.{eot,svg,ttf,woff}'
+          'vendor/fonts/**/*.{eot,svg,ttf,woff}'
         ]
     }
 

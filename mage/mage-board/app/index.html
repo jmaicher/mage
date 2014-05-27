@@ -1,7 +1,8 @@
 <!doctype html>
-<html xmlns:ng="http://angularjs.org" ng-app="mageBoard">
+<html xmlns:ng="http://angularjs.org" ng-app="mage.board">
 <head>
   <title>mageBoard</title>
+  <meta charset="utf-8">
 
   <link rel="shortcut icon" href="/images/mage-icon.png" sizes="57x57">
 
@@ -13,23 +14,39 @@
   <link href="/styles/style.css" rel="stylesheet" type="text/css">
   <!-- endbuild -->
 
-  <!-- build:js({.tmp,app}) scripts/vendor.js -->
+  <!-- build:js({.tmp,app,../mage-shared/dist}) scripts/vendor.js -->
   <script src="/vendor/scripts/jquery/jquery.js"></script>
   <script src="/vendor/scripts/lodash/lodash.js"></script>
+  <script src="/vendor/scripts/d3/d3.js"></script>
   <script src="/vendor/scripts/angular/angular.js"></script>
+  <script src="/shared/vendor/scripts/angular-cookies/angular-cookies.js"></script>
   <script src="/vendor/scripts/angular-route/angular-route.js"></script>
   <script src="/vendor/scripts/angular-animate/angular-animate.js"></script>
   <script src="/vendor/scripts/angular-resource/angular-resource.js"></script>
+  <script src="/shared/vendor/scripts/socket.io-client/socket.io.js"></script>
+  <script src="/shared/vendor/scripts/event-emitter/EventEmitter.js"></script>
   <!-- endbuild -->
 
-  <!-- build:js({.tmp,app}) scripts/app.js -->
+  <!-- build:js({.tmp,app,../mage-shared/dist}) scripts/app.js -->
+  <script src="/shared/scripts/utils.js"></script>
+  <script src="/shared/scripts/hosts.js"></script>
+  <script src="/shared/scripts/session.js"></script>
+  <script src="/shared/scripts/auth.js"></script>
+  <script src="/shared/scripts/reactive.js"></script>
+  <script src="/shared/scripts/meetings.js"></script>
+  <script src="/scripts/auth.js"></script>
+  <script src="/scripts/home.js"></script>
+  <script src="/scripts/meetings/poker.js"></script>
+  <script src="/scripts/meetings.js"></script>
   <script src="/scripts/main.js"></script>
   <!-- endbuild -->
 
-
 </head>
 <body ng-controller="AppController">
-  <img src="images/logo-white.png" class="logo" />
   <div class="content" ng-view></div>
+
+  <div ng-hide="!loading" class="loading-overlay animate-fade">
+    <div class="spinner"></div>
+  </div>
 </body>
 </html>

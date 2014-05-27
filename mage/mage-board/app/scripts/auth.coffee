@@ -1,16 +1,19 @@
 "use strict"
 
-module = angular.module('mage.table.auth', [
-  'mage.hosts',
-  'mage.session'
-])
+deps = [
+  'mage.hosts', 'mage.session', 'mage.auth'
+]
+module = angular.module('mage.board.auth', deps)
+
+
+# -- Routes ------------------------------------------------------------
 
 module.config ($routeProvider) ->
 
   $routeProvider
     .when '/auth',
       templateUrl: '/views/auth.html'
-      controller: 'mage.table.AuthController'
+      controller: 'AuthController'
       resolve:
         pin: (DeviceAuthService, SessionService) ->
           DeviceAuthService.requestAuthPin(SessionService.getUUID())
@@ -18,11 +21,12 @@ module.config ($routeProvider) ->
           MageReactive.connect('/devices/auth', uuid: SessionService.getUUID())
 
 
-module.controller 'mage.table.AuthController', ($scope, $route, $location, SessionService, pin, reactiveAuth) ->
+# -- Controllers -------------------------------------------------------
+
+module.controller 'AuthController', ($scope, $route, $location, SessionService, pin, reactiveAuth) ->
   $scope.pin = pin
 
   reactiveAuth.once 'device.authenticated', (device) ->
-    console.log(device)
     reactiveAuth.disconnect()
     $scope.$apply ->
       SessionService.setDevice(device)

@@ -1,6 +1,7 @@
 var express = require('express'),
     app = express(),
-    io = require('socket.io').listen(9999);
+    io = require('socket.io').listen(9999),
+    logger = io.log
 
 // -- global state ---------------------------------
 
@@ -38,8 +39,11 @@ app.post(api_base + '/messages', function (req, res) {
       recipient = req.body.recipient,
       message = req.body.message,
       ns, matches;
-  
-  if (recipient.indexOf('/') === 0) {
+
+  logger.info("Received POST /messages with the following request body:");
+  logger.info(req.body);
+
+  if (recipient && recipient.indexOf('/') === 0) {
     matches = recipient.split('#');
     ns = matches[0];
     room = matches[1];
@@ -62,7 +66,26 @@ app.listen(9000);
 // -- ws api ---------------------------------------
 // -------------------------------------------------
 
-// -- /device/auth ---------------------------------
+io.configure(function () {
+  io.set('transports', ['websocket']);
+
+  io.set('authorization', function (handshake, callback) {
+    var nsPath = handshake.query.ns,
+        meeting;
+  
+    if(nsPath && isMeetingPath(nsPath)) {
+      meeting = VirtualMeeting.findOrCreate(nsPath, io);
+      meeting.authorize(handshake, callback);
+      return; 
+    } else {
+      // Accept globally, can still be denied by ns auth (e.g /devices/auth)
+      callback(null, true);
+    }
+  });
+});
+
+
+// -- /devices/auth ---------------------------------
 
 io.of('/devices/auth').authorization(function (handshake, callback) {
   uuid = handshake.query.uuid;
@@ -84,24 +107,14 @@ io.of('/devices/auth').on('connection', function (socket) {
 });
 
 
+// -- /device/auth ---------------------------------
 
-io.configure(function () {
-  io.set('transports', ['websocket']);
-
-  io.set('authorization', function (handshake, callback) {
-    var nsPath = handshake.query.ns,
-        meeting;
-  
-    if(nsPath && isMeetingPath(nsPath)) {
-      meeting = VirtualMeeting.findOrCreate(nsPath, io);
-      meeting.authorize(handshake, callback);
-      return; 
-    } else {
-      // Accept globally, can still be denied by ns auth (e.g /devices/auth)
-      callback(null, true);
-    }
-  });
+io.of('/activities').authorization(function (handshake, callback) {
+  callback(null, true); 
 });
+
+
+// -- /meetings/:id --------------------------------
 
 function matchMeetingPath(path) {
   return path.match('^\\/meetings\\/(\\d+)$');

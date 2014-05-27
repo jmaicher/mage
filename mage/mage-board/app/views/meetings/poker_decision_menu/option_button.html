@@ -1,0 +1,8 @@
+<a href="javascript:;"
+  ng-class="{'blocked':isBlocked && !loading}"
+  ng-click="decide(option)">
+  <div class="content">
+    <i ng-show="loading" class="fa fa-spinner fa-spin"></i>
+    <span ng-show="!loading">{{option.value}}</span>
+  </div>
+</a>

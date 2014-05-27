@@ -1,11 +1,14 @@
 "use strict"
 
-deps = ['ngRoute', 'ngAnimate', 'ngResource']
-app = angular.module('mageBoard', deps)
+deps = [
+  'ngRoute', 'ngAnimate', 'ngResource',
+  'mage.utils', 'mage.hosts', 'mage.auth', 'mage.reactive', 'mage.meetings',
+  'mage.board.auth', 'mage.board.home', 'mage.board.meetings'
+]
+app = angular.module('mage.board', deps)
 
-app.config ($httpProvider, $routeProvider) ->
-  $httpProvider.defaults.useXDomain = true
-  delete $httpProvider.defaults.headers.common["X-Requested-With"]
+app.config (AuthConfigProvider) ->
+  AuthConfigProvider.setSignInPath('/auth')
 
 app.controller 'AppController', ($scope) ->
   $scope.loading = false

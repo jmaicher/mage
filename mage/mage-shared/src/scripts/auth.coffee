@@ -42,3 +42,26 @@ module.provider 'authInterceptors', ->
 
   return
 
+
+module.service 'DeviceAuthService', ($q, $http, Hosts) ->
+
+  requestAuthPin = (uuid) ->
+    dfd = $q.defer()
+
+    on_success = (resp) ->
+      dfd.resolve(resp.data.pin)
+
+    on_error = ->
+      dfd.reject
+
+    $http.post("#{Hosts.api}/devices/sessions/pins", {
+      uuid: uuid
+    }).then on_success, on_error
+
+    dfd.promise
+
+  return {
+    requestAuthPin: requestAuthPin
+  }
+
+

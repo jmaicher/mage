@@ -24,9 +24,13 @@ class Reactive
   def message_to(recipient, type, payload)
     payload = payload.to_hash unless payload.is_a?(Hash)
 
+    # TODO: Define message types
     response = @conn.post '/api/messages', {
-      type: type,
-      payload: payload
+      recipient: recipient,
+      message: {
+        type: type,
+        payload: payload
+      }
     }
 
     return response.status == 200

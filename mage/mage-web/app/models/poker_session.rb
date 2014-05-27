@@ -18,6 +18,10 @@ class PokerSession < ActiveRecord::Base
     rounds
   end
 
+  def is_current_round_complete?
+    get_votes.count == meeting.participating_users.count
+  end
+
   def start_new_round
     self.rounds += 1
   end
@@ -37,18 +41,26 @@ class PokerSession < ActiveRecord::Base
     votes.build params 
   end
 
-  def has_voted?(user)
-    has_voted_in?(user, current_round)
+  def has_voted?(user, round=current_round)
+    !get_vote_for(user, round).nil?
   end
 
-  def has_voted_in?(user, round)
-    votes.where(user: user, round: round).exists?
+  def get_vote_for(user, round=current_round)
+    votes.where(user: user, round: round).first
+  end
+
+  def get_votes(round=current_round)
+    votes.where(round: round)
   end
 
   def complete_with(decision)
     decision_key = decision.is_a?(Integer) ? :estimate_option_id : :decision
     self[decision_key] = decision
     self.status = :completed
+  end
+
+  def estimate_options
+    @estimate_options ||= EstimateOption.all.to_a
   end
 
 private

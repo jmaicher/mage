@@ -1,0 +1,16 @@
+<div class="poker-result">
+  <poker-decision-menu
+    poker="poker"
+    blocked="loading || pokerActive || pokerCompleted"
+    on-restart="restart()"
+    on-decision="complete(option)">
+  </poker-decision-menu>
+
+  <div class="poker-result-chart-container">
+    <poker-result-chart
+      class="poker-result-chart"
+      estimate-options="poker.model.estimate_options"
+      result="result">
+    </poker-result-chart>
+  </div> <!-- .poker-result-chart-container -->
+</div> <!-- .poker-result -->
