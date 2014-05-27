@@ -4,6 +4,7 @@
   "dependencies": {
     "jquery": "~2.1.0",
     "lodash": "~2.4.1",
+    "d3": "~3.4.8",
     "angular": "~1.2.14",
     "angular-route": "~1.2.14",
     "angular-animate": "~1.2.14",
@@ -14,6 +15,7 @@
   "exportsOverride": {
     "jquery": { "js": "dist/jquery.js" },
     "lodash": { "js": "dist/lodash.js" },
+    "d3": { "js": "d3.js" },
     "angular": { "js": "angular.js" },
     "angular-route": { "js": "angular-route.js" },
     "angular-animate": { "js": "angular-animate.js" },

@@ -1,3 +1,19 @@
+// -- Variables -----------------------------------------
+
+$blue: #428bca;
+$green: #5cb85c;
+
+
+// -- Module styles -------------------------------------
+
+@import 'auth';
+@import 'home';
+@import 'meetings';
+@import 'poker';
+
+
+// -- Layout --------------------------------------------
+
 body {
   height: 100%;
   width: 100%;
@@ -5,12 +21,40 @@ body {
   background-color: black;
 }
 
-.logo {
-  width: 400px;
-  height: 90px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -200px;
-  margin-top: -55px;
+.loading-overlay {
+  opacity: 1;
+  transition: 0.8s all ease-out;
+  background-color: rgba(0, 0, 0, .5);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
 }
+
+.loading-overlay.ng-hide-add, .animate-fade.ng-hide-remove {
+  display: block !important;
+}
+
+.loading-overlay.ng-hide {
+  opacity: 0;
+}
+
+.spinner { 
+  background-color: rgba(0,0,0,0);
+  border: 20px solid #00dbff;
+  border-top: 20px solid rgba(0,0,0,0);
+  border-left: 20px solid rgba(0,0,0,0);
+  border-radius: 100px !important;  opacity: .8;
+  width: 100px;
+  height: 100px; 
+  margin: 5% auto;
+  position: relative;
+  top: 50%;
+  margin-top: -50px;
+  animation: spin 1s infinite linear;
+  -moz-animation: spin 1s infinite linear;
+  -webkit-animation: spin 1s infinite linear;
+}
+

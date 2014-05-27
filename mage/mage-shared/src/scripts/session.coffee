@@ -15,12 +15,22 @@ module.service 'SessionService', ($cookieStore, UUID) ->
 
   getAuthenticable = -> authenticable
 
+  getApiToken = ->
+
+  getIdentity = ->
+    return undefined if !authenticable
+    return {
+      id: getAuthenticable().id,
+      type: "TODO"
+    }
+
   return {
     isAuthenticated: -> !!authenticable
     getUUID: -> uuid
     getAuthenticable: getAuthenticable
     getUser: getAuthenticable
     getDevice: getAuthenticable
+    getIdentity: getIdentity
     setAuthenticable: setAuthenticable
     setUser: setAuthenticable
     setDevice: setAuthenticable

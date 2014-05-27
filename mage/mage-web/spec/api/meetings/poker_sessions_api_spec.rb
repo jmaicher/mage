@@ -7,6 +7,18 @@ describe 'Meeting::PokerSessions API' do
   let(:backlog_item) { create :backlog_item }
   let(:poker_session) { create(:poker_session, meeting: meeting, backlog_item: backlog_item) }
 
+  before :each do
+    reactive_stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+      expected_params = {
+        type: "*",
+        payload: "*"
+      }
+      stub.post('/api/messages') { [200, expected_params] }
+    end
+
+    Reactive.stub(:instance).and_return ReactiveStub.new(reactive_stubs)
+  end
+
   describe 'POST /api/meetings/:id/poker_sessions' do
     let(:method) { :post }
     let(:endpoint) { api_meeting_poker_sessions_path(meeting) }
@@ -17,9 +29,9 @@ describe 'Meeting::PokerSessions API' do
     it_behaves_like "meeting action"
 
     it "should create a new poker session and respond with the json representation" do
-      params = { "poker_session" => {
+      params = {
         "backlog_item_id" => backlog_item.id
-      }}
+      }
 
       do_api_request params
 
@@ -33,9 +45,9 @@ describe 'Meeting::PokerSessions API' do
     end
 
     it "should respond with the validation errors in case the params were invalid" do
-      params = { "poker_session" => {
+      params = {
         "backlog_item_id" => -1
-      }}
+      }
 
       do_api_request params
       
@@ -87,10 +99,8 @@ describe 'Meeting::PokerSessions API' do
 
     it "succeeds and creates a new vote for the given round" do
       params = {
-        vote: {
-          decision: estimate_option.id,
-          round: poker_session.current_round
-        }
+        decision: estimate_option.id,
+        round: poker_session.current_round
       }
 
       do_api_request params
@@ -101,10 +111,8 @@ describe 'Meeting::PokerSessions API' do
 
     it "fails if the given vote is invalid and respond with the validation errors" do
       params = {
-        vote: {
-          decision: -1,
-          round: poker_session.current_round
-        }
+        decision: -1,
+        round: poker_session.current_round
       }
 
       do_api_request params
@@ -121,10 +129,8 @@ describe 'Meeting::PokerSessions API' do
 
     it "fails if the user has already voted" do
       params = {
-        vote: {
-          decision: estimate_option.id,
-          round: poker_session.current_round
-        }
+        decision: estimate_option.id,
+        round: poker_session.current_round
       }
 
       vote = build :poker_vote, user: current_user, round: poker_session.current_round

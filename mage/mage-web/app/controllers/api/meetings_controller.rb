@@ -26,8 +26,9 @@ class API::MeetingsController < API::ApplicationController
         meeting.save!
         current_authenticable.participate! meeting
       end
-
-      response = MeetingRepresenter.new(meeting).to_json(participant: current_authenticable)
+      
+      response = MeetingRepresenter.new(meeting).to_hash
+      notify_reactive('meeting.started', response)
       status = :created
     rescue => e
       Rails.logger.error e
@@ -36,6 +37,12 @@ class API::MeetingsController < API::ApplicationController
     end
 
     render json: response, status: status
-  end # index
+  end # create
+
+private
+
+  def notify_reactive(type, payload)
+    Reactive.instance.message_to("/activities", type, payload)
+  end
 
 end

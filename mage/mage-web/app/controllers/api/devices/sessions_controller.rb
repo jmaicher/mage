@@ -50,7 +50,7 @@ private
 
   def confirm_auth(uuid, device)
     authenticable = AuthenticableRepresenter.new(device) 
-    Reactive.new.confirm_device_auth(uuid, authenticable)
+    Reactive.instance.confirm_device_auth(uuid, authenticable)
   end
 
   def invalidate_pin(pin)

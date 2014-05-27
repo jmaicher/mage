@@ -4,7 +4,7 @@ deps = [
   # vendor
   'ngRoute', 'ngTouch', 'mobile-angular-ui',
   # app modules
-  'mage.auth', 'mage.meetings',
+  'mage.auth', 'mage.reactive', 'mage.meetings',
   'mage.mobile.ideas', 'mage.mobile.auth',
   'mage.mobile.home', 'mage.mobile.deviceAuth', 'mage.mobile.meetings'
 ]

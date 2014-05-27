@@ -13,9 +13,23 @@ meeting.config ($routeProvider) ->
         meeting: ($route, MeetingService) ->
           id = $route.current.params.id
           MeetingService.get(id).then (meeting) ->
-            meeting.join()
+            meeting.join().then ->
+              meeting.connect().then ->
+                meeting
 
-meeting.controller 'MeetingController', ($rootScope, $scope, meeting, $timeout) ->
+
+meeting.controller 'MeetingController', ($rootScope, $scope, $location, meeting) ->
   $rootScope.screenName = 'meeting'
-  $scope.meeting = meeting
+  $scope.meeting = meeting.model
+
+  handle_poker_started = (poker) ->
+    console.log 'poker started'
+    $scope.$apply ->
+      $location.path "/meetings/#{meeting.model.id}/poker/#{poker.model.id}"
+
+  meeting.on 'poker.started', handle_poker_started
+
+  $scope.$on '$destroy', ->
+    # cleanup
+    meeting.off 'poker.started', handle_poker_started
 

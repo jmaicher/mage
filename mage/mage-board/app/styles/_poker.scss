@@ -1,0 +1,112 @@
+.poker-result {
+  width: 100%;
+  height: 100%;
+
+  .poker-decision-menu-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 5%;
+    display: table;
+    z-index: 100;
+  }
+
+  .poker-decision-menu {
+    display: table-cell;
+    vertical-align: middle;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      &.first {
+        a {
+          border-top-right-radius: 50%;
+          border-top: 1px solid #FFF;
+          .content {
+            border-top-right-radius: 50%;
+            padding-top: 2em;
+          }
+        }
+      }
+
+      &.last {
+        a {
+          border-bottom-right-radius: 50%;
+          .content {
+            border-bottom-right-radius: 50%;
+            padding-bottom: 2em;
+          }
+        }
+      }
+
+      a {
+        border-bottom: 1px solid #FFF;
+        border-right: 1px solid #FFF;
+        color: #FFF;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        font-family: Helvetica;
+
+        .content {
+          display: block;
+          height: 100%;
+          padding: 1.5em;
+        }
+
+        &.blocked .content {
+          opacity: .3;
+        }
+      }
+
+      &.restart {
+        a .content {
+          background-color: $green;
+        }
+      }
+
+      &.option {
+        a .content {
+          background-color: $blue;
+        }
+      }
+    }
+  }
+
+  .poker-result-chart-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: table;
+    text-align: center; 
+  }
+
+  .poker-result-chart {
+    display:table-cell;
+    vertical-align:middle;
+
+    svg {
+      text {
+        fill: #FFF;
+        font-family: Helvetica;
+      }
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #FFF;
+        shape-rendering: crispEdges;
+      }
+
+      .bar {
+        fill: $blue;
+      }
+    } // svg
+  }  
+}

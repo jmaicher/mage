@@ -10,25 +10,32 @@ module.config ($routeProvider) ->
       templateUrl: '/views/meeting.html'
       controller: 'MeetingController'
       resolve:
-        meeting: ($rootScope, $route, MeetingService) ->
+        meeting: ($q, $rootScope, $route, MeetingService) ->
           if $rootScope.meeting
             meeting = $rootScope.meeting
             # remove global tmp variable
             delete $rootScope.meeting
-            meeting
+            meeting_promise = $q.when(meeting)
           else
             id = $route.current.params['id']
-            MeetingService.get(id)
+            meeting_promise = MeetingService.get(id)
+
+          meeting_promise.then (meeting) ->
+            meeting.connect().then ->
+              return meeting
+
         backlog: (BacklogService) ->
           BacklogService.get()
 
  
-module.controller 'MeetingController', ($scope, backlog) ->
+module.controller 'MeetingController', ($scope, meeting, backlog) ->
+  $scope.meeting = meeting
   $scope.backlog = backlog
 
 module.directive 'surface', () ->
   restrict: 'E'
   scope:
+    meeting: '='
     backlog: '='
   transclude: true
   compile: (tElement, attrs, transclude) ->
@@ -59,6 +66,26 @@ module.directive 'surface', () ->
       model: item
     )
 
+
+module.directive 'estimate', ->
+  restrict: 'E'
+  replace: true
+  scope:
+    startPokerSession: '&startPokerSession'
+    canStartPokerSession: '='
+    pokerActive: '='
+    estimate: '='
+  templateUrl: '/views/backlog_items/estimate.html'
+  link: (scope, element, attrs) ->
+    element.on 'pointerup mouseup tap', (evt) ->
+      evt.stopPropagation()
+      return unless scope.canStartPokerSession
+
+      scope.loading = true
+      scope.startPokerSession().finally ->
+        scope.loading = false
+
+      return
 
 module.service 'Focus', ($window, $q) ->
   $overlay = $('#focus-overlay')
@@ -169,6 +196,7 @@ module.directive 'backlogItem', () ->
   priority: 1
   scope:
     item: '='
+    meeting: '='
   templateUrl: '/views/backlog_item.html'
   link: ($scope, $element, attrs, ctrl) ->
     $element.addClass 'backlog-item'
@@ -184,11 +212,30 @@ module.directive 'backlogItem', () ->
     $scope.$watchCollection '[item.x, item.y, item.rotation]', (newValues, oldValues) ->
       [x, y, r] = newValues
       transform($element, x, y, r)
+
+    $element.find('a.poker').on 'pointerup mouseup tap', (evt) ->
+      # UHHH :-(
+      evt.stopPropagation()
  
   controller: ($scope, $rootScope, $element, Focus, $timeout) ->
     item = $scope.item
     isFront = false
     focus = null
+
+    $scope.startPokerSession = ->
+      promise = $scope.meeting.start_poker_session(item.model)
+
+      promise.then (poker) ->
+        $scope.pokerActive = true
+           
+        poker.on 'completed', (result) ->
+          $scope.$apply ->
+            $scope.pokerActive = false
+            item.model.estimate = result.decision
+      
+      return promise
+
+    
 
     @getX = -> $scope.item.x
     @getY = -> $scope.item.y
@@ -211,10 +258,14 @@ module.directive 'backlogItem', () ->
       }
 
       focus = Focus.bringToFocus(item, $element, origin)
+      $scope.$apply ->
+        $scope.focused = !!focus
 
     @endFocus = ->
       Focus.endFocus().then ->
         focus = null
+        $scope.$apply ->
+          $scope.focused = false
 
     @isFocused = -> !!focus
     @isFocusPlaying = -> focus.isPlaying()
