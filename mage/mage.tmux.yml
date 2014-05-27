@@ -15,16 +15,16 @@ windows:
       layout: caf6,158x45,0,0[158x32,0,0,0,158x12,0,33{78x12,0,33,3,79x12,79,33,4}]
       panes:
         - editor:
-          - cd mage-web
+          - cd mage-desktop
           - clear
           - vim
         - shell:
           - vagrant ssh
-          - cd /mage/mage-web
+          - cd /mage/mage-desktop
           - clear
         - server:
           - vagrant ssh
-          - cd /mage/mage-web
+          - cd /mage/mage-desktop
           - clear
           - bundle exec unicorn -c config/unicorn.rb
   - shared:

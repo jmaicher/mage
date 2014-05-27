@@ -1,5 +1,5 @@
 {
-  "name": "mage-web",
+  "name": "mage-table",
   "version": "0.0.1",
   "dependencies": {
     "jquery": "~2.1.0",

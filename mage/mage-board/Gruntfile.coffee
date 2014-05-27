@@ -85,7 +85,6 @@ module.exports = (grunt) ->
           ]
       dist:
         options:
-          port: 36000
           livereload: false
           base: '<%= config.dist %>'
     }

@@ -11,8 +11,8 @@ service nginx start
 su -l -p mage <<'EOF'
 
   # Run database migrations
-  cd /mage/mage-web && \
-    RAILS_ENV=production bundle exec rake db:migrate
+  cd /mage/mage-desktop && \
+    RAILS_ENV=production bundle exec rake db:migrate db:seed
 
   # Run kitten, run!
   cd /mage && \

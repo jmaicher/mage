@@ -1,4 +1,4 @@
-MageWeb::Application.routes.draw do
+MageDesktop::Application.routes.draw do
   
   root "home#index"
   

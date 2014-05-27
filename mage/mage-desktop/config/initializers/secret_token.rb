@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-MageWeb::Application.config.secret_key_base = 'e725b4af48a59e41c3fe00af58d5c3c5b33ec3f5890e682f7c3cc0d82664532ad3bc5e3c32de524e2d1603e505531ec335b5f8de91c62cf43cc15459a12054d7'
+MageDesktop::Application.config.secret_key_base = 'e725b4af48a59e41c3fe00af58d5c3c5b33ec3f5890e682f7c3cc0d82664532ad3bc5e3c32de524e2d1603e505531ec335b5f8de91c62cf43cc15459a12054d7'

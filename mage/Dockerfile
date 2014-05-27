@@ -44,8 +44,8 @@ ADD mage-env/provision/nginx/mage.dev /etc/nginx/sites-enabled/mage.dev
 # Copy the Gemfile and Gemfile.lock into the image.
 # Temporarily set the working directory to where they are.
 WORKDIR /tmp
-ADD mage-web/Gemfile Gemfile
-ADD mage-web/Gemfile.lock Gemfile.lock
+ADD mage-desktop/Gemfile Gemfile
+ADD mage-desktop/Gemfile.lock Gemfile.lock
 RUN su mage -l -c "NOKOGIRI_USE_SYSTEM_LIBRARIES=true bundle install"
  
 # Everything up to here was cached. This includes
