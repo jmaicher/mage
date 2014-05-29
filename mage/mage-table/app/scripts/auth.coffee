@@ -18,7 +18,7 @@ module.config ($routeProvider) ->
           MageReactive.connect('/devices/auth', uuid: SessionService.getUUID())
 
 
-module.controller 'mage.table.AuthController', ($scope, $route, $location, SessionService, pin, reactiveAuth) ->
+module.controller 'mage.table.AuthController', ($scope, $route, $location, AuthService, SessionService, pin, reactiveAuth) ->
   $scope.pin = pin
 
   reactiveAuth.once 'device.authenticated', (device) ->
@@ -26,6 +26,5 @@ module.controller 'mage.table.AuthController', ($scope, $route, $location, Sessi
     reactiveAuth.disconnect()
     $scope.$apply ->
       SessionService.setDevice(device)
-      redirect_url = $route.current.params.redirect_to ? '/'
-      $location.path(redirect_url)
+      AuthService.redirectBack()
 

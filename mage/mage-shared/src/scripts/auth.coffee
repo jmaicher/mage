@@ -5,27 +5,57 @@ module = angular.module('mage.auth', ['mage.session'])
 module.config ($httpProvider) ->
   $httpProvider.interceptors.push('authInterceptors')
 
-module.run ($rootScope, $location, AuthConfig, SessionService) ->
-  $rootScope.$watch (-> $location.path()), (newPath, oldPath) ->
-    if(!SessionService.isAuthenticated() and newPath != AuthConfig.getSignInPath())
-      $location.search(redirect_to: newPath).path('/auth')
+module.run ($rootScope, $location, AuthService, SessionService) ->
+  # Redirect on route change when not authenticated
+  $rootScope.$watch (-> $location.path()), (new_path) ->
+    if !SessionService.isAuthenticated() && !AuthService.isAuthPath(new_path)
+      AuthService.redirectToAuth(newPath)
+
+  # Redirect on init if not authenticated
+  current_path = $location.path()
+  if !SessionService.isAuthenticated() && !AuthService.isAuthPath(current_path)
+    AuthService.redirectToAuth()
 
 
-module.provider 'AuthConfig', ->
-  sign_in_path = '/auth'
+module.provider 'AuthService', ->
+  auth_path = '/auth'
 
-  @setSignInPath = (path) ->
-    sign_in_path = path
+  @setAuthPath = (path) ->
+    auth_path = path
 
-  @$get = -> {
-    getSignInPath: -> sign_in_path
-  }
+  @$get = ($location, $injector) ->
+    isAuthPath = (path) ->
+      return auth_path == path
+
+    getAuthPath = ->
+      auth_path
+
+    redirectToAuth = (redirect_path='') ->
+      if(redirect_path != '')
+        $location.search(redirect_to: redirect_path)
+      $location.path(auth_path)
+
+    redirectBack = ->
+      # Avoid circular dependency ($route <- AuthService <- authInterceptors <- $http)
+      $route = $injector.get('$route')
+      redirect_path = $route.current.params.redirect_to ? '/'
+      # Remove search param ?redirect_to=...
+      $location.url(redirect_path)
+
+    return {
+      isAuthPath: isAuthPath
+      getAuthPath: getAuthPath
+      redirectToAuth: redirectToAuth
+      redirectBack: redirectBack
+    }
+  # this.$get
 
   return
 
+
 module.provider 'authInterceptors', ->
 
-  @$get = ['$location', '$q', 'AuthConfig', 'SessionService', ($location, $q, AuthConfig, SessionService) -> {
+  @$get = ['$location', '$q', 'AuthService', 'SessionService', ($location, $q, AuthService, SessionService) -> {
     request: (config) ->
       if SessionService.isAuthenticated()
         config.headers['API-TOKEN'] = SessionService.getAuthenticable().api_token
@@ -33,9 +63,10 @@ module.provider 'authInterceptors', ->
       config
 
     responseError: (rejection) ->
-      if rejection.status is 401
+      current_path = $location.path()
+      if rejection.status is 401 && !AuthService.isAuthPath(current_path)
         redirect_to = $location.path()
-        $location.search(redirect_to: redirect_to).path(AuthConfig.getSignInPath())
+        AuthService.redirectToAuth(redirect_to)
 
       return $q.reject(rejection)
   }]
@@ -43,7 +74,40 @@ module.provider 'authInterceptors', ->
   return
 
 
+module.service 'UserAuthService', ($q, $http, Hosts) ->
+
+  auth = (credentials) ->
+    dfd = $q.defer()
+
+    on_success = (resp) ->
+      user = resp.data
+      dfd.resolve(user)
+
+    on_failure = (resp) ->
+      dfd.reject(resp)
+
+    $http.post("#{Hosts.api}/sessions", credentials)
+      .then on_success, on_failure
+
+    dfd.promise
+
+  return {
+    auth: auth
+  }
+
+
 module.service 'DeviceAuthService', ($q, $http, Hosts) ->
+
+  auth = (params) ->
+    dfd = $q.defer()
+    url = "#{Hosts.api}/devices/sessions"
+    
+    success = (resp) -> dfd.resolve(resp.data)
+    failure = (resp) -> dfd.reject(resp.status, resp.data)
+
+    $http.post(url, params).then(success, failure)
+
+    dfd.promise
 
   requestAuthPin = (uuid) ->
     dfd = $q.defer()
@@ -61,7 +125,7 @@ module.service 'DeviceAuthService', ($q, $http, Hosts) ->
     dfd.promise
 
   return {
+    auth: auth
     requestAuthPin: requestAuthPin
   }
-
 

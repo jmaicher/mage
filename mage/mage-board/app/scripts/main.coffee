@@ -7,8 +7,8 @@ deps = [
 ]
 app = angular.module('mage.board', deps)
 
-app.config (AuthConfigProvider) ->
-  AuthConfigProvider.setSignInPath('/auth')
+app.config (AuthServiceProvider) ->
+  AuthServiceProvider.setAuthPath('/auth')
 
 app.controller 'AppController', ($scope) ->
   $scope.loading = false

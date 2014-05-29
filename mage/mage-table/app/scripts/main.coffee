@@ -7,8 +7,8 @@ deps = [
 ]
 app = angular.module('mage.table', deps)
 
-app.config ($routeProvider, AuthConfigProvider) ->
-  AuthConfigProvider.setSignInPath('/auth')
+app.config ($routeProvider, AuthServiceProvider) ->
+  AuthServiceProvider.setAuthPath('/auth')
 
   $routeProvider
     .when '/',

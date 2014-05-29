@@ -10,8 +10,8 @@ deps = [
 ]
 app = angular.module('mage.mobile', deps)
 
-app.config ($routeProvider, $httpProvider, AuthConfigProvider) ->
-  AuthConfigProvider.setSignInPath('/auth')
+app.config ($routeProvider, $httpProvider, AuthServiceProvider) ->
+  AuthServiceProvider.setAuthPath('/auth')
 
   $routeProvider
     .when '/',

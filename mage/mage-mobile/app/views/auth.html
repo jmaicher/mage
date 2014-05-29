@@ -11,7 +11,7 @@
     <div ng-show="!focused" class="app-logo">
       <img src="/images/logo-black.png">
     </div>
-    <form name="authForm" action="" class="form auth-form" novalidate>
+    <form name="authForm" ng-submit="submit(credentials)" class="form auth-form" novalidate>
       <div class="panel">
         <div class="panel-body">
           <div class="form-group container-fluid"
@@ -39,6 +39,8 @@
           </div> <!-- .form-group -->
         </div>
       </div> <!-- .panel -->
+      <!-- submit on enter hack :-( -->
+      <input type="submit" style="position: absolute; left: -9999px"/>
     </form>
   </div>
 </div>
