@@ -1,43 +1,45 @@
-<li class="backlog-item clearfix">
-  <div class="re-prioritize clearfix">
-    <div class="re-prioritize-action">
-      <% if item.priority.nil? or (not item.priority.nil? and item.priority > 1) %>  
-        <%= form_tag insert_backlog_path, class: "re-prioritize-form" %>
-          <input type="hidden" name="backlog_item_id" value="<%= item.id %>">
-          <input type="hidden" name="priority" value="<%= item.priority.nil? ? @append_priority : item.priority - 1 %>">
-          <button class="up btn btn-lrge btn-link">
+<li class="backlog-item">
+  <div class="content clearfix"> 
+    <div class="prioritize">
+      <div class="prioritize-action">
+        <% if item.priority.nil? or (not item.priority.nil? and item.priority > 1) %>  
+          <%= form_tag insert_backlog_path, class: "re-prioritize-form" %>
+            <input type="hidden" name="backlog_item_id" value="<%= item.id %>">
+            <input type="hidden" name="priority" value="<%= item.priority.nil? ? @append_priority : item.priority - 1 %>">
+            <button class="up btn btn-lrge btn-link">
+              <span class="glyphicon glyphicon-arrow-up"></span>
+            </button>
+          </form>
+        <% else %>
+          <button class="up disabled btn btn-lrge btn-link">
             <span class="glyphicon glyphicon-arrow-up"></span>
           </button>
-        </form>
-      <% else %>
-        <button class="up disabled btn btn-lrge btn-link">
-          <span class="glyphicon glyphicon-arrow-up"></span>
-        </button>
-      <% end %>
-    </div> <!-- .re-prioritize-action -->
-    <div class="re-prioritize-action">
-      <% if not item.priority.nil? and item.priority <= @max_priority %>
-        <%= form_tag insert_backlog_path, class: "re-prioritize-form" %>
-          <input type="hidden" name="backlog_item_id" value="<%= item.id %>">
-          <input type="hidden" name="priority" value="<%= item.priority == @max_priority ? "" : item.priority + 1 %>">
-          <button class="down btn btn-lrge btn-link">
+        <% end %>
+      </div> <!-- .re-prioritize-action -->
+      <div class="prioritize-action">
+        <% if not item.priority.nil? and item.priority <= @max_priority %>
+          <%= form_tag insert_backlog_path, class: "re-prioritize-form" %>
+            <input type="hidden" name="backlog_item_id" value="<%= item.id %>">
+            <input type="hidden" name="priority" value="<%= item.priority == @max_priority ? "" : item.priority + 1 %>">
+            <button class="down btn btn-lrge btn-link">
+              <span class="glyphicon glyphicon-arrow-down"></span>
+            </button>
+          </form>
+        <% else %>
+          <button class="down disabled btn btn-link">
             <span class="glyphicon glyphicon-arrow-down"></span>
           </button>
-        </form>
-      <% else %>
-        <button class="down disabled btn btn-link">
-          <span class="glyphicon glyphicon-arrow-down"></span>
-        </button>
-      <% end %>
-    </div> <!-- .re-prioritize-action -->
-  </div>
-  <p class="title">
-    <%= item.title %>
-  </p> <!-- .title .lead -->
-  <p class="descr">
-    <%= item.description %>
-  </p> <!-- .descr -->
-  <p class="tags">
-    <%= item.tag_list %>
-  </p> <!-- .descr -->
+        <% end %>
+      </div> <!-- .re-prioritize-action -->
+    </div>
+    <p class="title">
+      <%= item.title %>
+    </p> <!-- .title .lead -->
+    <p class="descr">
+      <%= item.description %>
+    </p> <!-- .descr -->
+    <p class="tags">
+      <%= item.tag_list %>
+    </p> <!-- .descr -->
+  </div> <!-- .content -->
 </li>

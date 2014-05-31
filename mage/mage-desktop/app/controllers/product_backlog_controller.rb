@@ -1,5 +1,4 @@
 class ProductBacklogController < ApplicationController
-
   before_filter :authenticate_user!
   before_filter :product_backlog_filter
 
