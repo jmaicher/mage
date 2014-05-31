@@ -1,0 +1,123 @@
+// -- Layout ------------------------------------------
+
+$sidebar-width: 300px;
+
+html, body, button, input, select, textarea {
+  font-family: "proxima-nova", sans-serif;
+  font-size: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "omnes-pro", sans-serif;
+  font-weight: 300;
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+  min-width: 500px;
+}
+
+.layout {
+  height: 100%;
+  min-height:100%;
+
+  .header {
+    @extend .clearfix;
+    background-color: $black;
+    color: #FFF;
+    height: 50px;
+
+    .logo {
+      display: block;
+      float: left;
+      height: 36px;
+      width: 159px;
+      margin: 7px 0;
+    }
+
+    .main-nav {
+      float: left;
+      margin-left: 50px;
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          display: inline-block;
+
+          &.active {
+            background-color: $blue;
+          }
+
+          a {
+            color: #999;
+            display: block;
+            font-family: "omnes-pro", sans-serif;
+            font-weight: 300;
+            font-size: 110%;
+            line-height: 50px;
+            padding: 0 0.625em;
+            height: 50px;
+          }
+
+          &.active a {
+            color: #FFF;
+          }
+
+        } // li
+
+      } // ul
+
+    } // .main-nav
+
+    .user-nav {
+      float: right;
+    
+      ul {
+        list-style: none;
+      
+        li {
+          display: inline;
+          margin-right: 0.625em;
+          color: #999;
+          font-family: "omnes-pro", sans-serif;
+          font-weight: 300;
+          font-size: 110%;
+          line-height: 50px;
+        }
+      
+      }
+
+    } // .user-nav
+
+  } // .header
+
+  .content {
+
+    .page {
+
+      .page-header {
+        @extend .clearfix;
+        line-height: 50px;
+        margin-top: 10px;
+
+        .title {
+          line-height: 50px;
+          margin: 0;
+        }
+
+        .actions {
+          float: right;
+          line-height: 50px;
+          vertical-align: middle;
+        }
+      }
+
+    }
+  
+  } // .content
+
+} // .layout
+

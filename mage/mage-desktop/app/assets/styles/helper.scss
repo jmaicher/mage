@@ -1,0 +1,13 @@
+.float-right {
+  float: right;
+}
+
+// -- Dirty Hacks TM -------------------------------
+
+.clearfix:after {
+  content: " ";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}

@@ -9,54 +9,38 @@
 </head>
 <body>
   <div class="layout">
+    <header class="header">
+      <div class="content container">
+        <%= image_tag 'logo-white.png', class: 'logo' %>
 
-    <aside class="sidebar">
+        <nav class="main-nav">
+          <ul>
+            <li class="<%= "active" if controller.controller_name == "home" %>"><%= link_to "Dashboard", root_path %></li>
+            <li class="<%= "active" if controller.controller_name =~ /(.*)backlog(.*)/ %>"><%= link_to "Product Backlog", backlog_path %></li>
+          </ul>
+        </nav>
 
-      <%= image_tag 'logo-white.png', class: 'logo' %>
+        <nav class="user-nav">
+          <ul>
+          <% if user_signed_in? %>
+            <li><%= current_user.email %></li>  
+            <li><a href="<%= destroy_user_session_path %>">Sign out</a></li>
+          <% else %>
+            <li><a href="<%= new_user_session_path %>">Sign in</a></li>
+            <li><a href="<%= new_user_registration_path %>">Sign up</a>
+          <% end %>
+          </ul>
+        </nav> <!-- .user-nav -->
+      </div> <!-- .content -->
+    </header> <!-- .header -->
 
-      <nav class="main-nav">
-        <ul>
-          <li class="active"><a href="">Dashboard</a></li>
-          <li><a href="">Product Backlog</a></li>
-          <li><a href="">Product Ideas</a></li>
-        </ul>
-      </nav>
+    <section class="content container">
+      <% flash.each do |name, msg| -%>
+        <%= content_tag :p, msg.html_safe, class: "lead flash flash-#{name} bg-#{name}", style: "padding: 10px" %>
+      <% end %>
 
-    </aside> <!-- .menu -->
-
-    <section class="content container-fluid">
-
-      Lorem
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      Ispsum
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-
-    </section> <!-- .main -->
+      <%= yield %>
+    </section> <!-- .content-->
 
   </div> <!-- .layout -->
 </body>
