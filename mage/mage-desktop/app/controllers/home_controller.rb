@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
  
   def index
-    @activities = Activity.all
+    @activity_stream = ActivityStream.get
   end
 
 end

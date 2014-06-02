@@ -1,3 +1,4 @@
-<% @activities.each do |activity| %>
+<% @activity_stream.activities.each do |activity| %>
   <%= render_cell :activity_stream, :activity, :activity => activity %>
 <% end %>
+

@@ -5,4 +5,4 @@ class API::Collection
     @items = items
     @links = links
   end
-end
+end # API::Collection
