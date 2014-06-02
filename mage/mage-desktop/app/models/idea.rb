@@ -10,5 +10,4 @@ class Idea < ActiveRecord::Base
 
   validates_presence_of :title
   validates_length_of :title, minimum: 5, maximum: 50
-
-end
+end # Idea

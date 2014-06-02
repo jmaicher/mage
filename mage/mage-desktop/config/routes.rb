@@ -41,6 +41,7 @@ MageDesktop::Application.routes.draw do
 
     resources :backlog_items, only: [:show] do
       resources :taggings, only: [:index, :show, :create, :destroy], controller: 'backlog_items/taggings'
+      resources :acceptance_criteria, only: [:create], controller: 'backlog_items/acceptance_criteria'
     end
 
     resources :ideas, only: [:index, :create]
