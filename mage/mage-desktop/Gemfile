@@ -17,6 +17,10 @@ gem 'faraday_middleware', '~> 0.9.1'
 gem "roar-rails", "~> 0.1.4"
 gem "json_spec", "~> 1.1.1"
 
+# View
+gem 'gravatar_image_tag', '~> 1.2.0'
+gem 'cells', '~> 3.11.1'
+
 # Assets
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'

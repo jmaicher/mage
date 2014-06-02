@@ -1,4 +1,7 @@
 class Meeting < ActiveRecord::Base
+  include Roles::Activities::Context
+  include Roles::Activities::Object
+
   scope :active, -> { where(active: true) }
 
   belongs_to :initiator, class_name: "Device"

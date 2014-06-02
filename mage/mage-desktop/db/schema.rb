@@ -11,10 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521134619) do
+ActiveRecord::Schema.define(version: 20140601150112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: true do |t|
+    t.string   "key"
+    t.integer  "actor_id"
+    t.string   "actor_type"
+    t.integer  "activity_object_id"
+    t.string   "object_type"
+    t.integer  "context_id"
+    t.string   "context_type"
+    t.text     "params"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["activity_object_id", "object_type"], name: "index_activities_on_activity_object_id_and_object_type", using: :btree
+  add_index "activities", ["actor_id", "actor_type"], name: "index_activities_on_actor_id_and_actor_type", using: :btree
+  add_index "activities", ["context_id", "context_type"], name: "index_activities_on_context_id_and_context_type", using: :btree
 
   create_table "api_devices_pins", force: true do |t|
     t.string   "pin"

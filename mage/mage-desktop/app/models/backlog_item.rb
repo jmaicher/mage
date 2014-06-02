@@ -1,5 +1,7 @@
 class BacklogItem < ActiveRecord::Base
-  default_scope { includes(:tags, :backlog) }
+  include Roles::Activities::Object
+
+  default_scope { includes(:backlog_assignment) }
 
   validates_presence_of :title
   validates_length_of :title, minimum: 5, maximum: 50

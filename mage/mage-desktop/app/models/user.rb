@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  include Roles::APIAuthenticable
+  include Roles::Activities::Actor
+  include Roles::API::Authenticable
   include Roles::MeetingParticipant
 
   devise :database_authenticatable, :registerable,
