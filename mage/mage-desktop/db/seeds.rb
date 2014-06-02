@@ -157,6 +157,41 @@ unless User.count > 0
       tag_list: "grooming, mobile, table"
     },
     {
+      title: "Assign acceptance criteria to PBIs",
+      description: "As a PO I want to assign acceptance criteria to a PBI in order to signal the DT what needs to be done to completely implement the requirement",
+      tag_list: "requirements management, desktop"
+    },
+    {
+      title: "Change notifications for Product Backlog",
+      description: "As a member of the Scrum Team I want to get change notifications in the activity stream when the Product Backlog is updated",
+      tag_list: "awareness, desktop"
+    },
+    {
+      title: "Automatic generation of meeting protocols",
+      description: "As a member of the Scrum Team I want to have automatically generated meeting protocols in order to comprehend and trace meeting activities afterwards",
+      tag_list: "awareness, grooming, table, desktop"
+    },
+    {
+      title: "Sprint creation",
+      description: "As a PO I want to create a new Sprint in order to initiate Sprint Planning",
+      tag_list: "sprint planning, desktop"
+    },
+    {
+      title: "Assignment of PBIs to a Sprint",
+      description: "As a Sprint Planner I want to assign PBIs to the Sprint Backlog",
+      tag_list: "sprint planning, desktop"
+    },
+    {
+      title: "Task decomposition of assigned PBIs",
+      description: "As a member of the Development Team I want to assign tasks to PBIs in the Sprint Backlog",
+      tag_list: "sprint planning, desktop"
+    },
+    {
+      title: "Visualization of the remaining capacity",
+      description: "As a member of the Development Team I want to have a visualization of the remaining capactiy in order to recognize potential over-commitment",
+      tag_list: "sprint planning, awareness, desktop"
+    },
+    {
       title: "Transform ideas into PBIs",
       description: "",
       tag_list: "epic, ideas"
@@ -200,12 +235,12 @@ unless User.count > 0
       title: "Support for Sprint Planning",
       description: "",
       tag_list: "epic, sprint planning"
-    },
+    }
   ]
 
   backlog = ProductBacklog.get
   backlog_items.each do |params|
-    item = BacklogItem.new params
+    item = BacklogItem.create params
     backlog.insert(item)
   end
 
