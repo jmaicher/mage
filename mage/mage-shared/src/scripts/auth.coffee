@@ -9,7 +9,7 @@ module.run ($rootScope, $location, AuthService, SessionService) ->
   # Redirect on route change when not authenticated
   $rootScope.$watch (-> $location.path()), (new_path) ->
     if !SessionService.isAuthenticated() && !AuthService.isAuthPath(new_path)
-      AuthService.redirectToAuth(newPath)
+      AuthService.redirectToAuth(new_path)
 
   # Redirect on init if not authenticated
   current_path = $location.path()
