@@ -14,6 +14,10 @@ su -l -p mage <<'EOF'
   cd /mage/mage-desktop && \
     RAILS_ENV=production bundle exec rake db:migrate db:seed
 
+  # Precompile assets
+  cd /mage/mage-desktop && \
+    RAILS_ENV=production bundle exec rake assets:precompile
+
   # Run kitten, run!
   cd /mage && \
     supervisord -c run.conf
