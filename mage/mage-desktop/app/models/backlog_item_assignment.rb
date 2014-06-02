@@ -12,5 +12,4 @@ class BacklogItemAssignment < ActiveRecord::Base
   
   validates_uniqueness_of :backlog_item_id
   validates_uniqueness_of :priority, allow_nil: true, scope: :backlog_id
- 
 end

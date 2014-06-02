@@ -1,28 +1,3 @@
 <h1>Create a new Product Backlog Item</h1>
 
-<%= form_for @backlog_item do |f| %>
-  <% if @backlog_item.errors.any? %>
-    <div class="validation-errors bg-danger" style="padding: 10px">
-      <p class="lead"><%= pluralize @backlog_item.errors.count, "error" %> prohibited this PBI from being saved:</p>
-      <ul>
-      <% @backlog_item.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>  
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :description %>
-    <%= f.text_area :description, size: "60x12", class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :tag_list, "Tags" %>
-    <%= f.text_field :tag_list, class: "form-control" %>
-  </div>
-  <%= f.submit "Submit", class: "btn btn-primary" %>
-<% end %>
+<%= render "backlog_item_form", backlog_item: @backlog_item %>
