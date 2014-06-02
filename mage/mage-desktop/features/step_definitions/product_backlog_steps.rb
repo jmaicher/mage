@@ -39,13 +39,28 @@ When(/^I create a Product Backlog Item with tags$/) do
   click_button "Submit"
 end
 
-
 When(/^I create a Product Backlog Item with invalid basic information$/) do
   # Not title -> invalid!
   fill_in "Title", with: "" 
   fill_in "Description", with: "As a Product Owner I want to create PBIs in order to represent requirements"
 
   click_button "Submit"
+end
+
+
+When(/^I follow the link to edit the Product Backlog Item "(.*?)"$/) do |title|
+  # TODO: click link for PBI with given title
+  click_link "edit"
+end
+
+When(/^I update the basic information of the Product Backlog Item$/) do
+  fill_in_updated_information
+  click_button "Save changes"
+end
+
+def fill_in_updated_information
+  fill_in "Title", with: "An updated Product Backlog Item"
+  fill_in "Description", with: "As a Product Owner I want to edit PBIs in order to reflect changes to already captured requirements"
 end
 
 
@@ -58,4 +73,3 @@ end
 Then(/^I should see the tags which I've associated to the Backlog Item$/) do
   expect(page).to have_content @tag_list
 end
-

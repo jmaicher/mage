@@ -40,6 +40,9 @@
     </p> <!-- .descr -->
     <p class="tags">
       <%= item.tag_list %>
-    </p> <!-- .descr -->
+    </p> <!-- .tags -->
+    <p class="actions">
+      <%= link_to "edit", edit_backlog_item_path(item) %>
+    </p>
   </div> <!-- .content -->
 </li>
