@@ -13,5 +13,8 @@ describe Meeting do
        .source(:meeting_participant) }
 
   it { should have_many(:poker_sessions) }
+
+  it_behaves_like "activity object"
+  it_behaves_like "activity context"
 end # Meeting
 

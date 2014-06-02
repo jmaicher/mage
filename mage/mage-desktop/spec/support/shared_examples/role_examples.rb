@@ -1,3 +1,21 @@
+shared_examples_for "actor" do
+  it { should have_many(:activities_as_actor).class_name("Activity") }
+
+  it "should allow to create activities" do
+    subject.create_activity! 'activity.new'
+    expect(Activity.last.actor).to eq(subject)
+  end
+end
+
+shared_examples_for "activity object" do
+  it { should have_many(:activities_as_object).class_name("Activity") }
+end
+
+shared_examples_for "activity context" do
+  it { should have_many(:activities_as_context).class_name("Activity") }
+end
+
+
 shared_examples_for "api authenticable" do
   it "has api_token" do
     expect(subject.api_token).not_to be_blank

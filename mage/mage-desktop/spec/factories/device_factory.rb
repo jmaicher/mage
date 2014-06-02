@@ -1,4 +1,3 @@
-
 FactoryGirl.define do
   factory :device, aliases: [:table] do
     device_type :table

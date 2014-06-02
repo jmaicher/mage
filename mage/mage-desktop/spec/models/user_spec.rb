@@ -8,8 +8,8 @@ describe User do
   let(:subject) { build :user }
   let(:persistent_subject) { create :user }
 
-  it_behaves_like "meeting participant"
+  it_behaves_like "actor"
   it_behaves_like "api authenticable"
+  it_behaves_like "meeting participant"
 
-  end # User
-
+end # User

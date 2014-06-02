@@ -14,6 +14,7 @@ class BacklogItemsController < ApplicationController
       BacklogItem.transaction do
         @backlog_item.save!
         product_backlog.insert(@backlog_item)
+        current_user.create_activity! "backlog_item.create", object: @backlog_item 
       end
 
       redirect_to :backlog, flash: { success: "&#x2713; Backlog Item successfully created" }
