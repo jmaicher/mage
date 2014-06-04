@@ -1,5 +1,4 @@
 class API::BacklogItems::TaggingsController < API::ApplicationController
-
   before_action :get_and_set_backlog_item
   before_action :get_and_set_tagging, only: [:show, :destroy]
 

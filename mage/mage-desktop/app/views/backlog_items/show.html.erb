@@ -1,0 +1,47 @@
+<div class="page backlog-item-show">
+  <div class="page-header">
+    <div class="actions">
+      <a href="<%= edit_backlog_item_path(@backlog_item) %>" class="create-new-item btn btn-primary"><i class="fa fa-edit"></i> Edit Backlog Item</a>
+    </div>
+    <h2 class="title"><%= @backlog_item.title %></h2>
+    <ul class="tags">
+      <% @backlog_item.tags.each do |tag| %>
+        <li class="tag">
+          <i class="fa fa-tag"></i> <%= tag.name %>
+        </li>
+      <% end %>
+      <li class="add">
+        <a href="<%= edit_backlog_item_path(@backlog_item) %>">
+          <i class="fa fa-plus"></i>
+        </a>
+      </li>
+    </ul> <!-- .tags -->
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-8">
+      <p class="lead description">
+        <% if @backlog_item.has_description? %>
+          <%= @backlog_item.description %>
+        <% else %>
+          This Backlog Item has currently no description. <%= link_to "Add one", edit_backlog_item_path(@backlog_item) %>
+        <% end %>
+      </p>
+
+      <section class="acceptance-criteria-section">
+        <header>
+          <h3>Acceptance criteria</h3>
+        </header>
+        <acceptance-criteria></acceptance-criteria>
+      </section>
+
+    </div>
+
+  </div>
+
+</div> <!-- .backlog-item-show -->
+
+<script>
+  window.BOOTSTRAPPED_DATA = <%= @bootstrapped_data.html_safe %>;
+</script>

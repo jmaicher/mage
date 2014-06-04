@@ -1,6 +1,14 @@
 class BacklogItemsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :backlog_item_filter, only: [:edit, :update]
+  before_filter :backlog_item_filter, only: [:show, :edit, :update]
+
+  def show
+    @backlog_item = @backlog_item.decorate
+
+    @bootstrapped_data = {
+      backlog_item: BacklogItemRepresenter.new(@backlog_item)
+    }.to_json
+  end
 
   def new
     @backlog_item = BacklogItem.new

@@ -11,7 +11,7 @@ class BacklogItem < ActiveRecord::Base
   has_many :taggings, class_name: "BacklogItemTagging"
   has_many :tags, through: :taggings
 
-  has_many :acceptance_criteria, class_name: "AcceptanceCriteria"
+  has_many :acceptance_criteria, -> { order("created_at ASC") }, class_name: "AcceptanceCriteria"
 
 
   # -- Validations --------------------------------------

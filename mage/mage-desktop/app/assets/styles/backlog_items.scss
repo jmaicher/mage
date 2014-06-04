@@ -1,0 +1,116 @@
+.backlog-item-show {
+
+  ul.tags {
+    padding: 0;
+    margin: 0;
+
+    li {
+      @extend .label;
+      @extend .label-default;
+
+      display: inline-block;
+      padding: 0 .5em;
+      line-height: 30px;
+      font-size: 18px;
+      font-weight: 200;
+
+      a {
+        display: inline-block;
+        color: #FFF;
+        text-decoration: none;
+
+      }
+
+      &.add {
+        opacity: .6;
+        padding: 0;
+
+        a {
+          line-height: 30px;
+          padding: 0 .5em;
+        }
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  } // .tags
+
+  .acceptance-criteria-section {
+    margin-top: 40px;
+    
+    header {
+      border-bottom: 1px solid #EEE;
+    }
+
+    .acceptance-criteria {
+     
+      ul {
+        list-style: none;
+        padding: 0;
+        
+        li.criteria {
+          display: block;
+          font-size: 18px;
+          font-weight: 200;
+          line-height: 30px;
+
+          div.show {
+            padding-left: 3px;
+
+            .description {
+              cursor: pointer;
+            }
+          }
+        }
+      } // ul
+
+      .criteria-form {
+        .form-group {
+          margin-bottom: 0;
+        }
+
+        p.help-block {
+          margin: -5px 0 0 0;
+          font-size: 16px;
+          color: $red;
+        }
+
+        input[type=text] {
+          display: inline-block;
+          outline: none;
+          font-size: 18px;
+          font-weight: 200;
+          padding: 0 0 0 2px;
+          line-height: 24px;
+          border: 1px solid #CCC;
+          width: 500px;
+        }
+
+        .form-group.has-error input[type=text] {
+          border-color: $red;
+        }
+
+        .btn {
+          display: inline-block;
+          line-height: 24px;
+          margin-top: -2px;
+          outline: none;
+          padding: 0;
+        }
+
+        button.btn {
+          width: 50px;
+        }
+
+        a.btn.cancel {
+          color: $red;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+
+    }
+  } // .acceptance-criteria
+}

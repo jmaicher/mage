@@ -42,6 +42,7 @@ RSpec.configure do |config|
 
   # Devise
   config.include Devise::TestHelpers, type: :controller
+  config.include Warden::Test::Helpers, integration: true
 
   # FactoryGirl
   config.include FactoryGirl::Syntax::Methods
@@ -49,8 +50,24 @@ RSpec.configure do |config|
   # URL Helper
   config.include Rails.application.routes.url_helpers
 
-  # Helper
+  # General Helper
   config.include MageSpecHelper
+
+  # -- Integration tests ----------------------------------
+
+  config.include IntegrationTestHelper, integration: true
+
+  config.before(:suite, integration: true) do
+    Warden.test_mode!
+  end
+
+  config.after(:each, integration: true) do
+    DatabaseCleaner.clean
+    Warden.test_reset!
+  end
+
+
+  # -- Database cleaner / Factory Girl --------------------
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
@@ -69,6 +86,7 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+    Warden.test_reset!
   end
 
 end

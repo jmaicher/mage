@@ -15,7 +15,7 @@
             <span class="glyphicon glyphicon-arrow-up"></span>
           </button>
         <% end %>
-      </div> <!-- .re-prioritize-action -->
+      </div>
       <div class="prioritize-action">
         <% if not item.priority.nil? and item.priority <= @max_priority %>
           <%= form_tag insert_backlog_path, class: "re-prioritize-form" %>
@@ -30,11 +30,11 @@
             <span class="glyphicon glyphicon-arrow-down"></span>
           </button>
         <% end %>
-      </div> <!-- .re-prioritize-action -->
+      </div>
     </div>
     <p class="title">
-      <%= item.title %>
-    </p> <!-- .title .lead -->
+      <%= link_to item.title, backlog_item_path(item) %>
+    </p> <!-- .title -->
     <p class="descr">
       <%= item.description %>
     </p> <!-- .descr -->
