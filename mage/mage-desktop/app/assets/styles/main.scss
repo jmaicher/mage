@@ -2,12 +2,16 @@
 
 // -- Variables ---------------------------------------
 
+$green: #47a447; 
 $black: #191818;
 $blue: #0093d0;
+$red: #d9534f;
 
 // -- Modules -----------------------------------------
 
 @import 'helper';
+@import 'components';
 @import 'layout';
+@import 'backlog_items';
 @import 'product_backlog';
 

@@ -4,6 +4,7 @@ class BacklogItemRepresenter < JSONDecorator
   property :description
 
   collection :taggings, decorator: BacklogItemTaggingRepresenter
+  collection :acceptance_criteria, decorator: AcceptanceCriteriaRepresenter
 
   link :self do
     api_backlog_item_url(represented)

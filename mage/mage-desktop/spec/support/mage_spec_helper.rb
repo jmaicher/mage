@@ -9,4 +9,8 @@ module MageSpecHelper
     self.send method, endpoint, params.to_json, headers
   end
 
+  def do_api_request_without_token params={}, headers={}
+    do_api_request params, headers
+  end
+
 end

@@ -10,6 +10,7 @@ describe BacklogItem do
 
   it { should have_many(:taggings).class_name("BacklogItemTagging") }
   it { should have_many(:tags).through(:taggings) }
+  it { should have_many(:acceptance_criteria).class_name("AcceptanceCriteria") }
 
   it_behaves_like "activity object"
 

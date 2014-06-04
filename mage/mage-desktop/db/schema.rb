@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140601150112) do
+ActiveRecord::Schema.define(version: 20140602210113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "acceptance_criteria", force: true do |t|
+    t.string   "description"
+    t.boolean  "done",            default: false
+    t.integer  "backlog_item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "acceptance_criteria", ["backlog_item_id"], name: "index_acceptance_criteria_on_backlog_item_id", using: :btree
 
   create_table "activities", force: true do |t|
     t.string   "key"

@@ -1,0 +1,13 @@
+<li class="criteria">
+  <div class="show" ng-if="!showForm">
+    <span ng-click="edit()" class="description">
+      {{criteria.description}}
+    </span>
+  </div>
+  <criteria-form ng-if="showForm"
+    criteria="criteria"
+    is-new="isNew"
+    on-success="onFormSuccess()"
+    on-cancel="onFormCancel()">
+  </criteria-form>
+</li>

@@ -6,7 +6,9 @@ MageDesktop::Application.routes.draw do
     post 'insert', action: :insert, as: :insert
   end
 
-  resources :backlog_items, only: [:new, :create, :edit, :update]
+  resources :backlog_items, only: [:show, :new, :create, :edit, :update]
+
+  resources :tags, only: [:show]
 
   namespace :api, constraints: { format: 'json' }, defaults: { format: 'json' } do
     match '*path', :controller => 'application', :action => 'handle_options_request', via: [:options], :constraints => {:method => 'OPTIONS'}
@@ -41,6 +43,7 @@ MageDesktop::Application.routes.draw do
 
     resources :backlog_items, only: [:show] do
       resources :taggings, only: [:index, :show, :create, :destroy], controller: 'backlog_items/taggings'
+      resources :acceptance_criteria, only: [:create, :update], controller: 'backlog_items/acceptance_criteria'
     end
 
     resources :ideas, only: [:index, :create]

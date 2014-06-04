@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'BacklogItems/Tags API' do
+describe 'BacklogItems::Taggings API' do
 
   before :each do
     @item = create(:backlog_item_with_tags)

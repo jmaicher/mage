@@ -1,4 +1,4 @@
-class API::ApplicationController < ActionController::Base
+class API::ApplicationController < BaseController
   respond_to :json
 
   protect_from_forgery with: :null_session
@@ -29,15 +29,28 @@ protected
     headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization, API-TOKEN'
   end
 
-  def authenticate_from_token!
-    given_token = request.headers['API-TOKEN'].presence
-    token = given_token && API::Token.find_by_non_expired_token(given_token)
+  def authenticate!
+    unless authenticate_from_token
+      # hand-off authentication to devise (=> cookie-based auth for desktop web interface)
+      authenticate_user!
+    end
+  end
 
-    if token
-      authenticable = token.api_authenticable
-      # store: false => do not store user in session
-      sign_in authenticable, store: false
-    else
+  def authenticate_from_token
+    given_token = request.headers['API-TOKEN'].presence
+
+    if given_token
+      token = API::Token.find_by_non_expired_token(given_token)
+      if token
+        authenticable = token.api_authenticable
+        sign_in authenticable, store: false
+        true
+      end
+    end
+  end
+
+  def authenticate_from_token!
+    unless authenticate_from_token
       head :unauthorized
     end
   end
@@ -61,18 +74,4 @@ protected
       render status: :forbidden, json: { error: "Nope, you're no meeting participant" }.to_json
     end
   end
-
-
-  # -- Filter --------------------------------------------------
-
-  def meeting_filter
-    id = (params[:meeting_id].nil?) ? params[:id] : params[:meeting_id]
-    @meeting = Meeting.find id
-  end
-
-  def poker_session_filter
-    id = (params[:poker_session_id].nil?) ? params[:id] : params[:poker_session_id]
-    @poker_session = @meeting.poker_sessions.find id
-  end
-
 end

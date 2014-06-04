@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="mage.desktop">
 <head>
   <title>mageDesktop</title>
-  <link rel="shortcut icon" href="/images/mage-icon.png" sizes="57x57">
+  <link rel="shortcut icon" href="/assets/images/mage-icon-black.png" sizes="57x57">
   <%= stylesheet_link_tag "main" %>
+  <%= javascript_include_tag "vendor" %>
   <%= javascript_include_tag "main" %>
   <%= csrf_meta_tags %>
 </head>
@@ -12,7 +13,7 @@
     <header class="header">
       <div class="content container">
         <a href="<%= root_path %>">
-          <%= image_tag 'logo-white.png', class: 'logo' %>
+          <%= image_tag 'mage-logo-white.png', class: 'logo' %>
         </a>
 
         <nav class="main-nav">
