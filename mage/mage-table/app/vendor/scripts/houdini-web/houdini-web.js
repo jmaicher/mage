@@ -212,27 +212,28 @@
   window.Houdini = {
     
     start: function(uri) {
-      if(_started) return;
+      return new Promise(function(resolve, reject) {
+        if(_started) return;
 
-      _started = true;
-  
-      // -- Let the MAGIC happen :-) ----------------------
+        _started = true;
+    
+        // -- Let the MAGIC happen :-) ----------------------
 
-      var uri = uri || "http://localhost:8080/houdini",
-          tuioSource = new EventSource(uri);
+        var uri = uri || "http://localhost:8080/houdini",
+            tuioSource = new EventSource(uri);
 
-      tuioSource.onopen = function(evt) {
-        console.log("Connected to houdini.")
-      };
+        tuioSource.onopen = function(evt) {
+          resolve();
+        };
 
-      tuioSource.onerror = function(err) {
-        console.log("Error connecting to houdini.")
-      }
+        tuioSource.onerror = function(err) {
+          reject();
+        };
 
-      tuioSource.addEventListener("tuio", function(tuioEvent) {
-        processPacket(JSON.parse(tuioEvent.data));
+        tuioSource.addEventListener("tuio", function(tuioEvent) {
+          processPacket(JSON.parse(tuioEvent.data));
+        });
       });
-      
     }
 
   };

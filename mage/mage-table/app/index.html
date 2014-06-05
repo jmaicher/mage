@@ -19,6 +19,7 @@
   <script src="/vendor/scripts/jquery/jquery.js"></script>
   <script src="/vendor/scripts/lodash/lodash.js"></script>
   <script src="/vendor/scripts/houdini-web/pointer-event.js"></script>
+  <script src="/vendor/scripts/houdini-web/es6-promise.js"></script>
   <script src="/vendor/scripts/houdini-web/houdini-web.js"></script>
   <script src="/vendor/scripts/hammerjs/hammer.js"></script>
   <script src="/vendor/scripts/hammerjs/hammer.showtouches.js"></script>
@@ -59,9 +60,12 @@
   <div class="content" ng-view></div>
 
   <script>
-    // Houdini.start();
-    // Hammer.plugins.showTouches();
-    Hammer.plugins.fakeMultitouch();
+    Houdini.start().then(function() {
+      console.log("Connected to houdini.");
+    }, function() {
+      console.log("Cannot connect to houdini. Falling back to fake multitouch");
+      Hammer.plugins.fakeMultitouch();
+    })
   </script>
 </body>
 </html>
