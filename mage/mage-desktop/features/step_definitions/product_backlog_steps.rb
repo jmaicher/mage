@@ -6,7 +6,8 @@ end
 # --- GIVEN ---------------------------------------------------
 
 Given(/^the Product Backlog Item "(.*?)"$/) do |title|
-  ProductBacklog.get.insert create(:backlog_item, title: title)
+  @backlog_item = create(:backlog_item, title: title)
+  ProductBacklog.get.insert @backlog_item
 end
 
 
@@ -31,10 +32,10 @@ When(/^I create a Product Backlog Item with basic information$/) do
 end
 
 When(/^I create a Product Backlog Item with tags$/) do
-  @tag_list = "tag 1, tag 2, tag 3"
+  @tags = ["tag 1", "tag 2"]
 
   fill_in_basic_information
-  fill_in "Tags", with: @tag_list
+  fill_in "Tags", with: @tags.join(",")
 
   click_button "Submit"
 end
@@ -50,7 +51,8 @@ end
 
 When(/^I follow the link to edit the Product Backlog Item "(.*?)"$/) do |title|
   # TODO: click link for PBI with given title
-  click_link "edit"
+  click_link @backlog_item.title
+  click_link "Edit Backlog Item"
 end
 
 When(/^I update the basic information of the Product Backlog Item$/) do
@@ -71,5 +73,7 @@ Then(/^I should see the Product Backlog Item "(.*?)"$/) do |title|
 end
 
 Then(/^I should see the tags which I've associated to the Backlog Item$/) do
-  expect(page).to have_content @tag_list
+  @tags.each do |tag|
+    expect(page).to have_content tag
+  end
 end

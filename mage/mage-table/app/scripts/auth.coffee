@@ -22,7 +22,6 @@ module.controller 'mage.table.AuthController', ($scope, $route, $location, AuthS
   $scope.pin = pin
 
   reactiveAuth.once 'device.authenticated', (device) ->
-    console.log(device)
     reactiveAuth.disconnect()
     $scope.$apply ->
       SessionService.setDevice(device)

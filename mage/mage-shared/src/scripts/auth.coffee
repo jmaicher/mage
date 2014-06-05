@@ -2,8 +2,16 @@
 
 module = angular.module('mage.auth', ['mage.session'])
 
-module.config ($httpProvider) ->
+module.config ($httpProvider, $routeProvider) ->
   $httpProvider.interceptors.push('authInterceptors')
+
+  $routeProvider
+    .when '/logout',
+      template: ""
+      controller: ($location, SessionService) ->
+        SessionService.logout()
+        $location.path('/')
+  return
 
 module.run ($rootScope, $location, AuthService, SessionService) ->
   # Redirect on route change when not authenticated
@@ -31,7 +39,7 @@ module.provider 'AuthService', ->
       auth_path
 
     redirectToAuth = (redirect_path='') ->
-      if(redirect_path != '')
+      if(redirect_path != '' && redirect_path != '/')
         $location.search(redirect_to: redirect_path)
       $location.path(auth_path)
 

@@ -1,0 +1,4 @@
+<%= render layout: 'activity', locals: { activity: @activity } do %>
+  <p class="primary"><%= activity_actor(@activity.actor) %> just did something</p>
+  <p class="secondary"><span class="label label-warning">Warning</span> <small>No template for activity <%= @activity.key %> found.</small></p>
+<% end %>

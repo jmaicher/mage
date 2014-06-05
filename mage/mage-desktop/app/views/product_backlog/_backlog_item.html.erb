@@ -1,48 +1,59 @@
 <li class="backlog-item">
   <div class="content clearfix"> 
     <div class="prioritize">
-      <div class="prioritize-action">
+      <div class="prioritize-action prioritize-up">
         <% if item.priority.nil? or (not item.priority.nil? and item.priority > 1) %>  
           <%= form_tag insert_backlog_path, class: "re-prioritize-form" %>
             <input type="hidden" name="backlog_item_id" value="<%= item.id %>">
             <input type="hidden" name="priority" value="<%= item.priority.nil? ? @append_priority : item.priority - 1 %>">
             <button class="up btn btn-lrge btn-link">
-              <span class="glyphicon glyphicon-arrow-up"></span>
+              <i class="fa fa-caret-up"></i>
             </button>
           </form>
         <% else %>
           <button class="up disabled btn btn-lrge btn-link">
-            <span class="glyphicon glyphicon-arrow-up"></span>
+            <i class="fa fa-caret-up"></i>
           </button>
         <% end %>
       </div>
-      <div class="prioritize-action">
+      <div class="prioritize-action prioritize-down">
         <% if not item.priority.nil? and item.priority <= @max_priority %>
           <%= form_tag insert_backlog_path, class: "re-prioritize-form" %>
             <input type="hidden" name="backlog_item_id" value="<%= item.id %>">
             <input type="hidden" name="priority" value="<%= item.priority == @max_priority ? "" : item.priority + 1 %>">
             <button class="down btn btn-lrge btn-link">
-              <span class="glyphicon glyphicon-arrow-down"></span>
+              <i class="fa fa-caret-down"></i>
             </button>
           </form>
         <% else %>
           <button class="down disabled btn btn-link">
-            <span class="glyphicon glyphicon-arrow-down"></span>
+            <i class="fa fa-caret-down"></i>
           </button>
         <% end %>
       </div>
     </div>
     <p class="title">
-      <%= link_to item.title, backlog_item_path(item) %>
+      <% if item.priority.nil? %>
+        <%= link_to truncate(item.title, length: 38), backlog_item_path(item), title: item.title %>
+      <% else %>
+        <%= link_to item.title, backlog_item_path(item), title: item.title %>
+      <% end %>
     </p> <!-- .title -->
     <p class="descr">
-      <%= item.description %>
+      <% description = backlog_item_description(item) %>
+      <% description = truncate(description, length: 115) if item.priority.nil? %>
+      <%= description %>
     </p> <!-- .descr -->
-    <p class="tags">
-      <%= item.tag_list %>
-    </p> <!-- .tags -->
-    <p class="actions">
-      <%= link_to "edit", edit_backlog_item_path(item) %>
-    </p>
+    <ul class="tags">
+      <% tags = if item.priority.nil? then item.tags[0..1] else item.tags end %>
+    <% tags.each do |tag| %>
+      <li class="tag">
+        <i class="fa fa-tag"></i> <%= tag.name %>
+      </li>
+    <% end %>
+    <% if tags.length < item.tags.length %>
+      <li style="color: #999; padding-left: 0;">...</li>
+    <% end %>
+    </ul> <!-- .tags -->
   </div> <!-- .content -->
 </li>

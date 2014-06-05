@@ -1,19 +1,23 @@
 "use strict"
 
-module = angular.module('mage.session', ['ngCookies', 'mage.utils'])
+module = angular.module('mage.session', ['mage.storage', 'mage.utils'])
 
-module.service 'SessionService', ($cookieStore, UUID) ->
+module.service 'SessionService', (Storage, UUID) ->
   authenticable = undefined
   uuid = UUID.generate()
 
   # restore from session
-  authenticable = $cookieStore.get('session')
+  authenticable = Storage.get('session')
 
   setAuthenticable = (_authenticable) ->
     authenticable = _authenticable
-    $cookieStore.put('session', authenticable)
+    Storage.set('session', authenticable)
 
   getAuthenticable = -> authenticable
+
+  logout = ->
+    Storage.remove('session')
+    authenticable = undefined
 
   getApiToken = ->
 
@@ -34,5 +38,6 @@ module.service 'SessionService', ($cookieStore, UUID) ->
     setAuthenticable: setAuthenticable
     setUser: setAuthenticable
     setDevice: setAuthenticable
+    logout: logout
   }
 

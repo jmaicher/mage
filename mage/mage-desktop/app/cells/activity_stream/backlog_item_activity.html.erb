@@ -1,0 +1,5 @@
+<%= render layout: 'activity', locals: { activity: @activity } do %>
+  <p class="primary">
+  <%= activity_actor(@activity.actor) %> <%= activity_action(@activity.key) %> a backlog item: <%= link_to @activity.object.title, backlog_item_path(@activity.object) %>
+  </p>
+<% end %>

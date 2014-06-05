@@ -6,7 +6,7 @@ class ActivityStream
   end
 
   def self.get
-    activities = Activity.all
+    activities = Activity.order("created_at DESC")
     ActivityStream.new(activities)
   end
 end # ActivityStream

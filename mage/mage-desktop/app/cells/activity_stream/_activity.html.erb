@@ -1,0 +1,20 @@
+<div class="activity">
+  <div class="actor">
+    <% if @activity.actor.is_a?(User) %>
+      <%= link_to gravatar_image_tag(@activity.actor.email, :gravatar => { :size => 60 }), '' %>
+    <% else %>
+      <%= link_to content_tag(:i, '', class: 'fa fa-group'), '' %>
+    <% end %>
+  </div>
+
+  <div class="main">
+    <div class="content">
+      <%= yield %>
+    </div>
+    <p class="footer">
+      <small>
+        <i class="fa fa-clock-o"></i>&nbsp;&nbsp;<span class="time-ago"><%= time_ago_in_words(@activity.created_at) %> ago</span>&nbsp;&nbsp;&nbsp;<%= @activity.created_at.to_formatted_s(:long_ordinal) %>
+      </small>
+    </p>
+  </div>
+</div> <!-- .activity -->

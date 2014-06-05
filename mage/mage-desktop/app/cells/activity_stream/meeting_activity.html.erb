@@ -1,0 +1,13 @@
+<%= render layout: 'activity', locals: { activity: @activity } do %>
+  <p class="primary">
+  A <%= link_to 'meeting', '' %> <%= if @activity.object.active then "has been started" else "was held" end %> @ <%= link_to @activity.actor.name, '' %>
+  </p>
+  <p class="secondary">
+    <% if @activity.object.is_a?(Meeting) && @activity.object.active %>
+      <span class="label label-success">Running</span>
+    <% end %>
+    <% @activity.object.participating_users.each do |participant| %>
+      <%= link_to gravatar_image_tag(participant.email, :gravatar => { :size => 26 }), '' %>
+    <% end %>
+  </p>
+<% end %>
