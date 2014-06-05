@@ -1,4 +1,8 @@
 .product-backlog {
+  $prioritized-color: #5BC0DE;
+  $prioritized-color-light: #F4F8FA;
+  $unprioritized-color: #EEA236;
+  $unprioritized-color-light: #FCF8E3;
 
   .backlog-items {
     list-style: none;
@@ -7,7 +11,6 @@
 
   .backlog-item {
     position: relative;
-    height: 150px;
     border-left: 3px solid transparent;
     display: block;
     margin: 10px 0;
@@ -21,11 +24,64 @@
       margin-bottom: 0;
     }
 
-    .prioritize {
-      display: none;
+    .descr {
+      font-weight: 200;
+
+      .empty {
+        font-style: italic;   
+      }
+    }
+
+    ul.tags {
       position: absolute;
-      right: 0;
+      bottom: 15px;
+      padding: 0;
       margin: 0;
+
+      li {
+        @extend .label;
+        
+        display: inline-block;
+        font-weight: 200;
+        font-size: 14px;
+        padding: .1em .5em;
+        opacity: .6;
+
+        &:hover {
+          opacity: 1; 
+          cursor: pointer;
+        }
+      }
+    }
+
+    .prioritize {
+      margin: 0;
+      display: none;
+
+      .prioritize-action {
+        position: absolute;
+
+        button {
+          line-height: 35px;
+          font-size: 35px;
+          padding: 8px 15px;
+
+          i {
+            line-height: 30px;
+          }
+        }
+      }
+
+      .prioritize-up {
+        right: 0;
+        top: 0;
+      }
+
+      .prioritize-down {
+        right: 0;
+        bottom: 0;
+      }
+
     }
 
     &:hover {
@@ -38,11 +94,26 @@
   .prioritized-backlog-items {
   
     .backlog-item {
-      background-color: #F4F8FA;
-      border-color: #5BC0DE;
+      background-color: $prioritized-color-light;
+      border-color: $prioritized-color;
 
       .title a {
-        color: #5BC0DE;
+        color: $prioritized-color;
+      }
+
+      .descr {
+        margin-bottom: 35px;
+      }
+
+      ul.tags li.tag {
+        background-color: $prioritized-color;
+      }
+
+
+      .prioritize-action {
+        button {
+          color: $prioritized-color;
+        }
       }
     }
 
@@ -52,11 +123,12 @@
     @extend .clearfix;
 
     .backlog-item {
-      background-color: #FCF8E3;
-      border-color: #EEA236;
+      background-color: $unprioritized-color-light;
+      border-color: $unprioritized-color;
       float: left;
       margin-right: 15px;
       width: 370px;
+      height: 150px;
 
       // every third backlog item
       &:nth-child(3n+3) {
@@ -64,7 +136,17 @@
       }
 
       .title a {
-        color: #EEA236;
+        color: $unprioritized-color;
+      }
+
+      ul.tags li.tag {
+        background-color: $unprioritized-color;
+      }
+
+      .prioritize-action {
+        button {
+          color: $unprioritized-color;
+        }
       }
     }
   }

@@ -2,6 +2,7 @@ class API::MeetingsController < API::ApplicationController
   before_filter :authenticate_from_token!
   before_filter :authorize_device!, only: :create
   before_filter :meeting_filter, only: :show
+  before_filter :complete_previous, only: :create
 
   def index
     meetings = Meeting.active
@@ -25,6 +26,7 @@ class API::MeetingsController < API::ApplicationController
       Meeting.transaction do
         meeting.save!
         current_authenticable.participate! meeting
+        current_authenticable.create_activity! "meeting.start", object: meeting
       end
       
       response = MeetingRepresenter.new(meeting).to_hash
@@ -40,6 +42,13 @@ class API::MeetingsController < API::ApplicationController
   end # create
 
 private
+
+  def complete_previous
+    Meeting.active.where(initiator: current_authenticable).each do |m|
+      m.active = false
+      m.save!
+    end
+  end
 
   def notify_reactive(type, payload)
     Reactive.instance.message_to("/activities", type, payload)

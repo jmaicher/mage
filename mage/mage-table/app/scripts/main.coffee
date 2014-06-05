@@ -2,12 +2,13 @@
 
 deps = [
   'ngRoute', 'ngAnimate', 'ngResource',
-  'mage.utils', 'mage.hosts', 'mage.auth', 'mage.reactive', 'mage.meetings',
+  'mage.utils', 'mage.hosts', 'mage.storage', 'mage.auth', 'mage.reactive', 'mage.meetings',
   'mage.services', 'mage.table.auth', 'mage.table.meeting'
 ]
 app = angular.module('mage.table', deps)
 
-app.config ($routeProvider, AuthServiceProvider) ->
+app.config ($routeProvider, StorageProvider, AuthServiceProvider) ->
+  StorageProvider.initialize("table")
   AuthServiceProvider.setAuthPath('/auth')
 
   $routeProvider

@@ -3,8 +3,8 @@ unless User.count > 0
   # -- Users -------------------------------------------------
 
   users = [
-    { email: "jmaicher@mail.upb.de", password: "magicpass" },
-    { email: "klecks@upb.de", password: "magicpass" }
+    { email: "jmaicher@mail.upb.de", name: "Julian Maicher", password: "magicpass" },
+    { email: "klecks@upb.de", name: "Adrian Hülsmann" password: "magicpass" }
   ]
 
   users.each do |params|

@@ -3,7 +3,7 @@ class ProductBacklogController < ApplicationController
   before_filter :product_backlog_filter
 
   def show
-    @items = @backlog.items.includes(:tags)
+    @items = @backlog.items.includes(:tags, :acceptance_criteria)
     @unprioritized_items, @prioritized_items = @items.partition { |item| item.priority.nil? }
     @max_priority = @backlog.max_priority 
     @append_priority = @backlog.append_priority
