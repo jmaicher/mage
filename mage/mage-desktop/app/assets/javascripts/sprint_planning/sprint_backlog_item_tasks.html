@@ -1,0 +1,16 @@
+<div class="sprint-backlog-item-tasks">
+
+  <sprint-backlog-item-task ng-repeat="task in tasks"
+      sprint="sprint" 
+      item="item"
+      task="task"
+      on-remove="onRemove(task)">
+  </sprint-backlog-item-task>
+
+  <footer>
+    <button ng-click="addTask()" class="btn btn-primary btn-sm">
+      <i class="fa fa-plus"></i>&nbsp;&nbsp;Add Task
+    </button>
+  </footer>
+
+</div>

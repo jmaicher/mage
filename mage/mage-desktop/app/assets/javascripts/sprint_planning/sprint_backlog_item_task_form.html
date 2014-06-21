@@ -1,0 +1,19 @@
+<form name="taskForm" class="sprint-backlog-item-task-form" ng-submit="submit()" novalidate>
+  <div class="form-group"
+    ng-class="{ 'has-error': (errors.description && taskForm.description.$pristine) || ( taskForm.description.$invalid && !taskForm.description.$pristine ) }">
+    <input type="text" name="description" ng-model="task.description" auto-focus required ng-disabled="loading" />
+  </div>
+  <span>(</span>
+  <div class="form-group"
+    ng-class="{ 'has-error': (errors.estimate && taskForm.estimate.$pristine) || ( taskForm.estimate.$invalid && !taskForm.estimate.$pristine ) }">
+    <input type="text" name="estimate" ng-model="task.estimate" required ng-disabled="loading" /> hours
+  </div>
+  <span>)</span>
+  <div class="form-group">
+    <button class="btn btn-sm btn-success" ng-disabled="loading || taskForm.$invalid">
+      <span ng-if="!loading">Save</span>
+      <i ng-if="loading" class="fa fa-spinner fa-spin"></i>
+    </button>
+    <a ng-show="!loading" ng-click="cancel()" class="btn cancel">x</a>
+  </div>
+</form>

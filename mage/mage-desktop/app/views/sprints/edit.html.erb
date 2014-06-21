@@ -1,0 +1,45 @@
+<div class="page sprint-planning" ng-controller="SprintPlanningController">
+  <%= form_for @sprint, html: { class: "sprint-form form-inline" } do |f| %>
+    <%= f.hidden_field :in_planning, :value => '0' %>
+
+    <div class="page-header">
+      <div class="actions">
+        <%= f.submit "Complete Sprint Planning", class: "btn btn-success" %>
+      </div>
+      <h2 class="title">Sprint Planning</h2>
+    </div>
+
+    <% if @sprint.errors.any? %>
+    <div class="validation-errors bg-danger" style="padding: 10px">
+      <p class="lead"><%= pluralize @sprint.errors.count, "error" %> prohibited the Sprint from being created:</p>
+      <ul>
+      <% @sprint.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>  
+      <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-8 form-group">
+        <%= f.text_field :goal, class: "form-control", placeholder: "Define a Sprint Goal" %>
+      </div>
+      <div class="date-group form-group col-md-2">
+        <i class="icon fa fa-calendar"></i>
+        <%= f.text_field :start_date, class: "date form-control", placeholder: "From (YYYY-MM-DD)" %>
+      </div>
+      <div class="date-group form-group col-md-2">
+        <i class="icon fa fa-calendar"></i>
+        <%= f.text_field :end_date, class: "date form-control", placeholder: "Until (YYYY-MM-DD)" %>
+      </div>
+    </div>
+
+  <% end %> <!-- .sprint-form -->
+
+  <sprint-backlog></sprint-backlog>
+
+</div> <!-- .sprint-planning -->
+
+<script>
+  window.BOOTSTRAPPED_DATA = <%= @bootstrapped_data.html_safe %>;
+</script>

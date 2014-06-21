@@ -6,6 +6,10 @@ FactoryGirl.define do
 
     factory :product_backlog_item do
       association :backlog, factory: :product_backlog    
+      after :create do |item, evalualtor|
+        item.backlog = ProductBacklog.get_or_create
+        item.save!
+      end
     end
 
     factory :backlog_item_with_tags do

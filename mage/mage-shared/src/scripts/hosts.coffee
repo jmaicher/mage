@@ -27,6 +27,7 @@ hosts.service 'Hosts', ->
     return "http://#{host}"
 
   return {
+    desktop: expand_base_host('', 3000, path: true)
     api: expand_base_host('api', 3000, path: true)
     reactive: expand_base_host('reactive', 9999, path: false)
   }

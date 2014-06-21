@@ -1,0 +1,232 @@
+.sprint-form {
+  .form-group {
+    padding-left: 5px;
+    padding-right: 5px;
+    position: relative;
+
+    &:first-child {
+      padding-left: 15px;
+    }
+    &:last-child {
+      padding-right: 15px;
+    }
+  }
+  .form-control, .btn {
+    width: 100%;
+  }
+
+  .date-group {
+    .icon {
+      position: absolute;
+      top: 9px;
+      left: 15px;
+    }
+    .date {
+      padding-left: 35px;
+    }
+  }
+}
+
+.sprint-planning {
+
+} // .sprint-planning
+
+
+.sprint-backlog {
+
+  .sprint-backlog-item {
+    display: block;
+    margin: 10px 0;
+    padding: 15px 20px;
+    border-left: 3px solid $prioritized-color;
+    background-color: $prioritized-color-light;
+
+    .title {
+      margin-bottom: 0;
+      a {
+        color: $prioritized-color;
+        font-size: 18px;
+      }
+    }
+
+  }
+
+  &.empty {
+    header {
+      border-bottom: none;
+    }
+  }
+
+  & > header {
+    border-bottom: 1px solid #EEE;
+  }
+
+  & > footer {
+    border-top: 1px solid #EEE;
+    padding-top: 12px;
+  }
+
+  .sprint-backlog-item-tasks {
+    border-top: 1px solid #EEE;
+
+    li:before {
+      content: "• ";
+    }
+
+    .sprint-backlog-item-task {
+      display: block;
+      line-height: 30px;
+
+      .view {
+        display: inline-block;
+        padding-left: 3px;
+        cursor: pointer;
+      }
+
+      .edit-view {
+        display: inline-block;
+      }
+
+      .sprint-backlog-item-task-form {
+
+        .form-group {
+          margin-bottom: 0;
+          display: inline;
+        }
+
+        p.help-block {
+          margin: -5px 0 0 0;
+          font-size: 16px;
+          color: $red;
+        }
+
+        input[type=text] {
+          display: inline-block;
+          outline: none;
+          padding: 0 0 0 2px;
+          line-height: 24px;
+          border: 1px solid #CCC;
+        }
+
+        input[name=description] {
+          width: 400px;
+        }
+
+        input[name=estimate] {
+          width: 50px;
+          text-align: center;
+        }
+
+        .form-group.has-error input[type=text] {
+          border-color: $red;
+        }
+
+        .btn {
+          display: inline-block;
+          line-height: 24px;
+          margin-top: -2px;
+          outline: none;
+          padding: 0;
+        }
+
+        button.btn {
+          width: 50px;
+        }
+
+        a.btn.cancel {
+          color: $red;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+
+      }
+
+    } // .sprint-backlog-item-task
+
+    footer {
+      margin-top: 10px;
+    }
+
+  }
+
+}
+
+.add-backlog-item-modal {
+
+  .modal-header {
+    margin-bottom: 5px;
+  }
+
+  .modal-body {
+    height: 350px;
+    padding: 0;
+    overflow: auto;
+  }
+
+  .modal-footer {
+    margin-top: 5px;
+  }
+
+  .product-backlog {
+    list-style: none;
+    padding: 0;
+  
+    .backlog-item {
+      display: block;
+      margin: 5px;
+      padding: 15px 20px;
+      border: 1px solid transparent;
+      border-left: 3px solid transparent;
+
+      &:first-child {
+        margin-top: 0px;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .title {
+        font-size: 18px;
+        margin-bottom: 0;
+      }
+
+      &.prioritized {
+        background-color: $prioritized-color-light;
+        border-left-color: $prioritized-color;
+
+        &.selected {
+          background-color: rgba(91, 192, 222, .2);
+          border-right-color: $prioritized-color;
+          border-top-color: $prioritized-color;
+          border-bottom-color: $prioritized-color;
+        }
+
+        .title a {
+          color: $prioritized-color;
+        }
+      }
+
+      &.unprioritized {
+        background-color: $unprioritized-color-light;
+        border-left-color: $unprioritized-color;
+
+        &.selected {
+          background-color: rgba(238, 162, 54, .2);
+          background-color: #FBE9CF;
+          border-right-color: $unprioritized-color;
+          border-top-color: $unprioritized-color;
+          border-bottom-color: $unprioritized-color;
+        }
+
+        .title a {
+          color: $unprioritized-color;
+        }
+      }
+
+    } 
+
+  }
+
+}
+

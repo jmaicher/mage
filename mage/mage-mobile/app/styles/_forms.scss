@@ -1,0 +1,32 @@
+// -- Forms -------------------------------------------------------
+
+button.btn-navbar {
+}
+
+.navbar-app .btn-submit {
+  background-color: $green;
+  border-color: $darker-green;
+  border-radius: 0;
+  color: #FFF;
+}
+
+.navbar-app .btn-submit:hover {
+  color: #FFF;
+}
+
+/* reset angular-mobile styles */
+input.ng-invalid,
+textarea.ng-invalid,
+.ng-dirty input.ng-invalid {
+  border: 1px solid #CCC;
+}
+
+.form-group.has-error {
+  .form-control {
+    border-color: #a94442;
+  }
+}
+
+.form-control {
+  -webkit-appearance:none;
+}

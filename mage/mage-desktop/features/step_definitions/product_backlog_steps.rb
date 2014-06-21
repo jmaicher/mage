@@ -1,3 +1,7 @@
+def product_backlog
+  @product_backlog ||= ProductBacklog.get_or_create
+end
+
 def create_backlog_item
   create :backlog_item
 end
@@ -7,7 +11,7 @@ end
 
 Given(/^the Product Backlog Item "(.*?)"$/) do |title|
   @backlog_item = create(:backlog_item, title: title)
-  ProductBacklog.get.insert @backlog_item
+  product_backlog.insert @backlog_item
 end
 
 

@@ -6,6 +6,11 @@ $green: #47a447;
 $black: #191818;
 $blue: #0093d0;
 $red: #d9534f;
+$prioritized-color: #5BC0DE;
+$prioritized-color-light: #F4F8FA;
+$unprioritized-color: #EEA236;
+$unprioritized-color-light: #FCF8E3;
+
 
 // -- Modules -----------------------------------------
 
@@ -15,4 +20,4 @@ $red: #d9534f;
 @import 'dashboard';
 @import 'backlog_items';
 @import 'product_backlog';
-
+@import 'sprints';

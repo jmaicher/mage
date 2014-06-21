@@ -3,7 +3,7 @@
 deps = [
   'ngRoute', 'ngAnimate', 'ngResource',
   'mage.utils', 'mage.hosts', 'mage.auth', 'mage.reactive', 'mage.meetings',
-  'mage.board.auth', 'mage.board.home', 'mage.board.meetings'
+  'mage.board.auth', 'mage.board.home', 'mage.board.dashboard', 'mage.board.meetings'
 ]
 app = angular.module('mage.board', deps)
 

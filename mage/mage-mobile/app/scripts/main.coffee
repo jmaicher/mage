@@ -5,7 +5,7 @@ deps = [
   'ngRoute', 'ngTouch', 'mobile-angular-ui',
   # app modules
   'mage.auth', 'mage.reactive', 'mage.meetings',
-  'mage.mobile.ideas', 'mage.mobile.auth',
+  'mage.mobile.notes', 'mage.mobile.auth',
   'mage.mobile.home', 'mage.mobile.deviceAuth', 'mage.mobile.meetings'
 ]
 app = angular.module('mage.mobile', deps)

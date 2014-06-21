@@ -6,20 +6,108 @@ $green: #5cb85c;
 
 // -- Module styles -------------------------------------
 
+@import 'fonts';
 @import 'auth';
 @import 'home';
+@import 'dashboard';
 @import 'meetings';
 @import 'poker';
+@import 'backlog_items';
 
 
 // -- Layout --------------------------------------------
 
-body {
+body, html, .content {
   height: 100%;
   width: 100%;
   margin: 0;
-  background-color: black;
+  padding: 0;
+  overflow: hidden;
 }
+
+body {
+  background-color: black;
+  font-family: "proxima-nova",sans-serif;
+  font-weight: 200;
+  color: #FFF;
+  font-size: 2vmin;
+}
+
+
+.screen {
+  height: 100%;
+  width: 100%;
+
+  header, section, footer {
+  }
+
+  header {
+    h1 {
+      margin-bottom: 0;
+    }
+
+    hr {
+      border: 0;
+      border-bottom: 1px solid $blue;
+      margin: 0;
+    }
+  }
+
+  section {
+  
+  }
+
+  footer {
+  
+  }
+}
+
+.row {
+  @extend .clearfix;
+
+}
+
+.flex-col-50 {
+  width: 49%;
+  float: left;
+
+  &:first-child {
+    padding-right: 1%;
+  }
+
+  &:last-child {
+    padding-left: 1%;
+  }
+}
+
+.clearfix:after {
+  content: " ";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+// -- Fonts --------------------------------------------
+
+h1, h2, h3, h4 {
+  color: #FFF;
+  font-family: "proxima-nova",sans-serif;
+  font-weight: 200;
+  margin-top: 0;
+  line-height: 1;
+}
+
+h1 {
+  font-size: 5vmax;
+}
+
+h2 {
+  font-size: 3vmax;
+}
+
+
+// -- Loading overlay -------------------------------------
 
 .loading-overlay {
   opacity: 1;
@@ -43,7 +131,7 @@ body {
 
 .spinner { 
   background-color: rgba(0,0,0,0);
-  border: 20px solid #00dbff;
+  border: 20px solid $blue;
   border-top: 20px solid rgba(0,0,0,0);
   border-left: 20px solid rgba(0,0,0,0);
   border-radius: 100px !important;  opacity: .8;

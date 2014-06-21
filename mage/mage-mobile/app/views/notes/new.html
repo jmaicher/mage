@@ -1,0 +1,60 @@
+<div content-for="title">
+  <span>New Quicknote</span>
+</div>
+
+<div content-for="navbar-top-action-left">
+  <div class="btn-group pull-right">
+    <a href="#/notes" class="btn btn-navbar">
+      <i class="fa fa-chevron-left"></i> Cancel
+    </a>
+  </div>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content section">
+    <form name="noteForm" action="" class="create-note-form" novalidate>
+      <image-select on-image-select="onImageSelect(image)"></image-select>
+      <div class="panel">
+        <div class="panel-body">
+          <div class="form-group container-fluid"
+              ng-class="{ 'has-error': (errors.title && noteForm.text.$pristine) || ( noteForm.text.$invalid && !noteForm.text.$pristine ) }">
+            <div class="row">
+              <div class="col-sm-10">
+                <textarea ng-model="note.text" name="text" rows="10" id="note_text_input" class="form-control" placeholder=" " required></textarea>
+                <style>
+                  #note_text_input::-webkit-input-placeholder::before {
+                    /* UGLY WORKAROUND TO GET MULTILINE PLACEHOLDER */
+                    content: "Short working title (required) *\A\AMore detailed description (optional)";
+                  }
+                </style>
+                <p ng-show="errors.title && noteForm.text.$pristine" class="help-block">{{errors.title[0]}}</p>
+              </div>
+            </div>
+          </div> <!-- .form-group -->
+        </div>
+      </div> <!-- .panel -->     
+      <div class="image-preview-container"
+        ng-if="note.image_base64">
+        <a ng-click="removeImage()" class="remove-image">
+          x
+        </a>
+        <div class="image-preview-overlay"></div>
+        <img ng-src="{{note.image_base64}}" class="image-preview" />
+      </div>
+    </form>
+  </div>
+</div>
+
+<div content-for="navbar-bottom">
+  <div class="btn-group btn-group-justified">
+    <div class="btn-group">
+      <button type="button" class="btn btn-submit"
+        ng-click="submit(note)"
+        ng-disabled="noteForm.$invalid || isUnchanged(note) || loading">
+        <i class="fa" ng-class="{ 'fa-save': !loading, 'fa-spinner fa-spin': loading }"></i>
+        &nbsp;Submit
+      </button>
+    </div>
+  </div>
+</div>
+

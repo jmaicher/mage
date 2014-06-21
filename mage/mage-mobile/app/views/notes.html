@@ -1,0 +1,41 @@
+<div content-for="title">
+  <span>Project Notes</span>
+</div>
+
+<div content-for="navbar-top-action-right">
+  <div class="btn-group pull-right">
+    <a href="#/notes/new" class="btn btn-navbar">
+      <i class="fa fa-plus"></i> New
+    </a>
+  </div>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content section">
+    <div class="notes list-group">
+      <div class="list-group-item media" ng-show="!loading && !notes.length">
+        <div class="pull-left">
+          <i class="fa fa-frown-o media-icon"></i>
+        </div>
+        <div class="media-body">
+          <h3 class="media-heading">
+            No notes yet? <br />
+            <small>Come on! You can do better!</small>
+          </h3>
+        </div>
+      </div>
+      <div class="note list-group-item clearfix" ng-repeat="note in notes">
+        <div class="attachment-container">
+          <img ng-src="{{note.getImageUrl()}}" ng-if="note.hasImage()" />
+        </div> <!-- attachment -->
+        <div class="info">
+          <p class="title">{{note.title}}</p>
+          <p class="meta">
+            <i class="fa fa-clock-o"></i>
+            {{note.created_at}} ago by {{note.author.name}}
+          </p>
+        </div> <!-- info -->
+      </div>
+  </div>
+</div>
+

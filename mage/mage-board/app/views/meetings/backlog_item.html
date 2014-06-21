@@ -1,0 +1,31 @@
+<div class="screen backlog-item">
+  <header>
+    <h1 class="title">{{item.title}}</h1>
+    <hr />
+  </header>
+  
+  <section>
+    <div class="basic-information row">
+      <ul class="tags">
+        <li class="tag" ng-repeat="tagging in item.taggings">{{tagging.tag.name}}</li>
+      </ul>
+
+      <p class="description">
+        {{item.description}}
+      </p>
+    </div> <!-- .basic-information -->
+
+    <div class="additional-information row">
+      <div class="acceptance-criteria flex-col-50">
+        <h2>Acceptance criteria</h2>
+        <ul>
+          <li class="criteria" ng-repeat="criteria in item.acceptance_criteria">{{criteria.description}}</li>
+        </ul>
+      </div> <!-- .acceptance-criteria -->
+
+      <div class="history flex-col-50">
+        <h2>Change history</h2> 
+      </div> <!-- .history -->
+    </div>
+  </secion>
+</div> <!-- .backlog-item -->

@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.3'
 gem 'unicorn', '~> 4.8.2'
 gem 'pg', '~> 0.17.1'
+gem 'carrierwave', '~> 0.10.0'
 
 gem 'enumerize', '~> 0.8.0'
 

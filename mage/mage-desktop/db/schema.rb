@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140605142237) do
+ActiveRecord::Schema.define(version: 20140621214007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20140605142237) do
     t.integer  "priority"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "backlog_type"
   end
 
   create_table "backlog_item_taggings", force: true do |t|
@@ -80,12 +81,6 @@ ActiveRecord::Schema.define(version: 20140605142237) do
   create_table "backlog_items", force: true do |t|
     t.string   "title"
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "backlogs", force: true do |t|
-    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -110,14 +105,6 @@ ActiveRecord::Schema.define(version: 20140605142237) do
     t.datetime "updated_at"
   end
 
-  create_table "ideas", force: true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "author_id"
-  end
-
   create_table "meeting_participations", force: true do |t|
     t.integer "meeting_id"
     t.integer "meeting_participant_id"
@@ -131,6 +118,15 @@ ActiveRecord::Schema.define(version: 20140605142237) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "active",       default: true
+  end
+
+  create_table "notes", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "author_id"
+    t.text     "image"
   end
 
   create_table "poker_sessions", force: true do |t|
@@ -160,6 +156,29 @@ ActiveRecord::Schema.define(version: 20140605142237) do
   add_index "poker_votes", ["poker_session_id"], name: "index_poker_votes_on_poker_session_id", using: :btree
   add_index "poker_votes", ["user_id"], name: "index_poker_votes_on_user_id", using: :btree
 
+  create_table "product_backlogs", force: true do |t|
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sprint_backlogs", force: true do |t|
+    t.integer  "sprint_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sprint_backlogs", ["sprint_id"], name: "index_sprint_backlogs_on_sprint_id", using: :btree
+
+  create_table "sprints", force: true do |t|
+    t.string   "goal"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "in_planning"
+  end
+
   create_table "tags", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -167,6 +186,27 @@ ActiveRecord::Schema.define(version: 20140605142237) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
+  create_table "task_assignments", force: true do |t|
+    t.integer  "backlog_item_id"
+    t.integer  "sprint_backlog_id"
+    t.integer  "task_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "task_assignments", ["backlog_item_id"], name: "index_task_assignments_on_backlog_item_id", using: :btree
+  add_index "task_assignments", ["sprint_backlog_id"], name: "index_task_assignments_on_sprint_backlog_id", using: :btree
+  add_index "task_assignments", ["task_id"], name: "index_task_assignments_on_task_id", using: :btree
+
+  create_table "tasks", force: true do |t|
+    t.string   "description"
+    t.float    "estimate"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "completed_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

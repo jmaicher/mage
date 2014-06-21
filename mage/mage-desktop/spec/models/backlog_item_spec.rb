@@ -6,10 +6,13 @@ describe BacklogItem do
   it { should ensure_length_of(:title).is_at_least(5).is_at_most(50) }  
 
   it { should have_one(:backlog_assignment).class_name("BacklogItemAssignment") }
-  it { should have_one(:backlog).through(:backlog_assignment) }
+
+  it { should have_many(:task_assignments) }
+  it { should have_many(:tasks).through(:task_assignments) }
 
   it { should have_many(:taggings).class_name("BacklogItemTagging") }
   it { should have_many(:tags).through(:taggings) }
+
   it { should have_many(:acceptance_criteria).class_name("AcceptanceCriteria") }
 
   it_behaves_like "activity object"

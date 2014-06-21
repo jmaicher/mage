@@ -238,7 +238,7 @@ unless User.count > 0
     }
   ]
 
-  backlog = ProductBacklog.get
+  backlog = ProductBacklog.get_or_create
   backlog_items.each do |params|
     item = BacklogItem.create params
     backlog.insert(item)

@@ -1,0 +1,17 @@
+<div class="sprint-backlog"
+  ng-class="{empty: !items.length}">
+
+  <header>
+    <h3>Sprint Backlog</h3>
+  </header>
+
+  <sprint-backlog-item ng-repeat="item in items"
+      sprint="sprint"
+      item="item">
+  </sprint-backlog-item>
+  
+  <footer>
+    <button ng-click="add_product_backlog_item()" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Product Backlog Item</button>
+  </footer>
+
+</div>

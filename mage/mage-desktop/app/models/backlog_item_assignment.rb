@@ -5,11 +5,11 @@ class BacklogItemAssignment < ActiveRecord::Base
 
   # -- Associations -----------------------------------
 
-  belongs_to :backlog
+  belongs_to :backlog, polymorphic: true
   belongs_to :backlog_item
 
   # -- Validation -------------------------------------
   
   validates_uniqueness_of :backlog_item_id
   validates_uniqueness_of :priority, allow_nil: true, scope: :backlog_id
-end
+end # BacklogItemAssignment

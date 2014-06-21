@@ -20,6 +20,7 @@
           <ul>
             <li class="<%= "active" if controller.controller_name == "home" %>"><%= link_to "Dashboard", root_path %></li>
             <li class="<%= "active" if controller.controller_name =~ /(.*)backlog(.*)/ %>"><%= link_to "Product Backlog", backlog_path %></li>
+            <li class="<%= "active" if controller.controller_name =~ /(.*)sprint(.*)/ %>"><%= link_to "Sprints", sprints_path %></li>
           </ul>
         </nav>
 

@@ -1,0 +1,9 @@
+<div content-for="navbar-top-action-right">
+  <div class="btn-group pull-right">
+    <a ng-click="attachImage()" class="attach-image-btn btn btn-navbar">
+      <i class="fa fa-camera"></i>
+    </a>
+  </div>
+</div>
+
+<input type="file" on-file-change="onFileChange" class="image-input" accept="image/*" capture="camera">

@@ -1,0 +1,48 @@
+.backlog-item {
+
+  .basic-information {
+
+    .tags {
+      margin: 0 0 2vw 0;
+      padding: 0;
+      
+      .tag {
+        display: inline-block;
+        background-color: $blue;
+        padding: 0px 0.5em;
+        margin: 0 0.25em;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25em;
+
+        &:first-child {
+          margin-left: 0;  
+        }
+      } 
+    }
+
+    p.description {
+      margin: 0;
+    }
+
+  } // .basic-information
+
+  .additional-information {
+    margin-top: 3vw;
+
+    h2 {
+      border-bottom: 1px solid $blue;
+      margin-bottom: .5em;
+    }
+  } // .context-information
+
+  .acceptance-criteria {
+    ul {
+      margin: 0;
+    }
+  } // .acceptance-criteria
+
+  .change-history {
+  } // .change-history
+
+}

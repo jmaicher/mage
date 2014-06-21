@@ -5,24 +5,9 @@ $darker-green: #4cae4c;
 $blue: #007aff;
 
 
-// -- Loading -----------------------------------------------------
+@import 'forms';
+@import 'notes';
 
-.loading-overlay {
-  background-color: rgba(255, 255, 255, .5);
-  text-align: center;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  z-index: 10000;
-}
-
-.loading-spinner {
-  position: relative;
-  top: 50%;
-  font-size: 100px;
-  margin-top: -50px;
-  color: $blue;
-}
 
 // -- Layout ------------------------------------------------------
 
@@ -87,27 +72,9 @@ $blue: #007aff;
 }
 
 
-// -- Ideas -------------------------------------------------------
-
-.ideas {
-
-  .idea {
-    .idea-title {
-      font-size: 18px;
-      font-weight: 200;
-      margin-bottom: 0;
-    }
-    .idea-description {
-      color: #999;
-      margin-bottom: 0;
-    }
-  }
-}
-
-
 // -- Screens -----------------------------------------------------
 
-.auth, .device-auth, .new-idea {
+.auth, .new-note, .device-auth {
   @include with-bottom-navbar;
 }
 
@@ -273,35 +240,6 @@ $blue: #007aff;
 }
 
 
-// -- Forms -------------------------------------------------------
-
-button.btn-navbar {
-}
-
-.navbar-app .btn-submit {
-  background-color: $green;
-  border-color: $darker-green;
-  border-radius: 0;
-  color: #FFF;
-}
-
-.navbar-app .btn-submit:hover {
-  color: #FFF;
-}
-
-/* reset angular-mobile styles */
-input.ng-invalid,
-textarea.ng-invalid,
-.ng-dirty input.ng-invalid {
-  border: 1px solid #CCC;
-}
-
-.form-group.has-error {
-  .form-control {
-    border-color: #a94442;
-  }
-}
-
 
 // -- Helpers ----------------------------------------------------
 
@@ -338,6 +276,23 @@ textarea.ng-invalid,
   
 }
 
-.form-control {
-  -webkit-appearance:none;
+
+// -- Loading -----------------------------------------------------
+
+.loading-overlay {
+  background-color: rgba(255, 255, 255, .5);
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 10000;
 }
+
+.loading-spinner {
+  position: relative;
+  top: 50%;
+  font-size: 100px;
+  margin-top: -50px;
+  color: $blue;
+}
+

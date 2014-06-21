@@ -1,6 +1,15 @@
 class BaseController < ActionController::Base
 
+  def product_backlog
+    @product_backlog ||= ProductBacklog.get_or_create
+  end
+
   # -- Filter --------------------------------------------------
+
+  def sprint_filter
+    id = (params[:sprint_id].nil?) ? params[:id] : params[:sprint_id]
+    @sprint = Sprint.find id
+  end
 
   def backlog_item_filter
     id = (params[:backlog_item_id].nil?) ? params[:id] : params[:backlog_item_id]

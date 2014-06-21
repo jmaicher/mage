@@ -1,12 +1,29 @@
 class BacklogItem < ActiveRecord::Base
   include Roles::Activities::Object
 
-  default_scope { includes(:backlog_assignment) }
+  default_scope { includes(:backlog_assignment => :backlog) }
 
   # -- Associations -------------------------------------
 
-  has_one :backlog_assignment, class_name: "BacklogItemAssignment"
-  has_one :backlog, through: :backlog_assignment
+  has_one :backlog_assignment, class_name: "BacklogItemAssignment", autosave: true
+
+  # has_one :backlog, through: :backlog_assignment
+  # This raises ActiveRecord::HasManyThroughAssociationPolymorphicSourceError: Cannot have a has_many :through association without "source_type"
+  # => we use a custom getter as a workaround
+  def backlog
+    backlog_assignment.try(:backlog)
+  end
+
+  def backlog=(backlog)
+    if backlog_assignment.nil?
+      build_backlog_assignment backlog: backlog
+    else
+      backlog_assignment.backlog = backlog
+    end
+  end
+
+  has_many :task_assignments
+  has_many :tasks, through: :task_assignments
 
   has_many :taggings, class_name: "BacklogItemTagging"
   has_many :tags, through: :taggings

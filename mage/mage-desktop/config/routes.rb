@@ -9,9 +9,27 @@ MageDesktop::Application.routes.draw do
 
   resources :tags, only: [:show]
 
+  resources :sprints, only: [:index, :show, :new, :edit, :update]
+
   namespace :api, constraints: { format: 'json' }, defaults: { format: 'json' } do
     match '*path', :controller => 'application', :action => 'handle_options_request', via: [:options], :constraints => {:method => 'OPTIONS'}
     resource :backlog, only: :show, controller: :product_backlog
+    
+    get 'dashboard' => 'dashboard#dashboard'
+
+    resources :sprints, only: [] do
+      scope :module => :sprints do
+        resource :backlog, only: :show, controller: :sprint_backlog do 
+          resources :items, only: [:create], controller: :sprint_backlog_items do
+            resources :tasks, only: [:create, :update]
+          end
+        end # backlog
+
+        resource :charts, only: [] do
+          get :burndown
+        end
+      end
+    end
 
     resources :sessions, only: [:create] do
     end
@@ -45,7 +63,7 @@ MageDesktop::Application.routes.draw do
       resources :acceptance_criteria, only: [:create, :update], controller: 'backlog_items/acceptance_criteria'
     end
 
-    resources :ideas, only: [:index, :create]
+    resources :notes, only: [:index, :create]
   end
 
   devise_for :users

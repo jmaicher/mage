@@ -1,0 +1,86 @@
+// -- Notes -------------------------------------------------------
+
+.notes {
+  .note {
+    min-height: 50px;
+    &:first-child {
+      margin-top: -10px;
+    }
+
+    .attachment-container {
+      overflow: hidden;
+      float: right;
+      width: 50px;
+      height: 50px;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 200;
+      margin-bottom: 0;
+    }
+    .meta {
+      color: #999;
+      margin-bottom: 0;
+    }
+  }
+} // .notes
+
+.new-note {
+  .scrollable-content {
+    overflow: hidden;
+  }
+
+  a.attach-image-btn {
+    font-size: 150%;
+    margin-right: 5px;
+  }
+
+  .create-note-form {
+    margin-top: -10px;
+    height: 100%;
+
+    .image-input {
+      display: none; 
+    }
+
+    .panel {
+      margin-bottom: 10px;
+      textarea {
+        font-size: 120%;
+        margin-top: 10px;
+      }
+    }
+
+    .image-preview-container {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+
+      .remove-image {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        font-size: 200%; 
+        line-height: 1;
+        z-index: 100;
+        color: #CCC;
+      }
+
+      .image-preview-overlay {
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        position: absolute;
+        background-color: rgba(.3,.3,.3,.6);
+      }
+
+      .image-preview {
+        position: absolute;
+        top: -25%;
+      }
+    }
+  }
+
+} // .new-note

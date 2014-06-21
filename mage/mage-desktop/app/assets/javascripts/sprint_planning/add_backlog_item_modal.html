@@ -1,0 +1,23 @@
+<div class="add-backlog-item-modal">
+  <div class="modal-header">
+    <h3 class="modal-title">Product Backlog</h3>
+  </div>
+  <div class="modal-body">
+    <ul class="product-backlog">
+      <li class="backlog-item" ng-repeat="item in items"
+        ng-class="{ prioritized: item.priority, unprioritized: !item.priority, selected: item == selected_item }"
+        ng-click="select(item)">
+        <p class="title">
+          <a href="javascript:;">{{item.title}}</a>
+        </p>
+        <p class="descr">
+          {{item.description}}
+        </p>
+      </li>
+    </ul> <!-- .product-backlog -->
+  </div>
+  <div class="modal-footer">
+    <a class="btn" ng-click="cancel()">Cancel</a>
+    <button class="btn btn-success" ng-disabled="!selected_item" ng-click="confirm()">Add to Sprint Backlog</button>
+  </div>
+</div> <!-- .add-backlog-item-modal -->

@@ -45,12 +45,8 @@ class BacklogItemsController < ApplicationController
 
 private
 
-  def product_backlog
-    @backlog ||= ProductBacklog.get
-  end
-
   def backlog_item_params
     params.require(:backlog_item).permit(:title, :description, :tag_list)
   end
 
-end
+end # BacklogItemsController

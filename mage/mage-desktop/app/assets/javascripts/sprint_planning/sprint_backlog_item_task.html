@@ -1,0 +1,16 @@
+<li class="sprint-backlog-item-task">
+  <div class="view" ng-click="edit()" ng-if="!editMode">
+    <span class="description">{{task.description}}</span>
+    <span class="estimate">({{task.estimate}} hours)</span>
+  </div> <!-- view -->
+  <div class="edit-view" ng-if="editMode">
+    <sprint-backlog-item-task-form
+      sprint="sprint"
+      item="item"
+      task="task"
+      is-new="isNew"
+      on-success="onFormSuccess()"
+      on-cancel="onFormCancel()">
+    </sprint-backlog-item-task-form>
+  </div> <!-- .edit-view -->
+</li>

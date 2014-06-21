@@ -3,6 +3,7 @@
 deps = [
   'mage.meetings',
   'mage.board.meetings.poker'
+  'mage.board.meetings.backlog_items'
 ]
 module = angular.module('mage.board.meetings', deps)
 

@@ -1,12 +1,16 @@
+#= require models
 #= require backlog_items
+#= require sprint_planning
 
 deps = [
   # angular extensions
-  'ngResource'
+  'ngResource', 'ui.bootstrap'
   # angular-rails-templates
   'templates'
   # app-specific modules
-  'mage.desktop.backlog_items'
+  'mage.desktop.models',
+  'mage.desktop.backlog_items',
+  'mage.desktop.sprint_planning'
 ]
 
 mage = angular.module('mage.desktop', deps)

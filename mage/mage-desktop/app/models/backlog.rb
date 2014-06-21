@@ -1,7 +1,12 @@
-class Backlog < ActiveRecord::Base
+require 'active_support/concern'
 
-  has_many :backlog_item_assignments
-  has_many :items, through: :backlog_item_assignments, source: :backlog_item
+module Backlog
+  extend ActiveSupport::Concern
+
+  included do
+    has_many :backlog_item_assignments, as: :backlog
+    has_many :items, through: :backlog_item_assignments, source: :backlog_item
+  end
 
   def insert(item)
     assignment = BacklogItemAssignment.new backlog_item: item, priority: nil
@@ -64,4 +69,4 @@ private
     self.backlog_item_assignments.where(priority: priority).first
   end
 
-end
+end # Backlog
