@@ -1,0 +1,37 @@
+.backlog-item {
+
+  .list-group {
+  }
+
+  .title {
+    font-size: 160%;
+    line-height: 1.2;
+    font-weight: 200;
+    color: #333;
+  }
+
+  .description {
+    font-size: 125%;
+  }
+
+  .acceptance-criteria {
+    h2 {
+      color: $blue;
+      font-size: 140%;
+      font-weight: 200;
+    }
+
+    ul {
+      padding-left: 22px;
+
+      li {
+        font-size: 125%;
+
+        &.empty {
+          color: #AAA;
+        }
+      }
+    }
+  }
+
+}

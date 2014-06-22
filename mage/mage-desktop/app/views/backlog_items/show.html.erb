@@ -36,9 +36,55 @@
         <acceptance-criteria></acceptance-criteria>
       </section>
 
+      <section class="notes-section">
+        <header>
+          <h3>Notes</h3>
+        </header>
+        
+        <div class="notes">
+          <% if @backlog_item.notes.empty? %>
+            <p class="empty">There are not notes yet</p>
+          <% else %>
+            <% @backlog_item.notes.each do |note| %>
+              <div class="note clearfix">
+                <div class="author">
+                    <%= link_to gravatar_image_tag(note.author.email, :gravatar => { :size => 60 }), '' %>
+                </div> <!-- author -->
+                <div class="main">
+                  <p class="title lead"><%= note.title %></p>
+                  <% unless note.description.blank? %>
+                    <p class="description">
+                      <%= note.description %>
+                    </p>
+                  <% end %>
+                  <% unless note.has_image? %>
+                    <div class="image-container">
+                      <%= image_tag note.image.url %>
+                    </div>
+                  <% end %>
+                  <p class="meta">
+                    <small>
+                      <i class="fa fa-clock-o"></i>&nbsp;&nbsp;<span class="time-ago"><%= time_ago_in_words(note.created_at) %> ago</span>&nbsp;&nbsp;&nbsp;<%= note.created_at.to_formatted_s(:long_ordinal) %>
+                    </small>
+                  </p>
+                </div> <!-- .main -->
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </section>
+
+
     </div>
 
-  </div>
+    <div class="col-md-4 activities">
+      <header>
+        <h3>Activities</h3>
+      </header>
+   
+    </div>
+
+  </div> <!-- row -->
 
 </div> <!-- .backlog-item-show -->
 

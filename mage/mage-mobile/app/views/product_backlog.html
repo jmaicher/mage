@@ -1,0 +1,26 @@
+<div content-for="title">
+  <span>Product Backlog</span>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content section">
+    <div class="items list-group">
+      <div class="list-group-item media" ng-show="!loading && !items.length">
+        <div class="pull-left">
+          <i class="fa fa-frown-o media-icon"></i>
+        </div>
+        <div class="media-body">
+          <h3 class="media-heading">
+            No requirements yet<br />
+            <small>Create some in the desktop interface</small>
+          </h3>
+        </div>
+      </div>
+      <a ng-href="/#/backlog_items/{{item.id}}" class="item list-group-item" ng-repeat="item in items">
+        <i class="click-indicator fa fa-chevron-right"></i>
+        <p class="title">{{item.title | limitTo:35 }}<span ng-if="item.title.length > 35">..</span></p>
+        <p class="description">{{item.description | limitTo:85 }}<span ng-if="item.description.length > 85">..</span></p>
+      </a>
+  </div>
+</div>
+

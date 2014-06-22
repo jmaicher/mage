@@ -16,4 +16,4 @@ module Roles::MeetingParticipant
     self.meetings << meeting
   end
 
-end
+end # Roles::MeetingParticipant

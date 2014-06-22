@@ -1,5 +1,6 @@
 class BacklogItem < ActiveRecord::Base
   include Roles::Activities::Object
+  include Roles::NoteAttachable
 
   default_scope { includes(:backlog_assignment => :backlog) }
 

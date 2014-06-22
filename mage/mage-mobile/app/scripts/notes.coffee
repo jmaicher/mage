@@ -10,6 +10,14 @@ module.config ($routeProvider) ->
     .when '/notes/new',
       templateUrl: "/views/notes/new.html"
       controller: 'notes.NewCtrl'
+      resolve:
+        backlog_item_id: -> undefined
+    .when '/backlog_items/:backlog_item_id/notes/new',
+      templateUrl: "/views/notes/new.html"
+      controller: 'notes.NewCtrl'
+      resolve:
+        backlog_item_id: ($route) ->
+          $route.current.params.backlog_item_id
 
 
 module.service 'NoteResource', ($resource, Hosts) ->
@@ -106,9 +114,12 @@ module.directive 'imageSelect', ->
     return
 # imageSelect
 
-module.controller 'notes.NewCtrl', ($rootScope, $scope, $location, Note) ->
+module.controller 'notes.NewCtrl', ($rootScope, $scope, $location, Note, backlog_item_id) ->
+  is_attachment = !!backlog_item_id
+
   $rootScope.screenName = "new-note"
   $scope.note = Note.build()
+  $scope.note.backlog_item_id = backlog_item_id if is_attachment
 
   $scope.onImageSelect = (image_base64) ->
     $scope.note.image_base64 = image_base64
@@ -119,7 +130,11 @@ module.controller 'notes.NewCtrl', ($rootScope, $scope, $location, Note) ->
   success = (note) ->
     console.log note.getImageUrl()
     $scope.loading = false
-    $location.path '/notes'
+    if is_attachment
+      redirect_path = "/backlog_items/#{backlog_item_id}"
+    else
+      redirct_path = "/notes"
+    $location.path redirect_path
 
   failure = (reason) ->
     $scope.loading = false

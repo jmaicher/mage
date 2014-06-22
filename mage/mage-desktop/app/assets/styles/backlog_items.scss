@@ -114,4 +114,72 @@
 
     }
   } // .acceptance-criteria
+
+  .notes-section {
+    margin-top: 40px;
+    
+    header {
+      border-bottom: 1px solid #EEE;
+      margin-bottom: 10px;
+    }
+
+    .notes .empty {
+      color: #BBB;
+      font-weight: 200;
+    }
+
+    .note {
+      padding-bottom: 10px;
+      border-bottom: 1px solid #EEE;
+      margin-bottom: 10px;
+
+      &:last-child {
+        border-bottom: 0; 
+      }
+
+      .author {
+        float: left;
+        width: 60px;
+        height: 60px;
+      } 
+
+      .main {
+        padding-left: 80px;
+
+        .title {
+          margin-bottom: 0;
+        }
+
+        .description {
+          font-weight: 200;
+          margin-bottom: 0;
+        }
+
+        .image-container img {
+          max-width: 400px;
+          margin-top: 10px;
+        }
+
+        .meta {
+          margin-top: 10px;
+          font-size: 14px;
+          font-weight: 200;
+          color: #CCC;
+          margin-bottom: 0;
+        }
+
+      }
+    }
+  }
+
+  .activities {
+    header {
+      border-bottom: 1px solid #EEE;
+      margin-bottom: 10px;
+
+      h3 {
+        margin-top: 0;
+      }
+    }
+  } // .activities
 }

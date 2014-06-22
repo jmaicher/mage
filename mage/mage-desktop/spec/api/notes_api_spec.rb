@@ -69,6 +69,20 @@ describe 'Notes API' do
       expect(actual_body).to be_json_eql(expected_body)
     end
 
+    it "attaches notes to backlog items" do
+      params = attributes_for(:note)
+      backlog_item = create :backlog_item
+      params[:backlog_item_id] = backlog_item.id
+
+      do_api_request params
+
+      expect(response.status).to eq(201)
+      expect(Note.count).to eq 1
+      note = Note.first
+
+      expect(note.attachable).to eq backlog_item
+    end
+
   end # POST /api/notes
 
 end

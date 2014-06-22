@@ -8,10 +8,16 @@ class Note < ActiveRecord::Base
   # -- Associations -------------------------------------
 
   belongs_to :author, class_name: "User"
-
+  belongs_to :attachable, polymorphic: true
 
   # -- Validations --------------------------------------
 
   validates_presence_of :title
   validates_length_of :title, minimum: 5, maximum: 50
+
+
+  def has_image?
+    image.file.nil?
+  end
+
 end # Note

@@ -49,7 +49,7 @@ module.exports = (grunt) ->
         tasks: [] # ['karma:watch:run']
       styles:
         files: ['<%= config.app %>/styles/{,*/}*.scss']
-        tasks: ['newer:sass']
+        tasks: ['sass']
       gruntfile:
         files: ['Gruntfile.coffee']
       livereload:

@@ -1,0 +1,37 @@
+<div content-for="title">
+  <span>{{item.title | limitTo:20}}<span ng-if="item.title.length > 20">...</span></span>
+</div>
+
+<div content-for="navbar-top-action-right">
+  <div class="btn-group pull-right">
+    <a href="#/backlog_items/{{item.id}}/notes/new" class="btn btn-navbar">
+      <i class="fa fa-plus"></i> Note
+    </a>
+  </div>
+</div>
+
+<div content-for="navbar-top-action-left">
+  <div class="btn-group pull-right">
+    <a href="#/product-backlog" class="btn btn-navbar">
+      <i class="fa fa-chevron-left"></i> Back
+    </a>
+  </div>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content section">
+    <div class="list-group">
+      <div class="list-group-item">
+        <h1 class="title">{{item.title}}</h1> 
+        <p class="description lead">{{item.description}}</div>
+      </div>
+      <div class="acceptance-criteria list-group-item">
+        <h2>Acceptance Criteria</h2>
+        <ul>
+          <li class="empty" ng-if="!item.acceptance_criteria.length">None have been specified</li>
+          <li ng-repeat="criteria in item.acceptance_criteria">{{criteria.description}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 class API::NotesController < API::ApplicationController
   before_filter :authenticate_from_token!
+  before_filter :attachable_filter
 
   def index
     notes = Note.all
@@ -10,9 +11,15 @@ class API::NotesController < API::ApplicationController
 
   def create
     note = Note.new(note_params)
+    
     unless(image_param[:image_base64].nil?)
       note.image = process_image(image_param[:image_base64])
     end
+
+    if is_attachment?
+      note.attachable = @attachable
+    end
+
     note.author = current_user
 
     if note.save
@@ -34,6 +41,10 @@ private
 
   def image_param
     params.permit(:image_base64)
+  end
+
+  def attachable_param
+    params.permit(:backlog_item_id)
   end
 
   def process_image(image_base64)
@@ -59,6 +70,17 @@ private
         ext:       $1.split('/')[1] # "png"
         }
     end
+  end
+
+  def attachable_filter
+    backlog_item_id = attachable_param[:backlog_item_id]
+    unless backlog_item_id.nil?
+      @attachable = BacklogItem.find(backlog_item_id)
+    end
+  end
+
+  def is_attachment?
+    !@attachable.nil?
   end
 
 end # API::NotesController
