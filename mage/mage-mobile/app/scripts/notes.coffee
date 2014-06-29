@@ -136,9 +136,9 @@ module.controller 'notes.NewCtrl', ($rootScope, $scope, $location, Note, backlog
       redirct_path = "/notes"
     $location.path redirect_path
 
-  failure = (reason) ->
+  failure = (resp) ->
     $scope.loading = false
-    $scope.errors = reason.errors
+    $scope.errors = resp.data
 
   $scope.submit = (note) ->
     text = note.text.trim()

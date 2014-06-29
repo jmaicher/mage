@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:ng="http://angularjs.org" ng-app="mage.mobile">
 <head>
-  <title>mageMobile</title>
+  <title ng-bind="pageTitle"></title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="mobile-web-app-capable" content="yes">
@@ -10,20 +10,20 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
   <!-- iOS app icons -->
-  <link rel="apple-touch-icon" href="/images/app-icon-57x57.png" sizes="57x57">
-  <link rel="apple-touch-icon" href="/images/app-icon-72x72.png" sizes="72x72">
-  <link rel="apple-touch-icon" href="/images/app-icon-76x76.png" sizes="76x76">
-  <link rel="apple-touch-icon" href="/images/app-icon-114x114.png" sizes="114x114">
-  <link rel="apple-touch-icon" href="/images/app-icon-120x120.png" sizes="120x120">
-  <link rel="apple-touch-icon" href="/images/app-icon-128x128.png" sizes="128x128">
-  <link rel="apple-touch-icon" href="/images/app-icon-144x144.png" sizes="144x144">
-  <link rel="apple-touch-icon" href="/images/app-icon-152x152.png" sizes="152x152">
-  <link rel="apple-touch-icon" href="/images/app-icon.png">
+  <link rel="apple-touch-icon" ng-href="/images/{{iconName}}-57x57.png" sizes="57x57">
+  <link rel="apple-touch-icon" ng-href="/images/{{iconName}}-72x72.png" sizes="72x72">
+  <link rel="apple-touch-icon" ng-href="/images/{{iconName}}-76x76.png" sizes="76x76">
+  <link rel="apple-touch-icon" ng-href="/images/{{iconName}}-114x114.png" sizes="114x114">
+  <link rel="apple-touch-icon" ng-href="/images/{{iconName}}-120x120.png" sizes="120x120">
+  <link rel="apple-touch-icon" ng-href="/images/{{iconName}}-128x128.png" sizes="128x128">
+  <link rel="apple-touch-icon" ng-href="/images/{{iconName}}-144x144.png" sizes="144x144">
+  <link rel="apple-touch-icon" ng-href="/images/{{iconName}}-152x152.png" sizes="152x152">
+  <link rel="apple-touch-icon" ng-href="/images/{{iconName}}.png">
   <!-- android app icons -->
-  <link rel="shortcut icon" href="/images/app-icon-196x196.png" sizes="196x196">
-  <link rel="shortcut icon" href="/images/app-icon-128x128.png" sizes="128x128">
-  <link rel="apple-touch-icon-precomposed" sizes="128x128" href="/images/app-icon-128x128.png">
-  <link rel="shortcut icon" href="/images/app-icon.png">
+  <link rel="shortcut icon" ng-href="/images/{{iconName}}-196x196.png" sizes="196x196">
+  <link rel="shortcut icon" ng-href="/images/{{iconName}}-128x128.png" sizes="128x128">
+  <link rel="apple-touch-icon-precomposed" ng-href="/images/{{iconName}}-128x128.png" sizes="128x128">
+  <link rel="shortcut icon" ng-href="/images/{{iconName}}.png">
 
 
   <!-- build:css({.tmp,app}) styles/vendor.css -->

@@ -18,6 +18,16 @@ app.config ($routeProvider, $httpProvider, AuthServiceProvider) ->
       redirectTo: '/home'
 
 app.run ($rootScope) ->
+  #$rootScope.iconName = 'app-icon'
+  #$rootScope.pageTitle = 'mageMobile'
+  $rootScope.$watch 'screenName', (newScreenName) ->
+    if newScreenName == 'new-note'
+      $rootScope.iconName = 'note-icon'
+      $rootScope.pageTitle = 'Quicknote'
+    else
+      $rootScope.iconName = 'app-icon'
+      $rootScope.pageTitle = 'mageMobile'
+
   $rootScope.loading = true
   load = $rootScope.load = -> $rootScope.loading = true
   ready = $rootScope.ready = -> $rootScope.loading = false
