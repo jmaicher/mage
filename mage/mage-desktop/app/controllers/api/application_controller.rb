@@ -20,6 +20,8 @@ class API::ApplicationController < BaseController
     end
   end
 
+  alias :current_actor :current_authenticable
+
 protected
 
   def cors_set_access_control_headers

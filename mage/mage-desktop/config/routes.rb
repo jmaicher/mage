@@ -11,6 +11,8 @@ MageDesktop::Application.routes.draw do
 
   resources :sprints, only: [:index, :show, :new, :edit, :update]
 
+  resources :meetings, only: [:show]
+
   namespace :api, constraints: { format: 'json' }, defaults: { format: 'json' } do
     match '*path', :controller => 'application', :action => 'handle_options_request', via: [:options], :constraints => {:method => 'OPTIONS'}
     resource :backlog, only: :show, controller: :product_backlog

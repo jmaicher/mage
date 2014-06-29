@@ -1,0 +1,13 @@
+<%= render layout: 'activity', locals: { activity: @activity } do %>
+  <p class="primary">
+    The backlog item
+    <%= link_to truncate(@activity.object.backlog_item.title), backlog_item_path(@activity.object.backlog_item) %>
+    has been estimated with <a><%= @activity.object.decision.value %> points</a> by
+  </p>
+  <p class="secondary">
+    <% @activity.object.meeting.participating_users.each do |participant| %>
+      <%= link_to gravatar_image_tag(participant.email, :gravatar => { :size => 26 }), '' %>
+    <% end %>
+  </p>
+<% end %>
+

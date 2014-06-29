@@ -1,0 +1,13 @@
+<div class="page meeting">
+
+  <div class="page-header">
+    <div class="pull-right">
+      <% @meeting.participating_users.each do |participant| %>
+        <%= link_to gravatar_image_tag(participant.email, :gravatar => { :size => 50 }), '' %>
+      <% end %>
+    </div>
+    <h2 class="title">Meeting @ <%= link_to @meeting.initiator.name, '' %> <span class="date">on <%= @meeting.created_at.to_formatted_s(:long_ordinal) %></span>
+  </div>
+
+  <%= render "activity_stream", :activity_stream => @activity_stream %>
+</div>

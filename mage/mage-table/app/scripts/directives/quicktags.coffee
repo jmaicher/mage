@@ -24,6 +24,7 @@ module.directive 'quicktag', () ->
   restrict: 'E'
   replace: true
   scope:
+    meeting: '='
     item: '='
     quicktag: '='
   templateUrl: '/views/quicktag.html'
@@ -31,7 +32,7 @@ module.directive 'quicktag', () ->
     $element.find('a').on 'pointerup mouseup tap', (evt) ->
       $scope.$apply -> $scope.toggle()
       evt.stopPropagation() if evt.type is 'tap'
-      return
+      return false
 
   controller: ($scope, $timeout, $http, BacklogItemTaggingMapper, Hosts) ->
     tag = $scope.quicktag.name
@@ -42,12 +43,14 @@ module.directive 'quicktag', () ->
     $scope.toggle = ->
       $scope.enabled = false
       
+      # NEEDS REFACTORING!!!!
       unless $scope.has_tag
         url = "#{Hosts.api}/backlog_items/#{$scope.item.id}/taggings"
         $http.post(url, {
           tag: {
             name: tag
-          }
+          },
+          meeting_id: $scope.meeting.model.id
         }).then (resp) ->
           tagging = BacklogItemTaggingMapper.from_json(resp.data)
           $scope.enabled = true

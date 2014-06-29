@@ -2,7 +2,10 @@
   <h2 class="title">{{item.model.title | limitTo:32}}<span ng-if="item.model.title.length > 32">..</span></h2>
   <p class="descr">{{item.model.description}}</p>
   <quicktag-menu ng-class="{opened:opened}">
-    <quicktag ng-repeat="quicktag in quicktags" item="item.model" quicktag="quicktag" />
+    <quicktag ng-repeat="quicktag in quicktags"
+      meeting="meeting"
+      item="item.model"
+      quicktag="quicktag" />
   </quicktag-menu>
   <p class="estimate">
     <span ng-show="item.model.estimate">{{item.model.estimate.value}}</span>

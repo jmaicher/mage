@@ -1,6 +1,8 @@
 class API::BacklogItems::TaggingsController < API::ApplicationController
+  before_filter :authenticate!
   before_action :get_and_set_backlog_item
   before_action :get_and_set_tagging, only: [:show, :destroy]
+  before_action :context_filter, only: [:create, :destroy]
 
   def index
     taggings = @backlog_item.taggings
@@ -17,9 +19,11 @@ class API::BacklogItems::TaggingsController < API::ApplicationController
     tag_name = params[:tag][:name].strip
     tag = Tag.where(name: tag_name).first_or_create!
 
-    unless tagging = @backlog_item.taggings.where(tag_id: tag.id).first
+    tagging = @backlog_item.taggings.where(tag_id: tag.id).first
+    unless tagging
       tagging = @backlog_item.taggings.create tag: tag
       status = 201 # created
+      current_actor.create_activity! "backlog_item.tagging", object: tagging, context: @context
     else
       status = 409 # conflict
     end

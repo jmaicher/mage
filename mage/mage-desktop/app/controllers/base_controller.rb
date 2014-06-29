@@ -31,4 +31,9 @@ class BaseController < ActionController::Base
     @poker_session = @meeting.poker_sessions.find id
   end
 
+  def context_filter
+    meeting_id = params.permit(:meeting_id)[:meeting_id]
+    @context = meeting_id.nil? ? nil : Meeting.find(meeting_id)
+  end
+
 end # BaseController

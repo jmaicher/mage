@@ -139,8 +139,10 @@ module.controller 'EditBacklogItemCtrl', ($rootScope, $scope, $location, item, m
     $scope.errors = {}
     $scope.backlogItemForm.$setPristine(true)
     $scope.loading = true
-
-    item.$update().then(on_success, on_failure)
+    
+    params = {}
+    params.meeting_id = meeting.model.id if meeting
+    item.$update(params).then(on_success, on_failure)
       .finally -> $scope.loading = false
 
   $scope.item = item

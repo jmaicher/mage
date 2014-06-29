@@ -77,12 +77,14 @@ class API::Meetings::PokerSessionsController < API::ApplicationController
 
     if @poker_session.complete_with!(@decision)
       response = { decision: @decision.id }
+      status = 200
+
       notify_participants('poker.completed', response)
 
       updated_backlog_item = BacklogItemRepresenter.new(@poker_session.backlog_item).to_hash
       notify_update('backlog_item', updated_backlog_item)
 
-      status = 200
+      current_actor.create_activity! "poker", object: @poker_session, context: @meeting
     else
       response = {}
       status = 500

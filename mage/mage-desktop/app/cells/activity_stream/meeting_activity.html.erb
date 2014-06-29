@@ -1,6 +1,6 @@
 <%= render layout: 'activity', locals: { activity: @activity } do %>
   <p class="primary">
-  A <%= link_to 'meeting', '' %> <%= if @activity.object.active then "has been started" else "was held" end %> @ <%= link_to @activity.actor.name, '' %>
+  A <%= link_to 'meeting', meeting_path(@activity.object) %> <%= if @activity.object.active then "has been started" else "was held" end %> @ <%= link_to @activity.actor.name, '' %>
   </p>
   <p class="secondary">
     <% if @activity.object.is_a?(Meeting) && @activity.object.active %>

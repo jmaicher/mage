@@ -1,6 +1,7 @@
 class API::BacklogItemsController < API::ApplicationController
   before_filter :authenticate!
   before_filter :backlog_item_filter
+  before_filter :context_filter
 
   def show
     render json: BacklogItemRepresenter.new(@backlog_item)
@@ -8,8 +9,7 @@ class API::BacklogItemsController < API::ApplicationController
 
   def update
     if @backlog_item.update(backlog_item_params)
-      # TODO: Meeting context
-      current_user.create_activity! "backlog_item.update", object: @backlog_item
+      current_user.create_activity! "backlog_item.update", object: @backlog_item, context: @context
       status = 200
       response = BacklogItemRepresenter.new(@backlog_item)
     else
