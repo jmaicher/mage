@@ -11,14 +11,30 @@ module.config ($routeProvider) ->
       resolve:
         meeting: ($route, MeetingService) ->
           meeting_id = $route.current.params.meeting_id
-          MeetingService.get(meeting_id)
+          MeetingService.get(meeting_id).then (meeting) ->
+            meeting.connect().then -> meeting
         backlog_item: ($route, BacklogItemService) ->
           backlog_item_id = $route.current.params.backlog_item_id
           BacklogItemService.get(backlog_item_id)
 # module.config
 
-module.controller 'meetings.BacklogItemController', ($scope, meeting, backlog_item) ->
+module.controller 'meetings.BacklogItemController', ($scope, $rootScope, $location, meeting, backlog_item, BacklogItemResource) ->
+  $scope.meeting = meeting
   $scope.item = backlog_item
+
+  meeting.on 'live_update', (update) ->
+    return unless update.type == "backlog_item"
+    item = new BacklogItemResource(update.entity)
+    return unless item.id == $scope.item.id
+    $scope.$apply ->
+      $scope.item = item
+
+  $scope.startPlanningPoker = ->
+    promise = meeting.start_poker_session(backlog_item)
+    $scope.startingPlanningPoker = true
+    promise.then (poker) ->
+      $rootScope.poker = poker
+      $location.path "/meetings/#{meeting.model.id}/poker/#{poker.model.id}"
 # meetings.BacklogItemController
 
 # TODO: Extract!

@@ -7,6 +7,7 @@
     "shifty": "~1.0.1",
     "rekapi": "~1.1.1",
     "hammerjs": "~1.0.0",
+    "hammerjs-2.0": "EightMedia/hammer.js#2.0.x",
     "angular": "~1.2.14",
     "angular-route": "~1.2.14",
     "angular-animate": "~1.2.14",
@@ -24,6 +25,7 @@
       "plugins/hammer.fakemultitouch.js",
       "plugins/hammer.showtouches.js"
     ]},
+    "hammerjs-2.0": { "js": "hammer.js" },
     "angular": { "js": "angular.js" },
     "angular-route": { "js": "angular-route.js" },
     "angular-animate": { "js": "angular-animate.js" },

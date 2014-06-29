@@ -1,6 +1,37 @@
 .backlog-item {
+  position: relative;
+  font-size: 3vh;
+
+  header {
+    box-sizing: border-box;
+    width: 100%;
+    height: 10%;
+    padding: 1% 2%;
+
+    h1 {
+      font-size: 7vh;
+    }
+
+    .estimate {
+      font-size: 7vh;
+      line-height: 1;
+      margin: 0;
+      float: right;
+      
+      span {
+        display: inline-block;
+        background-color: $blue;
+        border-radius: 50%;
+        width: 7vh;
+        text-align: center;
+      }
+    }
+
+  }
 
   .basic-information {
+    padding: 0 2%; 
+
 
     .tags {
       margin: 0 0 2vw 0;
@@ -28,7 +59,8 @@
   } // .basic-information
 
   .additional-information {
-    margin-top: 3vw;
+    margin-top: 10vh;
+    padding: 1% 2%;
 
     h2 {
       border-bottom: 1px solid $blue;
@@ -42,7 +74,103 @@
     }
   } // .acceptance-criteria
 
-  .change-history {
-  } // .change-history
+  .activities {
+
+  .activity-stream {
+
+      a {
+        color: #FFF;
+      }
+    
+      .activity {
+        @extend .clearfix;
+
+        margin-bottom: 1em;
+        $actor_size: 60px;
+
+        .actor {
+          float: left;
+          display: block;
+          width: $actor_size;
+          height: $actor_size;
+
+          .fa {
+            font-size: 46px;
+            padding: 7px;
+          }
+        }
+
+        .main {
+          padding-top: 5px;
+          padding-left: $actor_size + 20;
+        }
+
+        .content {
+          .primary {
+            margin-top: 0;
+            margin-bottom: .5em;
+          }
+
+          .secondary {
+            margin-top: -0.5em;
+            margin-bottom: 0.5em;
+            color: #999;
+
+            .label {
+              display: inline-block;
+              line-height: 26px;
+              font-size: 60%;
+              font-weight: 200;
+              padding: 0 .5em;
+            }
+          }
+        } // .content
+
+        .footer {
+          margin: 0;
+          font-weight: 200;
+          font-size: 80%; 
+          color: #CCC;
+
+          .time-ago {
+            font-weight: normal;   
+          }
+        }
+      }
+    
+    }
+
+  } // .activities
+
+  .poker-btn {
+    display: table-cell;
+    height: 10vh;
+    width: 10vh;
+    position: absolute;
+    left: 4vh;
+    bottom: 4vh;
+    background-color: $blue;
+    border-radius: 50%;
+    text-align: center;
+
+    .loading-indicator {
+      position: absolute;
+      top: 2vh;
+      left: 2vh;
+      color: #000;
+      font-size: 6vh;
+      line-height: 1;
+      display: block;
+      width: 6vh;
+      height: 6vh;
+      text-align: center;
+    }
+
+    img {
+      padding-top: 15%;
+      width: 70%;
+      height: 70%;
+    }
+  }
 
 }

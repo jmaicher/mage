@@ -2,6 +2,7 @@ class BacklogItemRepresenter < JSONDecorator
   property :id  
   property :title  
   property :description
+  property :estimate, decorator: EstimateOptionDecorator
 
   collection :taggings, decorator: BacklogItemTaggingRepresenter
   collection :acceptance_criteria, decorator: AcceptanceCriteriaRepresenter

@@ -41,7 +41,7 @@ body {
   
   /*-webkit-font-smoothing: subpixel-antialiased;*/
 
-  .title, .descr {
+  .title, .descr, .estimate {
     cursor: default;
     font-family: 'Helvetica';
     font-weight: 300;
@@ -141,33 +141,20 @@ body {
 
   }
 
-  a.estimate {
+  .estimate {
     color: #333;
     display: inline-block;
-    height: 30px;
-    min-width: 30px;
     text-align: center;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 16px;
     font-family: Helvetica;
-    line-height: 32px;
+    line-height: 40px;
     vertical-align: middle;
-    margin: 0 20px 0 15px;
     position: absolute;
-    top: 5px;
-    right: -10px;
+    top: 0;
+    margin: 0;
+    right: 15px;
   }
-  .focused a.estimate {
-    color: #FFF;
-    border-radius: 50%;
-    background-color: #333;
-    opacity: .2;
-  }
-  a.active {
-    background-color: #5cb85c !important;
-    opacity: .8 !important;
-  }
-
 }
 
 

@@ -6,6 +6,11 @@ class Model
   constructor: (attrs = {}) ->
     angular.extend(@, attrs)
 
+  update: (attrs) ->
+    # TODO: Remove mapper shit, sorry if some one needs to maintain this...
+    # It's 5 days before the presentation, no time for cosmetics :-|
+    angular.extend(@, attrs)
+
 class Backlog extends Model
   constructor: (attrs) ->
     super attrs

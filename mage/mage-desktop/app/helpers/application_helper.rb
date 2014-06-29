@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def backlog_item_description(item)
-    if item.description.blank?
+    unless item.description.blank?
       item.description
     else
       content_tag :span, "No description provided", class: "empty"

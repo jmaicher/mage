@@ -53,10 +53,20 @@ class PokerSession < ActiveRecord::Base
     votes.where(round: round)
   end
 
-  def complete_with(decision)
-    decision_key = decision.is_a?(Integer) ? :estimate_option_id : :decision
-    self[decision_key] = decision
+  def complete_with!(estimate)
+    self.decision = estimate
     self.status = :completed
+    backlog_item.estimate = estimate
+    
+    begin
+      PokerSession.transaction do
+        self.save!
+        backlog_item.save!
+        return true
+      end
+    rescue => e
+      return false
+    end
   end
 
   def estimate_options

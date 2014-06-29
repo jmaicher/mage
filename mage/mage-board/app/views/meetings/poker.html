@@ -1,2 +1,9 @@
 <div class="poker">
+<div class="backlog-item">
+  <p class="estimate">
+    <span ng-show="reference_item.estimate">{{reference_item.estimate.value}}</span>
+  </p>
+  <h2 class="title">{{reference_item.title | limitTo:32}}<span ng-if="reference_item.title.length > 32">..</span></h2>
+  <p class="descr">{{reference_item.description}}</p>
+</div>
 </div> <!-- .poker -->

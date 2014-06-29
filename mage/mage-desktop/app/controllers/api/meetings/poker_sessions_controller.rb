@@ -4,6 +4,7 @@ class API::Meetings::PokerSessionsController < API::ApplicationController
   before_filter :meeting_filter
   before_filter :poker_session_filter, only: [:show, :create_round, :create_vote, :result, :complete]
   before_filter :authorize_meeting_participant!, only: [:create_vote]
+  before_filter :decision_filter, only: [:complete]
 
   def show
     response = PokerSessionRepresenter.new(@poker_session).to_hash participant: current_user
@@ -74,15 +75,17 @@ class API::Meetings::PokerSessionsController < API::ApplicationController
       return forbid! "A decision has already been made"
     end
 
-    decision = decision_param[:decision]
-    @poker_session.complete_with(decision)
-    if @poker_session.save
-      response = { decision: decision }
+    if @poker_session.complete_with!(@decision)
+      response = { decision: @decision.id }
       notify_participants('poker.completed', response)
+
+      updated_backlog_item = BacklogItemRepresenter.new(@poker_session.backlog_item).to_hash
+      notify_update('backlog_item', updated_backlog_item)
+
       status = 200
     else
-      response = @poker_session.errors
-      status = :unprocessable_entity
+      response = {}
+      status = 500
     end
 
     render json: response, status: status
@@ -92,6 +95,10 @@ private
 
   def notify_participants(type, payload)
     Reactive.instance.message_to("/meetings/#{@meeting.id}", type, payload)
+  end
+
+  def notify_update(type, entity)
+    Reactive.instance.message_to("/updates", type, entity)
   end
 
   def forbid! message
@@ -106,8 +113,12 @@ private
     params.permit(:decision, :round)
   end
 
-  def decision_param
+  def decision_params
     params.permit(:decision)
+  end
+
+  def decision_filter
+    @decision = EstimateOption.find(decision_params[:decision])
   end
 
 end

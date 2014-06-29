@@ -30,14 +30,15 @@ module.config ($routeProvider) ->
 
 
 module.controller 'MeetingController', ($rootScope, $scope, $location, meeting) ->
-  
-  on_poker_started = (poker) ->
+
+  on_backlog_item_focus = (item) ->
     $scope.$apply ->
-      $rootScope.poker = poker
-      $location.path "/meetings/#{meeting.model.id}/poker/#{poker.model.id}"
+      $location.path "/meetings/#{meeting.model.id}/backlog_items/#{item.id}"
 
-  meeting.on 'poker.started', on_poker_started
-
+  meeting.on 'backlog_item.focus', on_backlog_item_focus
+  
   $scope.$on '$destroy', ->
-    meeting.off 'poker.started', on_poker_started
+    # This is important! If not done, the ctrl reference will not be freed
+    # as the meeting instance holds a reference to it
+    meeting.off 'backlog_item.focus', on_backlog_item_focus
 

@@ -28,10 +28,22 @@ module.config ($routeProvider) ->
           BacklogService.get()
 
  
-module.controller 'MeetingController', ($scope, meeting, backlog) ->
+module.controller 'MeetingController', ($scope, meeting, backlog, ReactiveUpdates) ->
   $scope.meeting = meeting
   $scope.backlog = backlog
 
+  update_backlog_item = (attr) ->
+    item = _.find backlog.items, (i) -> i.id == attr.id
+    $scope.$apply ->
+      item.update(attr)
+
+  ReactiveUpdates.on 'backlog_item', (item) ->
+    update_backlog_item(item)
+
+  meeting.on 'live_update', (update) ->
+    return unless update.type == 'backlog_item'
+    update_backlog_item(update.entity)
+    
 module.directive 'surface', () ->
   restrict: 'E'
   scope:
@@ -66,26 +78,6 @@ module.directive 'surface', () ->
       model: item
     )
 
-
-module.directive 'estimate', ->
-  restrict: 'E'
-  replace: true
-  scope:
-    startPokerSession: '&startPokerSession'
-    canStartPokerSession: '='
-    pokerActive: '='
-    estimate: '='
-  templateUrl: '/views/backlog_items/estimate.html'
-  link: (scope, element, attrs) ->
-    element.on 'pointerup mouseup tap', (evt) ->
-      evt.stopPropagation()
-      return unless scope.canStartPokerSession
-
-      scope.loading = true
-      scope.startPokerSession().finally ->
-        scope.loading = false
-
-      return
 
 module.service 'Focus', ($window, $q) ->
   $overlay = $('#focus-overlay')
@@ -222,20 +214,10 @@ module.directive 'backlogItem', () ->
     isFront = false
     focus = null
 
-    $scope.startPokerSession = ->
-      promise = $scope.meeting.start_poker_session(item.model)
-
-      promise.then (poker) ->
-        $scope.pokerActive = true
-           
-        poker.on 'completed', (result) ->
-          $scope.$apply ->
-            $scope.pokerActive = false
-            item.model.estimate = result.decision
-      
-      return promise
-
-    
+    $scope.meeting.on 'poker.started', (poker) ->
+      # poker.on 'completed', (result) ->
+      #  $scope.$apply ->
+      #    item.model.estimate = result.decision
 
     @getX = -> $scope.item.x
     @getY = -> $scope.item.y
@@ -258,6 +240,7 @@ module.directive 'backlogItem', () ->
       }
 
       focus = Focus.bringToFocus(item, $element, origin)
+      $scope.meeting.notify_focus(item.model)
       $scope.$apply ->
         $scope.focused = !!focus
 

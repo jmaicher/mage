@@ -16,8 +16,8 @@ poker_resolve = ($q, $rootScope, $route, MeetingService) ->
 
     MeetingService.get(meeting_id).then (meeting) ->
       meeting.get_poker_session(poker_id).then (poker) ->
-        meeting.connect()
-        poker
+        meeting.connect().then ->
+          poker
 # poker_resolve
 
 
@@ -29,6 +29,8 @@ module.config ($routeProvider) ->
       controller: 'meetings.PokerController',
       resolve: {
         poker: poker_resolve
+        reference_item: (BacklogItemService) ->
+          BacklogItemService.get(1)
       }
     .when "#{base_path}/result",
       templateUrl: '/views/meetings/poker_result.html',
@@ -54,9 +56,10 @@ module.config ($routeProvider) ->
         # data
       }
 
-module.controller 'meetings.PokerController', ($rootScope, $scope, $location, poker) ->
+module.controller 'meetings.PokerController', ($rootScope, $scope, $location, poker, reference_item) ->
   $scope.poker = poker
   $scope.meeting = poker.meeting
+  $scope.reference_item = reference_item
   $scope.result = undefined
   $scope.estimate_options = poker.model.estimate_options
   
@@ -172,19 +175,26 @@ module.directive 'pokerResultChart', ->
     estimateOptions: '=estimateOptions',
     result: '=result'
   link: (scope, element, attrs) ->
+    parent = element.parent()
+
     render = ->
       element.html('')
-      chart = new PokerResultChart element[0], scope.estimateOptions, scope.result
+      chart = new PokerResultChart element[0], scope.estimateOptions, scope.result,
+        width: parent.width()
+        height: parent.height()
       chart.render()
 
     scope.$watch 'result', (result) ->
+      render()
+
+    window.onresize = ->
       render()
 
 
 class PokerResultChart
 
   constructor: (@selector_or_node, estimate_options, result, options = {}) ->
-    @margin = options.margin ? { top: 20, right: 20, bottom: 30, left: 50 }
+    @margin = options.margin ? { top: 50, right: 50, bottom: 50, left: 50 }
     @width = (options.width ? 800) - @margin.left - @margin.right
     @height = (options.height ? 400) - @margin.top - @margin.bottom
 

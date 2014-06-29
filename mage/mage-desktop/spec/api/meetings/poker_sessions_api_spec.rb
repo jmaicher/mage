@@ -109,7 +109,7 @@ describe 'Meeting::PokerSessions API' do
       expect(poker_session.has_voted?(current_user)).to be_true
     end
 
-    it "fails if the given vote is invalid and respond with the validation errors" do
+    it "fails if the given vote is invalid" do
       params = {
         decision: -1,
         round: poker_session.current_round
@@ -118,7 +118,6 @@ describe 'Meeting::PokerSessions API' do
       do_api_request params
 
       expect(response.status).to eq(422)
-      expect(response.body).to have_json_path("decision")
     end
 
     it "fails if the current user is not part of the overarching meeting" do
@@ -168,15 +167,14 @@ describe 'Meeting::PokerSessions API' do
       expect(poker_session.decision).to eq(estimate_option)
     end
 
-    it "fails if the given decision is invalid and responds with the validation errors" do
+    it "fails if the given decision is invalid" do
       params = {
         decision: -1
       }
 
       do_api_request params
 
-      expect(response.status).to eq(422)
-      expect(response.body).to have_json_path("decision")
+      expect(response.status).to eq(404)
     end
 
   end # POST ../poker_sessions:id/decision

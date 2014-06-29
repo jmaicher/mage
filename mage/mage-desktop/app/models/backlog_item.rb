@@ -31,6 +31,14 @@ class BacklogItem < ActiveRecord::Base
 
   has_many :acceptance_criteria, -> { order("created_at ASC") }, class_name: "AcceptanceCriteria"
 
+  belongs_to :estimate, class_name: "EstimateOption"
+
+  def estimate
+    e = super
+
+    e ||= NoEstimate.new
+  end
+
 
   # -- Validations --------------------------------------
 

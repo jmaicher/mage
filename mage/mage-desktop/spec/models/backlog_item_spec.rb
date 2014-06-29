@@ -15,6 +15,8 @@ describe BacklogItem do
 
   it { should have_many(:acceptance_criteria).class_name("AcceptanceCriteria") }
 
+  it { should belong_to(:estimate).class_name("EstimateOption") } 
+
   it_behaves_like "activity object"
 
   describe "#tag_list" do

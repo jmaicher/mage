@@ -17,7 +17,7 @@ $green: #5cb85c;
 
 // -- Layout --------------------------------------------
 
-body, html, .content {
+body, html, body > .content {
   height: 100%;
   width: 100%;
   margin: 0;

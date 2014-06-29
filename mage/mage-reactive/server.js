@@ -107,9 +107,16 @@ io.of('/devices/auth').on('connection', function (socket) {
 });
 
 
-// -- /device/auth ---------------------------------
+// -- /activities ------------------------------
 
 io.of('/activities').authorization(function (handshake, callback) {
+  callback(null, true); 
+});
+
+
+// -- /updates ------------------------------
+
+io.of('/updates').authorization(function (handshake, callback) {
   callback(null, true); 
 });
 
@@ -173,6 +180,14 @@ VirtualMeeting.prototype.createSocketNamespace = function (io) {
    
   io.log.info('Creating new socket namespace: ' + this.nsPath);
   this.ns = io.of(this.nsPath);
-  // TODO: Attach listeners
+
+  this.ns.on('connection', function (socket) {
+   
+    socket.on('broadcast', function(message) {
+      io.log.info('Broadcasting message: ' + message);
+      socket.broadcast.emit('message', message);
+    });
+
+  });
 }
 

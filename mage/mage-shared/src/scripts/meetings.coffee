@@ -116,7 +116,15 @@ module.service 'Meeting', ($q, SessionService, MageReactive, MeetingParticipatio
       self._bindReactiveConnHandler()
       return self
 
-    return promise
+    return promise.then -> @
+
+  Meeting.prototype.notify_focus = (backlog_item) ->
+    return unless @isConnected()
+    @reactiveConn.broadcast 'backlog_item.focus', backlog_item
+
+  Meeting.prototype.live_update = (type, entity) ->
+    return unless @isConnected()
+    @reactiveConn.broadcast 'live_update', type: type, entity: entity
 
   Meeting.prototype.isConnected = ->
     return !!@reactiveConn
@@ -127,6 +135,15 @@ module.service 'Meeting', ($q, SessionService, MageReactive, MeetingParticipatio
 
   Meeting.prototype._bindReactiveConnHandler = ->
     self = @
+
+    @reactiveConn.on "backlog_item.focus", (backlog_item) ->
+      self.emit "backlog_item.focus", backlog_item
+
+    @reactiveConn.on "live_update", (update) ->
+      self.emit "live_update", (update)
+
+    # -- planning poker ---------------------------------
+
     @reactiveConn.on "poker.started", (payload) ->
       poker_model = new PokerSessionResource(payload)
       poker_session = new PokerSession(self, poker_model)

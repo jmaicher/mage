@@ -69,6 +69,13 @@ reactive.factory 'MageReactiveConnection', ($q, Hosts) ->
 
     dfd.promise
 
+  MageReactiveConnection.prototype.broadcast = (type, payload) ->
+    # TODO: Check if connected
+    this.socket.emit 'broadcast', {
+      type: type,
+      payload: payload
+    }
+
   MageReactiveConnection.prototype.disconnect = ->
     this.graceful = true
     this.socket.disconnect()

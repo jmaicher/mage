@@ -12,7 +12,13 @@
 
 <div class="scrollable">
   <div class="scrollable-content section">
-
+    <div class="items list-group">
+      <a ng-if="focusedItem" ng-click="showBacklogItemDetails(focusedItem)" class="item list-group-item">
+        <i class="click-indicator fa fa-chevron-right"></i>
+        <p class="title">{{focusedItem.title | limitTo:35 }}<span ng-if="focusedItem.title.length > 35">..</span></p>
+        <p class="description">{{focusedItem.description | limitTo:85 }}<span ng-if="focusedItem.description.length > 85">..</span></p>
+      </a>
+    </div>
   </div>
 </div>
 

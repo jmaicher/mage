@@ -1,3 +1,51 @@
+.poker {
+  height: 100%;
+  width: 100%;
+
+  .backlog-item {
+    height: calc(80vh * 0.6);
+    width: 80vh;
+    position: absolute;
+    left: calc(50% - 40vh);
+    top: calc( 50% - (80vh * 0.3) );
+    background: #FFF url('/images/index-card.png');
+    background-position: bottom;
+    box-shadow: 0 0 5em 1em rgba(0, 0, 0, .5);
+    background-size: 100%;
+    
+    /*-webkit-font-smoothing: subpixel-antialiased;*/
+
+    .title, .descr, .estimate {
+      cursor: default;
+      font-family: 'Helvetica';
+      font-weight: 300;
+      color: #333;
+      padding: 0 5%;
+    }
+
+    .title {
+      font-size: 5vh;
+      line-height: 8vh;
+      margin: 0;
+    }
+
+    .descr {
+      font-size: 3vh;
+      line-height: 4vh;
+      margin-top: 4.5vh;
+    }
+
+    .estimate {
+      margin: 0;
+      float: right;
+      font-size: 5vh;
+      line-height: 8vh;
+    }
+
+  }
+}
+
+
 .poker-result {
   width: 100%;
   height: 100%;
@@ -7,7 +55,6 @@
     left: 0;
     top: 0;
     height: 100%;
-    width: 5%;
     display: table;
     z-index: 100;
   }
@@ -29,7 +76,7 @@
           border-top: 1px solid #FFF;
           .content {
             border-top-right-radius: 50%;
-            padding-top: 2em;
+            padding-top: .5em;
           }
         }
       }
@@ -39,7 +86,7 @@
           border-bottom-right-radius: 50%;
           .content {
             border-bottom-right-radius: 50%;
-            padding-bottom: 2em;
+            padding-bottom: .5em;
           }
         }
       }
@@ -54,9 +101,10 @@
         font-family: Helvetica;
 
         .content {
-          display: block;
-          height: 100%;
-          padding: 1.5em;
+          display: table-cell;
+          height: 7vh;
+          width: 5vw;
+          vertical-align: middle;
         }
 
         &.blocked .content {
@@ -79,18 +127,18 @@
   }
 
   .poker-result-chart-container {
-    width: 100%;
-    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    display: table;
-    text-align: center; 
+    width: 75vw;
+    height: 80vh;
+    padding: 10vh 10vw 10vh 15vw;
   }
 
   .poker-result-chart {
-    display:table-cell;
-    vertical-align:middle;
+    display: block;
+    height: 100%;
+    width: 100%;
 
     svg {
       text {

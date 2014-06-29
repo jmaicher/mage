@@ -4,15 +4,15 @@
 
 <div content-for="navbar-top-action-right">
   <div class="btn-group pull-right">
-    <a href="#/backlog_items/{{item.id}}/notes/new" class="btn btn-navbar">
-      <i class="fa fa-plus"></i> Note
+    <a ng-click="edit()" class="btn btn-navbar">
+      <i class="fa fa-edit"></i> Edit
     </a>
   </div>
 </div>
 
 <div content-for="navbar-top-action-left">
   <div class="btn-group pull-right">
-    <a href="#/product-backlog" class="btn btn-navbar">
+    <a ng-click="back()" class="btn btn-navbar">
       <i class="fa fa-chevron-left"></i> Back
     </a>
   </div>
@@ -33,5 +33,16 @@
         </ul>
       </div>
     </div>
+  </div>
+</div>
+
+<div content-for="navbar-bottom">
+  <div class="btn-group justified">
+    <a href="" class="btn btn-navbar">
+      <i class="fa fa-plus"></i> Add criteria
+    </a>
+    <a ng-href="#/backlog_items/{{item.id}}/notes/new" class="btn btn-navbar">
+      <i class="fa fa-plus"></i> Attach Note
+    </a>
   </div>
 </div>

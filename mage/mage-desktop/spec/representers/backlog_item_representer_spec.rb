@@ -26,7 +26,7 @@ describe BacklogItemRepresenter do
     end.to_json
 
     actual = decorator.to_json
-    expect(actual).to be_json_eql(expected).excluding('_links').excluding('taggings').excluding('acceptance_criteria')
+    expect(actual).to be_json_eql(expected).excluding('_links').excluding('taggings').excluding('acceptance_criteria').excluding(:estimate)
     expect(actual).to have_json_path('_links')
     expect(actual).to have_json_path('taggings')
     expect(actual).to have_json_path('acceptance_criteria')

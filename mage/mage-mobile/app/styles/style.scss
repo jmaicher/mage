@@ -10,6 +10,16 @@ $blue: #007aff;
 @import 'product_backlog';
 @import 'backlog_item';
 
+.activities {
+  margin-top: -10px;
+}
+
+.activity {
+
+  .primary, .secondary { margin: 0; }
+
+}
+
 
 // -- Layout ------------------------------------------------------
 
@@ -76,7 +86,7 @@ $blue: #007aff;
 
 // -- Screens -----------------------------------------------------
 
-.auth, .new-note, .device-auth {
+.auth, .new-note, .device-auth, .backlog-item, .edit-backlog-item {
   @include with-bottom-navbar;
 }
 
@@ -140,7 +150,7 @@ $blue: #007aff;
 
 // -- Meetings ----------------------------------------------------
 
-.meeting {
+.meeting, .live {
 
   .navbar, .navbar-app {
     background-color: $green;

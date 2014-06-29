@@ -4,7 +4,9 @@ unless User.count > 0
 
   users = [
     { email: "jmaicher@mail.upb.de", name: "Julian Maicher", password: "magicpass" },
-    { email: "klecks@upb.de", name: "Adrian Hülsmann", password: "magicpass" }
+    { email: "klecks@upb.de", name: "Adrian Hülsmann", password: "magicpass" },
+    { email: "julian.maicher@gmail.com", name: "Andre Nolte", password: "magicpass" },
+    { email: "dinah.grueterich@gmail.com", name: "Dinah Grueterich", password: "magicpass" }
   ]
 
   users.each do |params|

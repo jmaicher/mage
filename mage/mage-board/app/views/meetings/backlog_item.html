@@ -1,7 +1,10 @@
 <div class="screen backlog-item">
   <header>
+    <p class="estimate">
+      <span class="value">5</span>
+    </p>
+
     <h1 class="title">{{item.title}}</h1>
-    <hr />
   </header>
   
   <section>
@@ -23,9 +26,87 @@
         </ul>
       </div> <!-- .acceptance-criteria -->
 
-      <div class="history flex-col-50">
-        <h2>Change history</h2> 
+      <div class="activities flex-col-50">
+        <h2>Recent activities</h2> 
+
+        <div class="activity-stream">
+
+          <div class="activity">
+            <div class="actor">
+                <a href=""><img alt="Gravatar" height="60" src="http://gravatar.com/avatar/ac42e40df180c367fbbc7b4ca4cc9701?size=60" width="60"></a>
+            </div>
+
+            <div class="main">
+              <div class="content">
+                
+            <p class="primary">
+              Has been tagged with <a href="">needs discussion</a>
+            </p>
+
+              </div>
+              <p class="footer">
+                <small>
+                  <i class="fa fa-clock-o"></i>&nbsp;&nbsp;<span class="time-ago">6 hours ago</span>&nbsp;&nbsp;&nbsp;June 23rd, 2014 17:23
+                </small>
+              </p>
+            </div>
+          </div>
+
+<div class="activity">
+  <div class="actor">
+      <a href=""><i class="fa fa-group"></i></a>
+  </div>
+
+  <div class="main">
+    <div class="content">
+      
+  <p class="primary">
+    Has been estimated with 5 story points by
+  </p>
+  <p class="secondary">
+      <a href=""><img alt="Gravatar" height="26" src="http://gravatar.com/avatar/ac42e40df180c367fbbc7b4ca4cc9701?size=26" width="26"></a>
+      <a href=""><img alt="Gravatar" height="26" src="http://gravatar.com/avatar/9391c1bd2c647090f1d484bc566914f1?size=26" width="26"></a>
+  </p>
+
+    </div>
+    <p class="footer">
+      <small>
+        <i class="fa fa-clock-o"></i>&nbsp;&nbsp;<span class="time-ago">2 days ago</span>&nbsp;&nbsp;&nbsp;June 21rd, 2014 15:45
+      </small>
+    </p>
+  </div>
+</div>
+
+
+
+          <div class="activity">
+            <div class="actor">
+                <a href=""><img alt="Gravatar" height="60" src="http://gravatar.com/avatar/9391c1bd2c647090f1d484bc566914f1?size=60" width="60"></a>
+            </div>
+
+            <div class="main">
+              <div class="content">
+                
+            <p class="primary">
+              Has been created by <a href="">Adrian Hülsmann</a>
+            </p>
+
+              </div>
+              <p class="footer">
+                <small>
+                  <i class="fa fa-clock-o"></i>&nbsp;&nbsp;<span class="time-ago">8 days ago</span>&nbsp;&nbsp;&nbsp;June 15rd, 2014 13:01
+                </small>
+              </p>
+            </div>
+          </div>
+
+        </div>
       </div> <!-- .history -->
     </div>
-  </secion>
+  </section>
+
+  <a class="poker-btn" ng-class="{ 'disabled': startingPlanningPoker }" href="javascript:;" ng-click="startPlanningPoker()">
+    <i class="loading-indicator fa fa-spinner fa-spin" ng-show="startingPlanningPoker"></i>
+    <img src="images/poker.png" ng-show="!startingPlanningPoker" />
+  </a>
 </div> <!-- .backlog-item -->
