@@ -1,0 +1,23 @@
+<%= render layout: 'activity', locals: { activity: @activity } do %>
+  <p class="primary">
+    <%= activity_actor(@activity.actor) %>
+    <% if @activity.object.attachable %>
+      attached a note to the backlog item
+      <%= link_to truncate(@activity.object.attachable.title), backlog_item_path(@activity.object.attachable) %>
+    <% elsif @activity.context %>
+      added a note
+    <% else %>
+      created a new note: <%= link_to @activity.object.title %>
+    <% end %>
+  </p>
+  <% if @activity.object.attachable %>
+    <p class="secondary">
+      <%= @activity.object.title %>
+    </p>
+  <% end %>
+  <% unless @activity.object.has_image? %>
+    <div class="image-preview">
+      <%= image_tag @activity.object.image.url %>
+    </div>
+  <% end %>
+<% end %>

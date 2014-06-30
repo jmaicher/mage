@@ -4,9 +4,10 @@ module = angular.module('mage.mobile.backlog_item', ['mage.hosts'])
 
 item_resolver = ($rootScope, $route, BacklogItem) ->
   item_or_promise = undefined
-  if $rootScope.item
-    item_or_promise = $rootScope.item
+  if $rootScope.item || $rootScope.currentBacklogItem
+    item_or_promise = $rootScope.item || $rootScope.currentBacklogItem
     delete $rootScope.item
+    delete $rootScope.currentBacklogItem
   else
     id = $route.current.params.id
     item_or_promise = BacklogItem.get(id)
@@ -84,9 +85,19 @@ module.service 'BacklogItem', (BacklogItemResource) ->
 
 
 module.controller 'BacklogItemCtrl', ($rootScope, $scope, $location, $route, item, meeting) ->
+  isLive = $scope.isLive = !!meeting
   screenName = 'backlog-item'
-  screenName = "#{screenName} live" if meeting
+  screenName = "#{screenName} live" if isLive
   $rootScope.screenName = screenName
+
+  $scope.attachNote = ->
+    $rootScope.currentBacklogItem = item
+    path = "/backlog_items/#{item.id}/notes/new"
+    if isLive
+      $rootScope.currentMeeting = meeting
+      path = "/meetings/#{meeting.model.id}#{path}"
+
+    $location.path path
 
   $scope.back = ->
     back_path = undefined
@@ -100,7 +111,7 @@ module.controller 'BacklogItemCtrl', ($rootScope, $scope, $location, $route, ite
   # back
 
   $scope.edit = ->
-    $rootScope.item = item
+    $rootScope.currentBacklogItem = item
     edit_path = "backlog_items/#{item.id}/edit"
     if meeting
       $rootScope.currentMeeting = meeting

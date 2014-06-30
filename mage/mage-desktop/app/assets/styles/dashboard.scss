@@ -35,6 +35,7 @@
 
       .secondary {
         margin-top: -0.5em;
+        font-weight: 200;
         color: #999;
 
         .label {
@@ -43,6 +44,13 @@
           font-size: 14px;
           font-weight: 200;
           padding: 0 .5em;
+        }
+      }
+      .image-preview {
+
+        img {
+          max-width: 150px;
+          max-height: 150px;
         }
       }
     } // .content

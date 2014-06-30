@@ -5,7 +5,7 @@
      <%= activity_actor(@activity.actor) %> <%= activity_action(@activity.key) %> a backlog item: <%= link_to truncate(@activity.object.title), backlog_item_path(@activity.object) %>
   <% when "backlog_item.tagging" %>
     The backlog item
-     <%= link_to truncate(@activity.object.backlog_item.title), backlog_item_path(@activity.object.backlog_item) %>
+     <%= link_to truncate(@activity.object.backlog_item.title, length: 20), backlog_item_path(@activity.object.backlog_item) %>
      has been tagged with <%= link_to @activity.object.tag.name %>
   <% end %>
   </p>

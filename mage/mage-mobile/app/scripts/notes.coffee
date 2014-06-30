@@ -2,6 +2,33 @@
 
 module = angular.module('mage.mobile.notes', ['mage.hosts'])
 
+meeting_resolver = ($rootScope, $route, MeetingService) ->
+  meeting_or_promise = undefined
+  if $rootScope.currentMeeting
+    meeting_or_promise = $rootScope.currentMeeting
+    delete $rootScope.currentMeeting
+  else
+    id = $route.current.params.meeting_id
+    meeting_or_promise = MeetingService.get(id).then (meeting) ->
+      meeting.join().then ->
+        meeting.connect().then ->
+          meeting
+
+  meeting_or_promise
+
+
+backlog_item_resolver = ($rootScope, $route, BacklogItem) ->
+  item_or_promise = undefined
+  if $rootScope.currentBacklogItem
+    item_or_promise = $rootScope.currentBacklogItem
+    delete $rootScope.currentBacklogItem
+  else
+    id = $route.current.params.backlog_item_id
+    item_or_promise = BacklogItem.get(id)
+ 
+  item_or_promise
+
+
 module.config ($routeProvider) ->
   $routeProvider
     .when '/notes',
@@ -11,14 +38,20 @@ module.config ($routeProvider) ->
       templateUrl: "/views/notes/new.html"
       controller: 'notes.NewCtrl'
       resolve:
-        backlog_item_id: -> undefined
+        meeting: -> undefined
+        backlog_item: -> undefined
     .when '/backlog_items/:backlog_item_id/notes/new',
       templateUrl: "/views/notes/new.html"
       controller: 'notes.NewCtrl'
       resolve:
-        backlog_item_id: ($route) ->
-          $route.current.params.backlog_item_id
-
+        meeting: -> undefined
+        backlog_item: backlog_item_resolver
+    .when '/meetings/:meeting_id/backlog_items/:backlog_item_id/notes/new',
+      templateUrl: "/views/notes/new.html"
+      controller: 'notes.NewCtrl'
+      resolve:
+        meeting: meeting_resolver
+        backlog_item: backlog_item_resolver
 
 module.service 'NoteResource', ($resource, Hosts) ->
   NoteResource = $resource "#{Hosts.api}/notes/:id", {
@@ -67,7 +100,6 @@ module.controller 'notes.IndexCtrl', ($scope, $rootScope, Note) ->
   $rootScope.loading = true
 
   success = (notes) ->
-    console.log notes
     $rootScope.loading = false
     $scope.notes = notes.items
 
@@ -114,27 +146,41 @@ module.directive 'imageSelect', ->
     return
 # imageSelect
 
-module.controller 'notes.NewCtrl', ($rootScope, $scope, $location, Note, backlog_item_id) ->
-  is_attachment = !!backlog_item_id
+module.controller 'notes.NewCtrl', ($rootScope, $scope, $location, Note, meeting, backlog_item) ->
+  is_live = !!meeting
+  is_attachment = !!backlog_item
 
-  $rootScope.screenName = "new-note"
+  screenName = "new-note"
+  screenName = "#{screenName} live" if is_live
+  $rootScope.screenName = screenName
+
   $scope.note = Note.build()
-  $scope.note.backlog_item_id = backlog_item_id if is_attachment
+  $scope.note.backlog_item_id = backlog_item.id if is_attachment
+
+  goBack = ->
+    if is_attachment
+      $rootScope.currentBacklogItem = backlog_item
+      back_path = "/backlog_items/#{backlog_item.id}"
+      if is_live
+        $rootScope.currentMeeting = meeting
+        back_path = "/meetings/#{meeting.model.id}#{back_path}"
+    else
+      back_path = "/notes"
+
+    $location.path back_path
 
   $scope.onImageSelect = (image_base64) ->
     $scope.note.image_base64 = image_base64
 
   $scope.removeImage = ->
     delete $scope.note.image_base64
+
+  $scope.cancel = ->
+    goBack()
  
   success = (note) ->
-    console.log note.getImageUrl()
     $scope.loading = false
-    if is_attachment
-      redirect_path = "/backlog_items/#{backlog_item_id}"
-    else
-      redirct_path = "/notes"
-    $location.path redirect_path
+    goBack()
 
   failure = (resp) ->
     $scope.loading = false
@@ -153,6 +199,8 @@ module.controller 'notes.NewCtrl', ($rootScope, $scope, $location, Note, backlog
     $scope.errors = {}
     $scope.noteForm.$setPristine(true)
     $scope.loading = true
-
-    note.$save().then success, failure
+  
+    additional_params = {}
+    additional_params.meeting_id = meeting.model.id if is_live
+    note.$save(additional_params).then success, failure
 

@@ -1,6 +1,7 @@
 class API::NotesController < API::ApplicationController
   before_filter :authenticate_from_token!
-  before_filter :attachable_filter
+  before_filter :attachable_filter, only: [:create]
+  before_filter :context_filter, only: [:create]
 
   def index
     notes = Note.all
@@ -24,6 +25,7 @@ class API::NotesController < API::ApplicationController
 
     if note.save
       response = ::NoteRepresenter.new(note)
+      current_user.create_activity! "note.create", object: note, context: @context
       status = :created
     else
       response = note.errors

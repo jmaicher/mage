@@ -1,7 +1,7 @@
 class API::BacklogItemsController < API::ApplicationController
   before_filter :authenticate!
   before_filter :backlog_item_filter
-  before_filter :context_filter
+  before_filter :context_filter, only: [:update]
 
   def show
     render json: BacklogItemRepresenter.new(@backlog_item)
