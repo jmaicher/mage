@@ -13,6 +13,7 @@ module.config ($routeProvider) ->
           Dashboard.get().$promise
 
 module.controller 'DashboardController', ($scope, data) ->
+  console.log "WAT"
   $scope.sprint = data.sprint
   $scope.data = data
 

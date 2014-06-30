@@ -32,6 +32,10 @@ meeting.controller 'MeetingController', ($rootScope, $scope, $location, meeting,
     $scope.$apply ->
       $scope.focusedItem = item
 
+  handle_backlog_item_unfocus = (item) ->
+    $scope.$apply ->
+      $scope.focusedItem = undefined
+
   $scope.showBacklogItemDetails = (item) ->
     $rootScope.item = item
     $rootScope.currentMeeting = meeting
@@ -39,9 +43,11 @@ meeting.controller 'MeetingController', ($rootScope, $scope, $location, meeting,
 
   meeting.on 'poker.started', handle_poker_started
   meeting.on 'backlog_item.focus', handle_backlog_item_focus
+  meeting.on 'backlog_item.unfocus', handle_backlog_item_unfocus
 
   $scope.$on '$destroy', ->
     # cleanup
     meeting.off 'poker.started', handle_poker_started
     meeting.off 'backlog_item.focus', handle_backlog_item_focus
+    meeting.off 'backlog_item.unfocus', handle_backlog_item_unfocus
 

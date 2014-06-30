@@ -10,6 +10,10 @@ app = angular.module('mage.board', deps)
 app.config (AuthServiceProvider) ->
   AuthServiceProvider.setAuthPath('/auth')
 
+app.run ($rootScope) ->
+  $rootScope.keyup = (evt) ->
+    $rootScope.$broadcast "keyup", evt
+
 app.controller 'AppController', ($scope) ->
   $scope.loading = false
   load = -> $scope.loading = true

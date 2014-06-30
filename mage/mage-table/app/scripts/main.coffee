@@ -24,6 +24,10 @@ app.config ($routeProvider, StorageProvider, AuthServiceProvider) ->
 
   return
 
+app.run ($rootScope) ->
+  $rootScope.keyup = (evt) ->
+    $rootScope.$broadcast 'keyup', evt
+
 app.controller 'AppController', ($rootScope) ->
   $rootScope.loading = true
   load = $rootScope.load = -> $rootScope.loading = true

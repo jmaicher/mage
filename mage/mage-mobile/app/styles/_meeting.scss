@@ -1,12 +1,15 @@
 .meeting {
 
-  .icon {
-    font-size: 40vh;
-    line-height: 1;
-    color: #CCC;
-    height: 100%;
+  .no-activities {
     text-align: center;
-    padding-top: 10vh;
+    
+    .fa {
+      font-size: 40vh;
+      line-height: 1;
+      color: #CCC;
+      height: 100%;
+      padding-top: 10vh;
+    }
   }
 
 }

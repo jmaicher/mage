@@ -122,6 +122,10 @@ module.service 'Meeting', ($q, SessionService, MageReactive, MeetingParticipatio
     return unless @isConnected()
     @reactiveConn.broadcast 'backlog_item.focus', backlog_item
 
+  Meeting.prototype.notify_unfocus = (backlog_item) ->
+    return unless @isConnected()
+    @reactiveConn.broadcast 'backlog_item.unfocus', backlog_item
+
   Meeting.prototype.live_update = (type, entity) ->
     return unless @isConnected()
     @reactiveConn.broadcast 'live_update', type: type, entity: entity
@@ -136,11 +140,14 @@ module.service 'Meeting', ($q, SessionService, MageReactive, MeetingParticipatio
   Meeting.prototype._bindReactiveConnHandler = ->
     self = @
 
-    @reactiveConn.on "backlog_item.focus", (backlog_item) ->
-      self.emit "backlog_item.focus", backlog_item
+    forward_events = [
+      "backlog_item.focus", "backlog_item.unfocus",
+      "live_update"
+    ]
 
-    @reactiveConn.on "live_update", (update) ->
-      self.emit "live_update", (update)
+    forward_events.forEach (evtId) ->
+      self.reactiveConn.on evtId, (payload) ->
+        self.emit evtId, payload
 
     # -- planning poker ---------------------------------
 

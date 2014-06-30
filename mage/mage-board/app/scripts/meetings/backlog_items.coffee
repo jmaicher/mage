@@ -22,12 +22,9 @@ module.controller 'meetings.BacklogItemController', ($scope, $rootScope, $locati
   $scope.meeting = meeting
   $scope.item = backlog_item
 
-  meeting.on 'live_update', (update) ->
-    return unless update.type == "backlog_item"
-    item = new BacklogItemResource(update.entity)
-    return unless item.id == $scope.item.id
-    $scope.$apply ->
-      $scope.item = item
+  $scope.$on 'keyup', (evt, keyEvt) ->
+    if keyEvt.keyCode == 80 # = p
+      $scope.startPlanningPoker()
 
   $scope.startPlanningPoker = ->
     promise = meeting.start_poker_session(backlog_item)
@@ -35,6 +32,27 @@ module.controller 'meetings.BacklogItemController', ($scope, $rootScope, $locati
     promise.then (poker) ->
       $rootScope.poker = poker
       $location.path "/meetings/#{meeting.model.id}/poker/#{poker.model.id}"
+
+  handle_backlog_item_unfocus = (unfocused_item) ->
+    if unfocused_item.id == backlog_item.id
+      $scope.$apply ->
+        $location.path "/meetings/#{meeting.model.id}"
+
+  handle_live_update = (update) ->
+    return unless update.type == "backlog_item"
+    item = new BacklogItemResource(update.entity)
+    return unless item.id == $scope.item.id
+    $scope.$apply ->
+      $scope.item = item
+
+  meeting.on 'backlog_item.unfocus', handle_backlog_item_unfocus
+  meeting.on 'live_update', handle_live_update
+
+  $scope.$on '$destroy', ->
+    # cleanup
+    meeting.off 'backlog_item.unfocus', handle_backlog_item_unfocus
+    meeting.off 'live_update', handle_live_update
+
 # meetings.BacklogItemController
 
 # TODO: Extract!

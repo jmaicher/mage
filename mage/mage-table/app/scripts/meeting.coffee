@@ -244,10 +244,19 @@ module.directive 'backlogItem', () ->
       $scope.$apply ->
         $scope.focused = !!focus
 
+    self = @
+    $scope.$on 'keyup', (e, keyEvt) ->
+      return if !$scope.focused || $scope.endFocusTriggered
+      if keyEvt.keyCode == 85
+        self.endFocus()
+
     @endFocus = ->
+      $scope.endFocusTriggered = true
       Focus.endFocus().then ->
         focus = null
-        $scope.$apply ->
+        $timeout ->
+          $scope.meeting.notify_unfocus(item.model)
+          $scope.endFocusTriggered = false
           $scope.focused = false
 
     @isFocused = -> !!focus

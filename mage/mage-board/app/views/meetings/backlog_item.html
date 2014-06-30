@@ -1,7 +1,7 @@
 <div class="screen backlog-item">
   <header>
     <p class="estimate">
-      <span class="value">5</span>
+      <span class="value">{{item.estimate.value}}</span>
     </p>
 
     <h1 class="title">{{item.title}}</h1>
@@ -22,6 +22,9 @@
       <div class="acceptance-criteria flex-col-50">
         <h2>Acceptance criteria</h2>
         <ul>
+          <li class="empty" ng-if="item.acceptance_criteria.length == 0">
+            <i>No acceptance criteria defined</i>
+          </li>
           <li class="criteria" ng-repeat="criteria in item.acceptance_criteria">{{criteria.description}}</li>
         </ul>
       </div> <!-- .acceptance-criteria -->

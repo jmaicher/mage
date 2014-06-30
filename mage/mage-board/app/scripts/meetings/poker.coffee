@@ -85,6 +85,32 @@ module.controller 'meetings.PokerResultController', ($rootScope, $scope, $locati
   $scope.poker = poker
   $scope.result = result
 
+  findEstimateOptionByValue = (value) ->
+    _.find poker.model.estimate_options, (o) -> o.value == value.toString()
+
+  $scope.$on 'keyup', (evt, keyEvt) ->
+    keyCode = keyEvt.keyCode
+    if keyCode == 82 # = r
+      $scope.restart()
+    else if keyCode == 48 # = 0
+      option = findEstimateOptionByValue(0)
+      $scope.complete option
+    else if keyCode == 49 # = 1
+      option = findEstimateOptionByValue(1)
+      $scope.complete option
+    else if keyCode == 50 # = 2
+      option = findEstimateOptionByValue(2)
+      $scope.complete option
+    else if keyCode == 51 # = 3
+      option = findEstimateOptionByValue(3)
+      $scope.complete option
+    else if keyCode == 53 # = 5
+      option = findEstimateOptionByValue(5)
+      $scope.complete option
+    else if keyCode == 56 # = 8
+      option = findEstimateOptionByValue(8)
+      $scope.complete option
+
   $scope.restart = ->
     $scope.loading = true
     promise = $scope.poker.restart()
@@ -101,7 +127,7 @@ module.controller 'meetings.PokerResultController', ($rootScope, $scope, $locati
     promise = $scope.poker.complete(option)
     promise
       .then ->
-        $location.path "/meetings/#{poker.meeting.model.id}"
+        $location.path "/meetings/#{poker.meeting.model.id}/backlog_items/#{poker.model.backlog_item.id}"
       .finally ->
         $scope.loading = false
     return promise

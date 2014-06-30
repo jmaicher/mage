@@ -246,4 +246,26 @@ unless User.count > 0
     backlog.insert(item)
   end
 
+
+  # -- Demo ------------------------------------------
+
+  params = {
+    title: "Show additional information for focused PBIs",
+    description: "As a grooming participant I want to see additional information for the currently focused PBI on the board in order to have more input for decision making",
+    tag_list: "board, grooming, interactive workspace, needs discussion",
+    estimate: estimates[5]
+  }
+  item = BacklogItem.create params
+  backlog.insert(item)
+
+  acceptance_criteria = [
+    "Board should display additional details immediately when PBI is focused on table",
+    "Show the basic information: Title, description, tags, estimate",
+    "Display the acceptance criteria",
+    "Show historical information about the PBI"
+  ]
+
+  acceptance_criteria.each do |description|
+    item.acceptance_criteria.create description: description
+  end
 end

@@ -19,7 +19,7 @@
         <p class="description">{{focusedItem.description | limitTo:85 }}<span ng-if="focusedItem.description.length > 85">..</span></p>
       </a>
     </div>
-    <div class="icon" ng-if="!focusedItem">
+    <div class="no-activities" ng-if="!focusedItem">
       <i class="fa fa-group"></i>
     </div>
   </div>
