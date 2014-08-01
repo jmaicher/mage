@@ -1,0 +1,15 @@
+<li class="product-backlog-item" ng-model="item" dragdrop-item>
+  <div class="content clearfix">
+    <p class="title">
+      <a ng-href="/backlog_items/{{item.id}}">{{item.title}}</a>
+    </p>
+    <p class="descr">
+      {{item.description}}
+    </p>
+    <ul class="tags">
+      <li class="tag" ng-repeat="tagging in item.taggings">
+        <i class="fa fa-tag"></i> {{tagging.tag.name}}
+      </li>
+    </ul>
+  </div> <!-- .content -->
+</li>

@@ -15,7 +15,9 @@ MageDesktop::Application.routes.draw do
 
   namespace :api, constraints: { format: 'json' }, defaults: { format: 'json' } do
     match '*path', :controller => 'application', :action => 'handle_options_request', via: [:options], :constraints => {:method => 'OPTIONS'}
-    resource :backlog, only: :show, controller: :product_backlog
+    resource :backlog, only: :show, controller: :product_backlog do
+      post 'insert', action: :insert, as: :insert
+    end
     
     get 'dashboard' => 'dashboard#dashboard'
 

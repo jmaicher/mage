@@ -3,4 +3,3 @@
 #= require angular-resource/angular-resource
 #= require angular-ui-bootstrap/angular-ui-bootstrap
 #= require angular-rails-templates
-

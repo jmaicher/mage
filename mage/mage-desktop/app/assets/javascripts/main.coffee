@@ -1,5 +1,6 @@
 #= require models
 #= require backlog_items
+#= require product_backlog
 #= require sprint_planning
 
 deps = [
@@ -10,6 +11,7 @@ deps = [
   # app-specific modules
   'mage.desktop.models',
   'mage.desktop.backlog_items',
+  'mage.desktop.product_backlog'
   'mage.desktop.sprint_planning'
 ]
 

@@ -1,0 +1,23 @@
+<div class="product-backlog">
+  
+  <ul class="product-backlog-items prioritized-product-backlog-items"
+    dragdrop-container="prioritizedItems"
+    dragdrop-handler="prioritizedDragDropHandler"
+    dragdrop-sortable="true"
+    dragdrop-enabled="dragdropEnabled"
+    ng-model="prioritizedItems">
+    <li class="placeholder"><i class="fa fa-arrows"></i> Prioritize Product Backlog Items</li>
+    <product-backlog-item item="item" dragdrop-enabled="dragdropEnabled" ng-repeat="item in prioritizedItems">
+  </ul>
+
+  <ul class="product-backlog-items unprioritized-product-backlog-items"
+    ng-class="{ empty: !unprioritizedItems.length }"
+    dragdrop-container="unprioritizedItems"
+    dragdrop-handler="unprioritizedDragDropHandler"
+    dragdrop-sortable="false"
+    ng-model="unprioritizedItems">
+    <li class="placeholder"><i class="fa fa-arrows"></i> Unprioritize Product Backlog Items</li>
+    <product-backlog-item item="item" ng-repeat="item in unprioritizedItems">
+  </ul>
+
+</div>

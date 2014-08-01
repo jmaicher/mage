@@ -1,149 +1,187 @@
-.product-backlog.page {
-  .backlog-items {
-    list-style: none;
-    padding: 0;
+.dragdrop-hidden {
+  display: none;
+}
+
+.dragdrop-drop-container {
+  opacity: .5
+}
+
+.dragdrop-drag-element {
+  position:absolute;
+  pointer-events:none;
+  opacity:.8;
+  z-index:9999;
+}
+
+.dragdrop-placeholder {
+  display:block;
+  border:1px dashed darkgrey;
+  box-sizing:border-box;
+  background-color:#dbdbdb;
+  opacity: .3;
+}
+
+.product-backlog-items {
+  list-style: none;
+  padding: 0;
+
+  a {
+    cursor: pointer;
   }
 
-  .backlog-item {
-    position: relative;
-    border-left: 3px solid transparent;
+  .placeholder {
+    display: none;
+    border: 1px dashed transparent;
+    opacity: .5;
+
+    text-align: center;
+    font-size: 200%;
+
+    cursor:default;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+
+.dragdrop-container-empty.product-backlog-items {
+  .placeholder {
     display: block;
-    margin: 10px 0;
+  } 
+}
 
-    .content {
-      padding: 15px 20px;
+.product-backlog-item {
+  position: relative;
+  border-left: 3px solid transparent;
+  display: block;
+  margin: 0;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .content {
+    padding: 15px 20px;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-bottom: 0;
+  }
+
+  .descr {
+    font-weight: 200;
+
+    .empty {
+      font-style: italic;   
     }
+  }
 
-    .title {
-      font-size: 18px;
-      margin-bottom: 0;
+  ul.tags {
+    position: absolute;
+    bottom: 15px;
+    padding: 0;
+    margin: 0;
+
+    li {
+      @extend .label;
+      
+      display: inline-block;
+      font-weight: 200;
+      font-size: 14px;
+      padding: .1em .5em;
+      margin-right: .3em;
+      opacity: .6;
+
+      &:hover {
+        opacity: 1; 
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.prioritized-product-backlog-items {
+  $height: 115px;
+
+  .placeholder {
+    height: $height;
+    line-height: $height;
+    border-color: $prioritized-color;
+    background-color: $prioritized-color-light;
+    border: 1px dashed $prioritized-color;
+    color: $prioritized-color;
+  }
+
+  .product-backlog-item {
+    background-color: $prioritized-color-light;
+    border-color: $prioritized-color;
+    width: 1140px;
+    height: $height;
+
+    .title a {
+      color: $prioritized-color;
     }
 
     .descr {
-      font-weight: 200;
-
-      .empty {
-        font-style: italic;   
-      }
+      margin-bottom: 35px;
     }
 
-    ul.tags {
-      position: absolute;
-      bottom: 15px;
-      padding: 0;
-      margin: 0;
-
-      li {
-        @extend .label;
-        
-        display: inline-block;
-        font-weight: 200;
-        font-size: 14px;
-        padding: .1em .5em;
-        opacity: .6;
-
-        &:hover {
-          opacity: 1; 
-          cursor: pointer;
-        }
-      }
+    ul.tags li.tag {
+      background-color: $prioritized-color;
     }
 
-    .prioritize {
-      margin: 0;
-      display: none;
 
-      .prioritize-action {
-        position: absolute;
-
-        button {
-          line-height: 35px;
-          font-size: 35px;
-          padding: 8px 15px;
-
-          i {
-            line-height: 30px;
-          }
-        }
-      }
-
-      .prioritize-up {
-        right: 0;
-        top: 0;
-      }
-
-      .prioritize-down {
-        right: 0;
-        bottom: 0;
-      }
-
-    }
-
-    &:hover {
-      .prioritize {
-        display: block;
-      }
-    }
-  }
-
-  .prioritized-backlog-items {
-  
-    .backlog-item {
-      background-color: $prioritized-color-light;
-      border-color: $prioritized-color;
-
-      .title a {
+    .prioritize-action {
+      button {
         color: $prioritized-color;
       }
-
-      .descr {
-        margin-bottom: 35px;
-      }
-
-      ul.tags li.tag {
-        background-color: $prioritized-color;
-      }
-
-
-      .prioritize-action {
-        button {
-          color: $prioritized-color;
-        }
-      }
     }
-
   }
 
-  .unprioritized-backlog-items {
-    @extend .clearfix;
+}
 
-    .backlog-item {
-      background-color: $unprioritized-color-light;
-      border-color: $unprioritized-color;
-      float: left;
-      margin-right: 15px;
-      width: 370px;
-      height: 150px;
+.unprioritized-product-backlog-items {
+  @extend .clearfix;
+  $height: 150px;
 
-      // every third backlog item
-      &:nth-child(3n+3) {
-        margin-right: 0;
-      }
+  .placeholder {
+    height: $height;
+    line-height: $height;
+    border-color: $unprioritized-color;
+    background-color: $unprioritized-color-light;
+    border: 1px dashed $unprioritized-color;
+    color: $unprioritized-color;
+  }
 
-      .title a {
+  .product-backlog-item {
+    background-color: $unprioritized-color-light;
+    border-color: $unprioritized-color;
+    float: left;
+    margin-right: 15px;
+    width: 370px;
+    height: $height;
+
+    // every third backlog item
+    &:nth-child(3n+1) {
+      margin-right: 0;
+    }
+
+    .title a {
+      color: $unprioritized-color;
+    }
+
+    ul.tags li.tag {
+      background-color: $unprioritized-color;
+    }
+
+    .prioritize-action {
+      button {
         color: $unprioritized-color;
       }
-
-      ul.tags li.tag {
-        background-color: $unprioritized-color;
-      }
-
-      .prioritize-action {
-        button {
-          color: $unprioritized-color;
-        }
-      }
     }
   }
-
 }

@@ -1,4 +1,4 @@
-<div class="page product-backlog">
+<div class="page product-backlog" ng-controller="ProductBacklogController">
 
   <div class="page-header">
     <div class="actions">
@@ -7,17 +7,10 @@
     <h2 class="title">Product Backlog</h2>
   </div>
 
-  <ul class="backlog-items prioritized-backlog-items">
-  <% @prioritized_items.each do |item| %>
-    <%= render "backlog_item", item: item %>
-  <% end %>
-  </ul>
-
-  <ul class="backlog-items unprioritized-backlog-items">
-  <% @unprioritized_items.each do |item| %>
-    <%= render "backlog_item", item: item %>
-  <% end %>
-  </ul>
-
+  <product-backlog product-backlog="productBacklog"></product-backlog>
 
 </div> <!-- .backlog -->
+
+<script>
+  window.BOOTSTRAPPED_DATA = <%= @bootstrapped_data.html_safe %>;
+</script>

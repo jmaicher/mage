@@ -8,6 +8,7 @@ Feature: Visualize Product Backlog
     Given I am the Product Owner
     And I sign in to my account
 
+  @javascript
   Scenario: Show created Backlog Items
     Given the Product Backlog Item "Show created Backlog Items"
     When I go to the Product Backlog

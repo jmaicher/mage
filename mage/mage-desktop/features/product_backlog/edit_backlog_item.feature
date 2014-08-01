@@ -11,6 +11,7 @@ Feature: Update Product Backlog Items
     And I go to the Product Backlog
     When I follow the link to edit the Product Backlog Item "Update Product Backlog Items"
 
+  @javascript
   Scenario: Update PBIs with basic information
     When I update the basic information of the Product Backlog Item
     Then I should see a confirmation message
