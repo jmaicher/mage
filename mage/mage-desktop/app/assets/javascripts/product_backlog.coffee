@@ -16,6 +16,7 @@ module.directive 'productBacklog', ->
   replace: true
   scope:
     productBacklog: '='
+    searchQuery: '='
   controller: ($scope) ->
     $scope.prioritizedItems = $scope.productBacklog.prioritizedItems()
     $scope.unprioritizedItems = $scope.productBacklog.unprioritizedItems()

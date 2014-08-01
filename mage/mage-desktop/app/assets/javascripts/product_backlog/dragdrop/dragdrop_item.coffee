@@ -201,10 +201,14 @@ module.directive 'dragdropItem', ($document, $window, dragdropConfig) ->
     # -- Drag handler ----------------------------------
 
     dragStart = (evt) ->
-      if drag
+      if drag || !dragdrop.parent.isEnabled()
         return
 
       # Do not trigger when link is clicked
+      # FIXME: This sucks, for a lot of reasons
+      # For instance: When a span tag is inside of a link
+      # => Introduce no-drag class and check whether the target
+      # has no-drag parent?!
       if evt.target.tagName.toLowerCase() == 'a'
         return
 

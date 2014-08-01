@@ -1,13 +1,16 @@
 <div class="product-backlog">
-  
+
   <ul class="product-backlog-items prioritized-product-backlog-items"
     dragdrop-container="prioritizedItems"
     dragdrop-handler="prioritizedDragDropHandler"
     dragdrop-sortable="true"
-    dragdrop-enabled="dragdropEnabled"
+    dragdrop-enabled="!searchQuery.length"
     ng-model="prioritizedItems">
     <li class="placeholder"><i class="fa fa-arrows"></i> Prioritize Product Backlog Items</li>
-    <product-backlog-item item="item" dragdrop-enabled="dragdropEnabled" ng-repeat="item in prioritizedItems">
+    <product-backlog-item
+      ng-repeat="item in filteredPrioritizedItems = ( prioritizedItems | filter:searchQuery)"
+      search-query="searchQuery"
+      item="item">
   </ul>
 
   <ul class="product-backlog-items unprioritized-product-backlog-items"
@@ -15,9 +18,16 @@
     dragdrop-container="unprioritizedItems"
     dragdrop-handler="unprioritizedDragDropHandler"
     dragdrop-sortable="false"
+    dragdrop-enabled="!searchQuery.length"
     ng-model="unprioritizedItems">
     <li class="placeholder"><i class="fa fa-arrows"></i> Unprioritize Product Backlog Items</li>
-    <product-backlog-item item="item" ng-repeat="item in unprioritizedItems">
+    <product-backlog-item
+      ng-repeat="item in filteredUnprioritizedItems = ( unprioritizedItems | filter:searchQuery )"
+      search-query="searchQuery"
+      item="item">
   </ul>
 
+  <p class="no-results" ng-hide="(prioritizedItems | filter:searchQuery).length || (unprioritizedItems | filter:searchQuery).length">
+    No results
+  </p>
 </div>

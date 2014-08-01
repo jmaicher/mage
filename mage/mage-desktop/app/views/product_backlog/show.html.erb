@@ -5,9 +5,16 @@
       <a href="<%= new_backlog_item_path %>" class="create-new-item btn btn-success">New Product Backlog Item</a>
     </div>
     <h2 class="title">Product Backlog</h2>
+    <div class="search-bar">
+      <span ng-show="searchQuery.length" ng-click="searchQuery = ''" class="cancel"><i class="fa fa-times-circle"></i></span>
+      <input text="" type="text" name="searchQuery" ng-model="searchQuery" placeholder="Search..." />
+    </div>
   </div>
 
-  <product-backlog product-backlog="productBacklog"></product-backlog>
+  <product-backlog
+    product-backlog="productBacklog"
+    search-query="searchQuery">
+  </product-backlog>
 
 </div> <!-- .backlog -->
 

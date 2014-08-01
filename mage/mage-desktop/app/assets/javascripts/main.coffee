@@ -1,3 +1,4 @@
+#= require filter
 #= require models
 #= require backlog_items
 #= require product_backlog
@@ -5,10 +6,11 @@
 
 deps = [
   # angular extensions
-  'ngResource', 'ui.bootstrap'
+  'ngResource', 'ui.bootstrap',
   # angular-rails-templates
-  'templates'
+  'templates',
   # app-specific modules
+  'mage.desktop.filter',
   'mage.desktop.models',
   'mage.desktop.backlog_items',
   'mage.desktop.product_backlog'

@@ -1,25 +1,65 @@
-.dragdrop-hidden {
-  display: none;
+.page.product-backlog {
+
+  .page-header {
+    @extend .clearfix;
+    .title {
+      float: left;
+    }
+
+    .search-bar {
+      height: 50px;
+      line-height: 50px;
+      float: left;
+      margin-left: 50px;
+      padding-top: 1px;
+      position: relative;
+
+      .cancel {
+        position:absolute;
+        right: 10px; 
+        cursor: pointer;
+      }
+
+      input {
+        border: 1px solid #CCC;
+        font-size: 15px;
+        line-height: 20px;
+        font-weight: 200;
+        padding: 6px 12px;
+        -webkit-appearance: none;
+        width: 400px;
+
+        &:focus {
+          -webkit-box-shadow: none;
+          box-shadow: none;
+          outline: none;
+        }
+
+      }
+    }
+    
+  }
+  
 }
 
-.dragdrop-drop-container {
-  opacity: .5
+.no-results {
+  border: 1px solid #999;
+  background-color: #EEE;
+  color: #999;
+  opacity: .5;
+  line-height: 115px;
+
+  text-align: center;
+  font-size: 200%;
+
+  cursor:default;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.dragdrop-drag-element {
-  position:absolute;
-  pointer-events:none;
-  opacity:.8;
-  z-index:9999;
-}
-
-.dragdrop-placeholder {
-  display:block;
-  border:1px dashed darkgrey;
-  box-sizing:border-box;
-  background-color:#dbdbdb;
-  opacity: .3;
-}
 
 .product-backlog-items {
   list-style: none;
@@ -219,3 +259,29 @@
     }
   }
 }
+
+// -- Drag & drop ---------------------------------
+
+.dragdrop-hidden {
+  display: none;
+}
+
+.dragdrop-drop-container {
+  opacity: .5
+}
+
+.dragdrop-drag-element {
+  position:absolute;
+  pointer-events:none;
+  opacity:.8;
+  z-index:9999;
+}
+
+.dragdrop-placeholder {
+  display:block;
+  border:1px dashed darkgrey;
+  box-sizing:border-box;
+  background-color:#dbdbdb;
+  opacity: .3;
+}
+

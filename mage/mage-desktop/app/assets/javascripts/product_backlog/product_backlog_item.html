@@ -1,14 +1,16 @@
 <li class="product-backlog-item" ng-model="item" dragdrop-item>
   <div class="content clearfix">
     <p class="title">
-      <a ng-href="/backlog_items/{{item.id}}">{{item.title}}</a>
+      <a ng-href="/backlog_items/{{item.id}}"
+        ng-bind-html="item.title | highlight:searchQuery">
+      </a>
     </p>
-    <p class="descr">
-      {{item.description}}
+    <p class="descr"
+      ng-bind-html="item.description | highlight:searchQuery">
     </p>
     <ul class="tags">
       <li class="tag" ng-repeat="tagging in item.taggings">
-        <i class="fa fa-tag"></i> {{tagging.tag.name}}
+        <i class="fa fa-tag"></i> <span ng-bind-html="tagging.tag.name | highlight:searchQuery">{{tagging.tag.name}}
       </li>
     </ul>
   </div> <!-- .content -->

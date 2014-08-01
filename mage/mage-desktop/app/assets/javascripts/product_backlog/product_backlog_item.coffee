@@ -7,5 +7,6 @@ module.directive 'productBacklogItem', ->
   replace: true
   scope:
     item: '='
+    searchQuery: '='
   controller: ($scope) ->
 

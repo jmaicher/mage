@@ -10,10 +10,15 @@ module.directive 'dragdropContainer', ($parse, dragdropConfig) ->
     @scope = $scope
     return
   link: (scope, element, attrs) ->
+    registerOption = (name) ->
+      scope.$watch attrs[name], ->
+        scope[name] = $parse(attrs[name])(scope)
+
     # FIXME: This will not update automatically when the attr changes
     items = $parse(attrs.dragdropContainer)(scope)
     handler = $parse(attrs.dragdropHandler)(scope)
     sortable = $parse(attrs.dragdropSortable)(scope)
+    registerOption 'dragdropEnabled'
 
     element.addClass(dragdropConfig.containerClass)
 
@@ -36,6 +41,7 @@ module.directive 'dragdropContainer', ($parse, dragdropConfig) ->
       getIndex: (item) -> items.indexOf(item)
       getItems: -> items,
       updateEmptyClass: updateEmptyClass
+      isEnabled: -> scope.dragdropEnabled
       isSortable: -> sortable
       contains: (itemModel) ->
         items.indexOf(itemModel) > -1
