@@ -39,6 +39,11 @@ unless User.count > 0
       tag_list: "backlog management, desktop"
     },
     {
+      title: "Prioritize PBIs",
+      description: "As a PO I want to manually order PBIs in order to express what's currently most/least valuable",
+      tag_list: "backlog management, desktop"
+    },
+    {
       title: "Update PBIs",
       description: "As a PO I want to update PBIs in order to reflect changes to already captured requirements",
       tag_list: "backlog management, desktop"
@@ -52,11 +57,6 @@ unless User.count > 0
       title: "Remove tags from PBIs",
       description: "As a PO I want to remove tags from PBIs in order to maintain the organization/taxonomy of the requirements",
       tag_list: "tagging, desktop"
-    },
-    {
-      title: "Prioritize PBIs",
-      description: "As a PO I want to manually order PBIs in order to express what's currently most/least valuable",
-      tag_list: "backlog management, desktop"
     },
     {
       title: "Visualize Product Backlog on MT table",
@@ -244,6 +244,100 @@ unless User.count > 0
   backlog_items.each do |params|
     item = BacklogItem.create params
     backlog.insert(item)
+  end
+
+  sprint = Sprint.create({
+    goal: "Basic Product Backlog Management",
+    start_date: Date.today - 2.days,
+    end_date: Date.today + 4.days,
+    in_planning: false
+  })
+
+  tasks = [
+    [{
+      description: "Task 1",
+      estimate: 5,
+      status: :done,
+      completed_at: Date.today - 1.day
+    }, {
+      description: "Task 2",
+      estimate: 3,
+      status: :done,
+      completed_at: Date.today - 1.day
+    }, {
+      description: "Task 3",
+      estimate: 4,
+      status: :in_progress
+    }], [{
+      description: "Task 1",
+      estimate: 5,
+      status: :done,
+      completed_at: Date.today - 1.day
+    }, {
+      description: "Task 2",
+      estimate: 3,
+      status: :done,
+      completed_at: Date.today
+    }, {
+      description: "Task 3",
+      estimate: 4,
+      status: :done,
+      completed_at: Date.today
+    }, {
+      description: "Task 4",
+      estimate: 4,
+      status: :in_progress
+    }], [{
+      description: "Task 1",
+      estimate: 5,
+      status: :done,
+      completed_at: Date.today - 1.day
+    }, {
+      description: "Task 2",
+      estimate: 3,
+      status: :done,
+      completed_at: Date.today
+    }, {
+      description: "Task 3",
+      estimate: 4,
+      status: :todo
+    }], [{
+      description: "Task 1",
+      estimate: 2,
+      status: :todo
+    }, {
+      description: "Task 2",
+      estimate: 4,
+      status: :todo
+    }, {
+      description: "Task 3",
+      estimate: 4,
+      status: :todo
+    }], [{
+      description: "Task 1",
+      estimate: 2,
+      status: :todo
+    }, {
+      description: "Task 2",
+      estimate: 4,
+      status: :todo
+    }, {
+      description: "Task 3",
+      estimate: 4,
+      status: :todo
+    }]
+  ]
+
+  backlog.items.first(5).each_with_index do |item, i|
+    item.backlog = sprint.backlog
+    item.save!
+
+    tasks[i].each do |task_params|
+      task = Task.new task_params 
+      task.backlog_item = item
+      task.sprint_backlog = sprint.backlog
+      task.save!
+    end 
   end
 
 
