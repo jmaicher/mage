@@ -35,7 +35,7 @@ module.service 'Dashboard', (DashboardResource) ->
 # Dashboard
 
 
-module.directive 'burndownChart', ->
+module.directive 'burndownChart', ($rootScope) ->
   restrict: 'E'
   scope:
     data: '='
@@ -49,13 +49,12 @@ module.directive 'burndownChart', ->
       chart = new BurndownChart(element.get(0), scope.data, w, h)
       chart.render()
 
-    window.onresize = (evt) ->
+    $rootScope.$on "windowResize", ->
       resize()
-      
+     
     render()
 
     return
-
 # burndownChart
 
 
@@ -119,5 +118,67 @@ class BurndownChart
         .attr('cx', (d) -> x(d.day) )
         .attr('cy', (d) -> y(d.amount) )
         .attr('r', 3)
-      
 # BurndownChart
+
+
+module.directive 'progressDonutChart', ($rootScope) ->
+  restrict: 'E'
+  scope:
+    data: '='
+  link: (scope, element, attr) ->
+    parent = element.parent()
+    
+    render = resize = ->
+      element.html("")
+      w = parent.width()
+      h = parent.height()
+      chart = new ProgressDonutChart(element.get(0), scope.data, w, h)
+      chart.render()
+
+    $rootScope.$on "windowResize", ->
+      resize()
+      
+    render()
+
+    return
+# progressDonutChart
+
+
+
+class ProgressDonutChart
+
+  constructor: (@element, @data, w, h) ->
+    @margin = { top: 50, right: 50, bottom: 50, left: 50 }
+    @width = w - @margin.left - @margin.right
+    @height = h - @margin.top - @margin.bottom
+    @radius = Math.min(@width, @height) / 2
+
+  render: ->
+    #color = d3.scale.ordinal()
+      #.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
+
+    color = d3.scale.category20()
+    pie = d3.layout.pie()
+      .sort(null)
+
+    arc = d3.svg.arc()
+      .outerRadius(@radius)
+      .innerRadius(@radius - 30)
+
+    svg = d3.select(@element).append("svg")
+      .attr("width", @width)
+      .attr("height", @height)
+    .append("g")
+      .attr("transform", "translate(" + @width / 2 + "," + @height / 2 + ")")
+
+    path = svg.selectAll("path")
+      .data(pie([5, 2, 1, 8, 4]))
+    .enter().append("path")
+      .attr("fill", (d, i) -> color(i))
+      .attr("d", arc)
+
+    svg
+
+# ProgressDonutChart
+
+

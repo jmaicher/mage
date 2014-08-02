@@ -14,6 +14,9 @@ app.run ($rootScope) ->
   $rootScope.keyup = (evt) ->
     $rootScope.$broadcast "keyup", evt
 
+  window.onresize = (evt) ->
+    $rootScope.$broadcast "windowResize", evt
+
 app.controller 'AppController', ($scope) ->
   $scope.loading = false
   load = -> $scope.loading = true
