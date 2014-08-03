@@ -22,3 +22,10 @@ mage = angular.module('mage.desktop', deps)
 mage.service 'BootstrappedData', ($window) ->
   $window.BOOTSTRAPPED_DATA
 
+
+$(document).ready ->
+
+  $(".fancybox").fancybox
+    helpers:
+      title:
+        type: 'float'

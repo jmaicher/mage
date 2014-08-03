@@ -59,7 +59,9 @@
                   <% end %>
                   <% unless note.has_image? %>
                     <div class="image-container">
-                      <%= image_tag note.image.url %>
+                      <a href="<%= note.image.url %>" title="<%= note.title %>" class="fancybox">
+                        <%= image_tag note.image.url %>
+                      </a>
                     </div>
                   <% end %>
                   <p class="meta">
@@ -78,10 +80,78 @@
     </div>
 
     <div class="col-md-4 activities">
-      <header>
-        <h3>Activities</h3>
-      </header>
-   
+
+      <div class="activity-stream">
+
+        <div class="activity">
+          <div class="actor">
+              <a href=""><img alt="Gravatar" height="50" src="http://gravatar.com/avatar/ac42e40df180c367fbbc7b4ca4cc9701?size=50" width="50"></a>
+          </div>
+
+          <div class="main">
+            <div class="content">
+              
+          <p class="primary">
+            Has been tagged with <a href="">needs discussion</a>
+          </p>
+
+            </div>
+            <p class="footer">
+              <small>
+                <i class="fa fa-clock-o"></i>&nbsp;&nbsp;<span class="time-ago">6 hours ago</span>&nbsp;&nbsp;&nbsp;June 23rd, 2014 17:23
+              </small>
+            </p>
+          </div>
+        </div>
+
+        <div class="activity">
+          <div class="actor">
+              <a href=""><i class="fa fa-group"></i></a>
+          </div>
+
+          <div class="main">
+            <div class="content">
+              
+          <p class="primary">
+            Has been estimated with 5 story points by
+          </p>
+          <p class="secondary">
+              <a href=""><img alt="Gravatar" height="26" src="http://gravatar.com/avatar/ac42e40df180c367fbbc7b4ca4cc9701?size=26" width="26"></a>
+              <a href=""><img alt="Gravatar" height="26" src="http://gravatar.com/avatar/9391c1bd2c647090f1d484bc566914f1?size=26" width="26"></a>
+          </p>
+
+            </div>
+            <p class="footer">
+              <small>
+                <i class="fa fa-clock-o"></i>&nbsp;&nbsp;<span class="time-ago">2 days ago</span>&nbsp;&nbsp;&nbsp;June 21rd, 2014 15:45
+              </small>
+            </p>
+          </div>
+        </div>
+
+        <div class="activity">
+          <div class="actor">
+              <a href=""><img alt="Gravatar" height="60" src="http://gravatar.com/avatar/9391c1bd2c647090f1d484bc566914f1?size=60" width="60"></a>
+          </div>
+
+          <div class="main">
+            <div class="content">
+              
+          <p class="primary">
+            Has been created by <a href="">Adrian Hülsmann</a>
+          </p>
+
+            </div>
+            <p class="footer">
+              <small>
+                <i class="fa fa-clock-o"></i>&nbsp;&nbsp;<span class="time-ago">8 days ago</span>&nbsp;&nbsp;&nbsp;June 15rd, 2014 13:01
+              </small>
+            </p>
+          </div>
+        </div>
+
+      </div> <!-- .activity-stream -->
+ 
     </div>
 
   </div> <!-- row -->
