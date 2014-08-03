@@ -68,7 +68,7 @@ module.directive 'surface', () ->
 
     rand_rot = -> Random.getRandomInt(-5, 5)
 
-    $scope.backlogItems = _.map($scope.backlog.items, (item) ->
+    $scope.backlogItems = _.map($scope.backlog.items.slice(0, 7), (item) ->
       [x, y] = rand_pos()
       r = rand_rot()
 
