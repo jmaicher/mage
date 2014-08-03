@@ -13,4 +13,17 @@ class Task < ActiveRecord::Base
   has_one :assignment, class_name: "TaskAssignment"
   has_one :sprint_backlog, through: :assignment
   has_one :backlog_item, through: :assignment
+
+  def completed_before?(date)
+    return false unless self.completed_at
+
+    self.completed_at.to_date < date.to_date
+  end
+
+  def completed_at?(date)
+    return false unless self.completed_at
+
+    self.completed_at.to_date.eql? date.to_date
+  end
+
 end # Task

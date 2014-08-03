@@ -11,11 +11,20 @@ module.config ($routeProvider) ->
       resolve:
         data: (Dashboard) ->
           Dashboard.get().$promise
+        reactiveActivities: (MageReactive) ->
+          MageReactive.connect('/activities')
 
-module.controller 'DashboardController', ($scope, data) ->
-  console.log "WAT"
+
+module.controller 'DashboardController', ($scope, $rootScope, $location, data, reactiveActivities, MeetingService) ->
   $scope.sprint = data.sprint
   $scope.data = data
+
+  reactiveActivities.on 'meeting.started', (meeting_params) ->
+    meeting = MeetingService.from_params(meeting_params)
+    $scope.$apply ->
+      $rootScope.meeting = meeting
+      $location.path "/meetings/#{meeting.model.id}"
+# DashboardController
 
 
 module.service 'DashboardResource', ($resource, Hosts) ->
@@ -61,9 +70,10 @@ module.directive 'burndownChart', ($rootScope) ->
 class BurndownChart
 
   constructor: (@element, @data, w, h) ->
-    @margin = { top: 50, right: 50, bottom: 50, left: 50 }
-    @width = w - @margin.left - @margin.right
+    @margin = { top: 25, right: 25, bottom: 75, left: 75 }
     @height = h - @margin.top - @margin.bottom
+    @width = w - @margin.left - @margin.right
+    @scaleFactor = Math.min(@width, @height) / 2
 
   render: ->
 
@@ -82,6 +92,7 @@ class BurndownChart
 
     yAxis = d3.svg.axis()
         .scale(y)
+        .ticks(5)
         .orient("left")
 
     lineFunc = d3.svg.line()
@@ -104,9 +115,35 @@ class BurndownChart
       .attr("class", "y axis")
       .call(yAxis)
 
+    d3.selectAll(".tick > text")
+      .style("font-size", @scaleFactor * 0.15 + "px")
+
+    tickTextOffset = @scaleFactor * 0.1
+    tickLength = @scaleFactor * 0.06
+
+    axisStrokeWidth = Math.max(@scaleFactor * 0.01, 1)
+
+    d3.selectAll(".axis > path")
+      .attr("stroke-width", axisStrokeWidth)
+
+    d3.selectAll(".y.axis > .tick > text")
+      .attr("x", - tickTextOffset)
+
+    d3.selectAll(".y.axis > .tick > line")
+      .attr("x2", - tickLength)
+      .attr("stroke-width", axisStrokeWidth)
+
+    d3.selectAll(".x.axis > .tick > text")
+      .attr("y", tickTextOffset)
+
+    d3.selectAll(".x.axis > .tick > line")
+      .attr("y2", tickLength)
+      .attr("stroke-width", axisStrokeWidth)
+
     svg.append('svg:path')
       .attr('class', 'actual-line')
       .attr('d', lineFunc(@data.days))
+      .attr('stroke-width', Math.max(@scaleFactor * 0.02, 1))
 
     dataCirclesGroup = svg.append('svg:g')
     circles = dataCirclesGroup.selectAll('.data-point').data(@data.days)
@@ -117,7 +154,7 @@ class BurndownChart
         .attr('class', 'actual-dot')
         .attr('cx', (d) -> x(d.day) )
         .attr('cy', (d) -> y(d.amount) )
-        .attr('r', 3)
+        .attr('r', Math.max(@scaleFactor * 0.03, 3))
 # BurndownChart
 
 
@@ -147,32 +184,42 @@ module.directive 'progressDonutChart', ($rootScope) ->
 
 class ProgressDonutChart
 
-  constructor: (@element, @data, w, h) ->
-    @margin = { top: 50, right: 50, bottom: 50, left: 50 }
-    @width = w - @margin.left - @margin.right
-    @height = h - @margin.top - @margin.bottom
+  constructor: (@element, @data, @width, @height) ->
     @radius = Math.min(@width, @height) / 2
 
   render: ->
-    #color = d3.scale.ordinal()
-      #.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"])
+    color = d3.scale.ordinal()
+      .range(["#428BBA", "#FF7F0E", "#222"])
+      # Colors: [Progress until yesterday, progress today, effort remaining]
+    
+    data = [@data.completed_until_yesterday, @data.completed_today, @data.amount_remaining]
 
-    color = d3.scale.category20()
     pie = d3.layout.pie()
       .sort(null)
 
     arc = d3.svg.arc()
       .outerRadius(@radius)
-      .innerRadius(@radius - 30)
+      .innerRadius(@radius - @radius * 0.2)
+
+    rotation = 30
 
     svg = d3.select(@element).append("svg")
       .attr("width", @width)
       .attr("height", @height)
+      .attr("class", "progress-donut-chart")
     .append("g")
-      .attr("transform", "translate(" + @width / 2 + "," + @height / 2 + ")")
+      .attr("transform", "translate(" + @width / 2 + "," + @height / 2 + ") rotate(-#{rotation})")
+
+    svg.append("text")
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "central")
+      .attr("class", "amount-completed")
+      .style("font-size", @radius * 0.6)
+      .text -> "60%"
+      .attr("transform", "rotate(#{rotation})")
 
     path = svg.selectAll("path")
-      .data(pie([5, 2, 1, 8, 4]))
+      .data(pie(data))
     .enter().append("path")
       .attr("fill", (d, i) -> color(i))
       .attr("d", arc)

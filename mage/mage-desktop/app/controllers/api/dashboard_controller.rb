@@ -3,11 +3,13 @@ class API::DashboardController < API::ApplicationController
   before_filter :current_sprint_filter
 
   def dashboard
-    chart = Charts::Burndown.new(@sprint)
+    burndown_chart = Charts::Burndown.new(@sprint)
+    progress_donut_chart = Charts::ProgressDonut.new(@sprint)
 
     dashboard = {
       sprint: SprintRepresenter.new(@sprint),
-      burndown: Charts::BurndownRepresenter.new(chart)
+      burndown: Charts::BurndownRepresenter.new(burndown_chart),
+      progressDonut: Charts::ProgressDonutRepresenter.new(progress_donut_chart)
     }
 
     render json: dashboard
