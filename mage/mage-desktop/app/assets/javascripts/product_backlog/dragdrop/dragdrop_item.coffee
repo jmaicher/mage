@@ -50,15 +50,15 @@ module.directive 'dragdropItem', ($document, $window, dragdropConfig) ->
       pos = {}
       pos.offsetX = evt.pageX - bounds.left
       pos.offsetY = evt.pageY - bounds.top
-      pos.startX = pos.lastX = event.pageX
-      pos.startY = pos.lastY = event.pageY
+      pos.startX = pos.lastX = evt.pageX
+      pos.startY = pos.lastY = evt.pageY
       pos.nowX = pos.nowY = 0
       
       return pos
 
     updatePosition = (evt, drag) ->
-      x = drag.pos.nowX = event.pageX - drag.pos.offsetX
-      y = drag.pos.nowY = event.pageY - drag.pos.offsetY
+      x = drag.pos.nowX = evt.pageX - drag.pos.offsetX
+      y = drag.pos.nowY = evt.pageY - drag.pos.offsetY
 
       drag.dragElement.css
         'left': "#{x}px"
@@ -213,7 +213,7 @@ module.directive 'dragdropItem', ($document, $window, dragdropConfig) ->
         return
 
       # Do not trigger on right click
-      if(event.button == 2 || event.which == 3)
+      if(evt.button == 2 || evt.which == 3)
         return
 
       evt.preventDefault()
@@ -257,8 +257,8 @@ module.directive 'dragdropItem', ($document, $window, dragdropConfig) ->
 
       updatePosition(evt, drag)
 
-      targetX = event.pageX - $document[0].documentElement.scrollLeft
-      targetY = event.pageY - ($window.pageYOffset || $document[0].documentElement.scrollTop)
+      targetX = evt.pageX - $document[0].documentElement.scrollLeft
+      targetY = evt.pageY - ($window.pageYOffset || $document[0].documentElement.scrollTop)
 
       #dragElementPageBounds = getPageBounds(drag.dragElement)
       #targetTopX = (dragElementPageBounds.left + dragElementPageBounds.width / 2) - $document[0].documentElement.scrollLeft
