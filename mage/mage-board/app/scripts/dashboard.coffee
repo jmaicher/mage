@@ -116,7 +116,7 @@ class BurndownChart
       .call(yAxis)
 
     d3.selectAll(".tick > text")
-      .style("font-size", @scaleFactor * 0.15 + "px")
+      .style("font-size", @scaleFactor * 0.09 + "px")
 
     tickTextOffset = @scaleFactor * 0.1
     tickLength = @scaleFactor * 0.06

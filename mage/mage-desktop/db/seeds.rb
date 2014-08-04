@@ -61,12 +61,14 @@ unless User.count > 0
     {
       title: "Visualize Product Backlog on MT table",
       description: "As a PO I want to have a visualization of the Product Backlog on a MT table in order to present/discuss requirements in a collaborative setting",
-      tag_list: "grooming, table"
+      tag_list: "grooming, table",
+      estimate: estimates[5]
     },
     {
       title: "Rearrange PBIs with gestures",
       description: "As a grooming participant I want to rotate and move PBIs freely in order to explore the Product Backlog",
-      tag_list: "grooming, table"
+      tag_list: "grooming, table",
+      estimate: estimates[3]
     },
     {
       title: "Assign tags to PBIs",
@@ -161,17 +163,20 @@ unless User.count > 0
     {
       title: "Assign acceptance criteria to PBIs",
       description: "As a PO I want to assign acceptance criteria to a PBI in order to signal the DT what needs to be done to completely implement the requirement",
-      tag_list: "requirements management, desktop"
+      tag_list: "requirements management, desktop",
+      estimate: estimates[3]
     },
     {
       title: "Change notifications for Product Backlog",
       description: "As a member of the Scrum Team I want to get change notifications in the activity stream when the Product Backlog is updated",
-      tag_list: "awareness, desktop"
+      tag_list: "awareness, desktop",
+      estimate: estimates[5]
     },
     {
       title: "Automatic generation of meeting protocols",
       description: "As a member of the Scrum Team I want to have automatically generated meeting protocols in order to comprehend and trace meeting activities afterwards",
-      tag_list: "awareness, grooming, table, desktop"
+      tag_list: "awareness, grooming, table, desktop",
+      estimate: estimates[8]
     },
     {
       title: "Sprint creation",
@@ -248,8 +253,8 @@ unless User.count > 0
 
   sprint = Sprint.create({
     goal: "Basic Product Backlog Management",
-    start_date: Date.today - 2.days,
-    end_date: Date.today + 4.days,
+    start_date: Date.today - 4.days,
+    end_date: Date.today + 2.days,
     in_planning: false
   })
 
@@ -258,53 +263,57 @@ unless User.count > 0
       description: "Task 1",
       estimate: 5,
       status: :done,
-      completed_at: Date.today - 1.day
+      completed_at: Date.today - 4.day
     }, {
       description: "Task 2",
       estimate: 3,
       status: :done,
-      completed_at: Date.today - 1.day
+      completed_at: Date.today - 3.day
     }, {
       description: "Task 3",
       estimate: 4,
-      status: :in_progress
+      status: :done,
+      completed_at: Date.today - 2.day
     }], [{
       description: "Task 1",
       estimate: 5,
       status: :done,
-      completed_at: Date.today - 1.day
+      completed_at: Date.today - 2.day
     }, {
       description: "Task 2",
       estimate: 3,
       status: :done,
-      completed_at: Date.today
+      completed_at: Date.today - 1.day
     }, {
       description: "Task 3",
       estimate: 4,
       status: :done,
-      completed_at: Date.today
+      completed_at: Date.today - 1.day
     }, {
       description: "Task 4",
       estimate: 4,
-      status: :in_progress
+      status: :done,
+      completed_at: Date.today
     }], [{
       description: "Task 1",
       estimate: 5,
       status: :done,
-      completed_at: Date.today - 1.day
+      completed_at: Date.today - 4.day
     }, {
       description: "Task 2",
       estimate: 3,
       status: :done,
-      completed_at: Date.today
+      completed_at: Date.today - 3.day
     }, {
       description: "Task 3",
       estimate: 4,
-      status: :todo
+      status: :done,
+      completed_at: Date.today - 2.day
     }], [{
       description: "Task 1",
       estimate: 2,
-      status: :todo
+      status: :done,
+      completed_at: Date.today
     }, {
       description: "Task 2",
       estimate: 4,
@@ -346,17 +355,16 @@ unless User.count > 0
   params = {
     title: "Show additional information for focused PBIs",
     description: "As a grooming participant I want to see additional information for the currently focused PBI on the board in order to have more input for decision making",
-    tag_list: "board, grooming, interactive workspace, needs discussion",
-    estimate: estimates[5]
+    tag_list: "board, grooming, interactive workspace, needs discussion"
   }
   item = BacklogItem.create params
   backlog.insert(item)
 
   acceptance_criteria = [
     "Board should display additional details immediately when PBI is focused on table",
-    "Show the basic information: Title, description, tags, estimate",
-    "Display the acceptance criteria",
-    "Show historical information about the PBI"
+    "Show the basic information: Title, description, tags, estimate"
+    #"Display the acceptance criteria",
+    #"Show historical information about the PBI"
   ]
 
   acceptance_criteria.each do |description|
