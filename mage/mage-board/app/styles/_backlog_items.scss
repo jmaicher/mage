@@ -147,11 +147,18 @@
     height: 10vh;
     width: 10vh;
     position: absolute;
-    left: 4vh;
     bottom: 4vh;
     background-color: $blue;
     border-radius: 50%;
     text-align: center;
+
+    &.left {
+      left: 4vh;
+    }
+
+    &.right {
+      right: 4vh;
+    }
 
     .loading-indicator {
       position: absolute;

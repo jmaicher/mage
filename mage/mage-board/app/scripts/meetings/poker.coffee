@@ -30,7 +30,7 @@ module.config ($routeProvider) ->
       resolve: {
         poker: poker_resolve
         reference_item: (BacklogItemService) ->
-          BacklogItemService.get(1)
+          BacklogItemService.get(7)
       }
     .when "#{base_path}/result",
       templateUrl: '/views/meetings/poker_result.html',
@@ -220,7 +220,7 @@ module.directive 'pokerResultChart', ->
 class PokerResultChart
 
   constructor: (@selector_or_node, estimate_options, result, options = {}) ->
-    @margin = options.margin ? { top: 50, right: 50, bottom: 50, left: 50 }
+    @margin = options.margin ? { top: 50, right: 50, bottom: 50, left: 75 }
     @width = (options.width ? 800) - @margin.left - @margin.right
     @height = (options.height ? 400) - @margin.top - @margin.bottom
 

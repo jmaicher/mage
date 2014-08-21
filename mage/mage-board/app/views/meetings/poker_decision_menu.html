@@ -1,4 +1,5 @@
-<div class="poker-decision-menu-container">
+<div>
+<div class="poker-decision-menu-container left">
   <div class="poker-decision-menu">
     <ul>
       <li class="first restart">
@@ -16,4 +17,25 @@
       </li>
     </ul>
   </div> <!-- .poker-decision-menu -->
+</div>
+
+<div class="poker-decision-menu-container right">
+  <div class="poker-decision-menu">
+    <ul>
+      <li class="first restart">
+        <restart-button
+          blocked="blocked"
+          on-restart="restart()">
+        </restart-button>
+      </li>
+      <li class="option" ng-class="{'last':$last}" ng-repeat="option in poker.model.estimate_options">
+        <option-button
+          blocked="blocked"
+          option="option"
+          on-decision="decide(option)">
+        </option-button>
+      </li>
+    </ul>
+  </div> <!-- .poker-decision-menu -->
+</div>
 </div>

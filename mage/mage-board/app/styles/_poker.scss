@@ -52,11 +52,75 @@
 
   .poker-decision-menu-container {
     position: absolute;
-    left: 0;
     top: 0;
     height: 100%;
     display: table;
     z-index: 100;
+
+    &.left {
+      left: 0;
+
+      .poker-decision-menu {
+        li {
+          &.first {
+            a {
+              border-top-right-radius: 50%;
+              border-top: 1px solid #FFF;
+              .content {
+                border-top-right-radius: 50%;
+              }
+            }
+          }
+
+          &.last {
+            a {
+              border-bottom-right-radius: 50%;
+              .content {
+                border-bottom-right-radius: 50%;
+              }
+            }
+          }
+
+          a {
+            border-bottom: 1px solid #FFF;
+            border-right: 1px solid #FFF;
+          }
+        }
+      }
+    }
+
+    &.right {
+      right: 0;
+
+      .poker-decision-menu {
+        li {
+          &.first {
+            a {
+              border-top-left-radius: 50%;
+              border-top: 1px solid #FFF;
+              .content {
+                border-top-left-radius: 50%;
+              }
+            }
+          }
+
+          &.last {
+            a {
+              border-bottom-left-radius: 50%;
+              .content {
+                border-bottom-left-radius: 50%;
+              }
+            }
+          }
+
+          a {
+            border-bottom: 1px solid #FFF;
+            border-left: 1px solid #FFF;
+          }
+        }
+      }
+
+    }
   }
 
   .poker-decision-menu {
@@ -72,10 +136,7 @@
     li {
       &.first {
         a {
-          border-top-right-radius: 50%;
-          border-top: 1px solid #FFF;
           .content {
-            border-top-right-radius: 50%;
             padding-top: .5em;
           }
         }
@@ -83,17 +144,13 @@
 
       &.last {
         a {
-          border-bottom-right-radius: 50%;
           .content {
-            border-bottom-right-radius: 50%;
             padding-bottom: .5em;
           }
         }
       }
 
       a {
-        border-bottom: 1px solid #FFF;
-        border-right: 1px solid #FFF;
         color: #FFF;
         display: block;
         text-align: center;
@@ -130,9 +187,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 75vw;
+    width: 70vw;
     height: 80vh;
-    padding: 10vh 10vw 10vh 15vw;
+    padding: 10vh 15vw 10vh 15vw;
   }
 
   .poker-result-chart {

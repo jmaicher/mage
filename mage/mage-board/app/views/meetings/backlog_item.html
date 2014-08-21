@@ -108,8 +108,14 @@
     </div>
   </section>
 
-  <a class="poker-btn" ng-class="{ 'disabled': startingPlanningPoker }" href="javascript:;" ng-click="startPlanningPoker()">
+  <a class="poker-btn left" ng-class="{ 'disabled': startingPlanningPoker }" href="javascript:;" ng-click="startPlanningPoker()">
     <i class="loading-indicator fa fa-spinner fa-spin" ng-show="startingPlanningPoker"></i>
     <img src="images/poker.png" ng-show="!startingPlanningPoker" />
   </a>
+
+  <a class="poker-btn right" ng-class="{ 'disabled': startingPlanningPoker }" href="javascript:;" ng-click="startPlanningPoker()">
+    <i class="loading-indicator fa fa-spinner fa-spin" ng-show="startingPlanningPoker"></i>
+    <img src="images/poker.png" ng-show="!startingPlanningPoker" />
+  </a>
+
 </div> <!-- .backlog-item -->
