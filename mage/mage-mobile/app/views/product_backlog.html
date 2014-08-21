@@ -19,7 +19,7 @@
       <a ng-href="/#/backlog_items/{{item.id}}" class="item list-group-item" ng-repeat="item in items">
         <i class="click-indicator fa fa-chevron-right"></i>
         <p class="title">{{item.title | limitTo:35 }}<span ng-if="item.title.length > 35">..</span></p>
-        <p class="description">{{item.description | limitTo:85 }}<span ng-if="item.description.length > 85">..</span></p>
+        <p class="description">{{item.description | limitTo:100 }}<span ng-if="item.description.length > 85">..</span></p>
       </a>
   </div>
 </div>
