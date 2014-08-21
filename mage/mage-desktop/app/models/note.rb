@@ -13,7 +13,7 @@ class Note < ActiveRecord::Base
   # -- Validations --------------------------------------
 
   validates_presence_of :title
-  validates_length_of :title, minimum: 5, maximum: 75
+  validates_length_of :title, minimum: 5, maximum: 50
 
 
   def has_image?

@@ -115,6 +115,7 @@
   .descr {
     font-weight: 200;
     font-size: 16px;
+    cursor: default;
 
     .empty {
       font-style: italic;   
@@ -223,6 +224,26 @@
 
     .title a {
       color: $unprioritized-color;
+    }
+
+    .title {
+      line-height: 1em;
+      height: 1em; // = 1.4 * 3 => 3 lines of text
+      position: relative;
+      overflow: hidden;
+
+      &:after {
+        content: "";
+        text-align: right;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 20%;
+        height: 1em;
+        background: linear-gradient(to right, rgba(252, 248, 227, 0), rgba(252, 248, 227, 1) 50%);
+      }
+
+    
     }
 
     p.descr {

@@ -1,6 +1,7 @@
 class BacklogItemAssignment < ActiveRecord::Base
-  default_scope { order(:priority, updated_at: :asc, id: :asc) }
-  scope :prioritized, -> { where.not(priority: nil) }
+  scope :ordered, -> { order(priority: :asc, updated_at: :desc, id: :asc) }
+
+  scope :prioritized, -> { where.not(priority: nil).order(priority: :asc) }
   scope :unprioritized, -> { where(priority: nil) }
 
   # -- Associations -----------------------------------

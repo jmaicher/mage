@@ -2,7 +2,7 @@ class BacklogItem < ActiveRecord::Base
   include Roles::Activities::Object
   include Roles::NoteAttachable
 
-  default_scope { includes(:backlog_assignment => :backlog) }
+  default_scope { includes(:backlog_assignment => :backlog, :tags => nil, :acceptance_criteria => nil) }
 
   # -- Associations -------------------------------------
 

@@ -14,7 +14,7 @@ describe BacklogItemAssignment do
       a2 = BacklogItemAssignment.create! backlog_id: 1, backlog_item_id: 2, priority: 1
       a3 = BacklogItemAssignment.create! backlog_id: 1, backlog_item_id: 3
       
-      assignments = BacklogItemAssignment.where(backlog_id: 1)
+      assignments = BacklogItemAssignment.where(backlog_id: 1).ordered
       
       assignments.map(&:backlog_item_id).should eq [2, 1, 3]
     end

@@ -5,8 +5,8 @@ unless User.count > 0
   users = [
     { email: "jmaicher@mail.upb.de", name: "Julian Maicher", password: "magicpass" },
     { email: "klecks@upb.de", name: "Adrian Hülsmann", password: "magicpass" },
-    { email: "julian.maicher@gmail.com", name: "Andre Nolte", password: "magicpass" },
-    { email: "dinah.grueterich@gmail.com", name: "Dinah Grueterich", password: "magicpass" }
+    { email: "andre@mage.com", name: "Andre Nolte", password: "magicpass" },
+    { email: "dinah@mage.com", name: "Dinah Grueterich", password: "magicpass" }
   ]
 
   users.each do |params|
@@ -90,36 +90,36 @@ unless User.count > 0
       description: "As a grooming facilitator I want to shift the focus to a single PBI in order to concentrate the collaborative effort on a single requirement",
       tag_list: "grooming, table"
     },
-    {
-      title: "Create ideas on mobile",
-      description: "As a mobile user I want to create product ideas in order to quickly persist an idea for later recall",
-      tag_list: "ideas, mobile"
-    },
-    {
-      title: "Show ideas on mobile",
-      description: "As a mobile user I want to have a list of product ideas in order to quickly access the collection of existing ideas",
-      tag_list: "ideas, mobile"
-    },
-    {
-      title: "Create ideas on desktop",
-      description: "As a desktop user I want to create product ideas in order to express a new idea for the product",
-      tag_list: "ideas, desktop"
-    },
-    {
-      title: "Show ideas on desktop",
-      description: "As a PO I want to have a list of product ideas in order to get input shaping and evolving the product vision",
-      tag_list: "ideas, desktop"
-    },
-    {
-      title: "Remove ideas",
-      description: "As author of an idea I want to remove a created idea in order to express that this idea should be discarded",
-      tag_list: "ideas"
-    },
-    {
-      title: "Show additional details for PBI when focused on table",
-      description: "As a grooming participant I want to get additional information for the focused PBI in order to have more input for decision making",
-      tag_list: "grooming, board, table"
-    },
+    #{
+      #title: "Create ideas on mobile",
+      #description: "As a mobile user I want to create product ideas in order to quickly persist an idea for later recall",
+      #tag_list: "ideas, mobile"
+    #},
+    #{
+      #title: "Show ideas on mobile",
+      #description: "As a mobile user I want to have a list of product ideas in order to quickly access the collection of existing ideas",
+      #tag_list: "ideas, mobile"
+    #},
+    #{
+      #title: "Create ideas on desktop",
+      #description: "As a desktop user I want to create product ideas in order to express a new idea for the product",
+      #tag_list: "ideas, desktop"
+    #},
+    #{
+      #title: "Show ideas on desktop",
+      #description: "As a PO I want to have a list of product ideas in order to get input shaping and evolving the product vision",
+      #tag_list: "ideas, desktop"
+    #},
+    #{
+      #title: "Remove ideas",
+      #description: "As author of an idea I want to remove a created idea in order to express that this idea should be discarded",
+      #tag_list: "ideas"
+    #},
+    #{
+      #title: "Show additional details for PBI when focused on table",
+      #description: "As a grooming participant I want to get additional information for the focused PBI in order to have more input for decision making",
+      #tag_list: "grooming, board, table"
+    #},
     {
       title: "Join grooming activity",
       description: "As a grooming participant I want to join the grooming activity at the table in order to actively participate in the meeting",
@@ -198,51 +198,51 @@ unless User.count > 0
       description: "As a member of the Development Team I want to have a visualization of the remaining capactiy in order to recognize potential over-commitment",
       tag_list: "sprint planning, awareness, desktop"
     },
-    {
-      title: "Transform ideas into PBIs",
-      description: "",
-      tag_list: "epic, ideas"
-    },
-    {
-      title: "Allow annotations and updates to product ideas",
-      description: "",
-      tag_list: "epic, ideas"
-    },
-    {
-      title: "Filtering of PBIs",
-      description: "",
-      tag_list: "epic, backlog management"
-    },
-    {
-      title: "Make sprint progress visible with burndown/burnup charts",
-      description: "",
-      tag_list: "epic, progress tracking"
-    },
-    {
-      title: "Make temporal relations (dependencies) between PBIs explicit and visible",
-      description: "",
-      tag_list: "epic, backlog management"
-    },
-    {
-      title: "Track sprint progress with task board",
-      description: "",
-      tag_list: "epic, progress tracking"
-    },
-    {
-      title: "Refine PBIs",
-      description: "",
-      tag_list: "epic, grooming"
-    },
-    {
-      title: "Support for process-level inspection",
-      description: "",
-      tag_list: "epic, retrospectives"
-    },
-    {
-      title: "Support for Sprint Planning",
-      description: "",
-      tag_list: "epic, sprint planning"
-    }
+    #{
+      #title: "Transform ideas into PBIs",
+      #description: "",
+      #tag_list: "epic, ideas"
+    #},
+    #{
+      #title: "Allow annotations and updates to product ideas",
+      #description: "",
+      #tag_list: "epic, ideas"
+    #},
+    #{
+      #title: "Filtering of PBIs",
+      #description: "",
+      #tag_list: "epic, backlog management"
+    #},
+    #{
+      #title: "Make sprint progress visible with burndown/burnup charts",
+      #description: "",
+      #tag_list: "epic, progress tracking"
+    #},
+    #{
+      #title: "Make temporal relations (dependencies) between PBIs explicit and visible",
+      #description: "",
+      #tag_list: "epic, backlog management"
+    #},
+    #{
+      #title: "Track sprint progress with task board",
+      #description: "",
+      #tag_list: "epic, progress tracking"
+    #},
+    #{
+      #title: "Refine PBIs",
+      #description: "",
+      #tag_list: "epic, grooming"
+    #},
+    #{
+      #title: "Support for process-level inspection",
+      #description: "",
+      #tag_list: "epic, retrospectives"
+    #},
+    #{
+      #title: "Support for Sprint Planning",
+      #description: "",
+      #tag_list: "epic, sprint planning"
+    #}
   ]
 
   backlog = ProductBacklog.get_or_create

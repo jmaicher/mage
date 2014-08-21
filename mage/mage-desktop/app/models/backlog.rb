@@ -6,6 +6,10 @@ module Backlog
   included do
     has_many :backlog_item_assignments, as: :backlog
     has_many :items, through: :backlog_item_assignments, source: :backlog_item
+
+    def ordered_items
+      backlog_item_assignments.ordered.includes(:backlog_item).map { |a| a.backlog_item }
+    end
   end
 
   def insert(item)

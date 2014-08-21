@@ -18,10 +18,10 @@ module.service 'ProductBacklogResource', ($resource) ->
     })
 
   ProductBacklogResource.prototype.prioritizedItems = ->
-    @items.filter (item) -> isPrioritized(item)
+    @items.filter (item) -> item && isPrioritized(item)
 
   ProductBacklogResource.prototype.unprioritizedItems = ->
-    @items.filter (item) -> !isPrioritized(item)
+    @items.filter (item) -> item && !isPrioritized(item)
 
   ProductBacklogResource
 # ProductBacklogResource

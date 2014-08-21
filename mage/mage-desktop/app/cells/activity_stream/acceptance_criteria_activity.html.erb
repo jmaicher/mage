@@ -1,0 +1,8 @@
+<%= render layout: 'activity', locals: { activity: @activity } do %>
+  <p class="primary">
+  <%= activity_actor(@activity.actor) %> refined the acceptance criteria for <%= link_to truncate(@activity.object.backlog_item.title), backlog_item_path(@activity.object.backlog_item) %>
+  </p>
+  <p class="secondary">
+    <%= @activity.object.description %>
+  </p>
+<% end %>
