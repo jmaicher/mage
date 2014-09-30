@@ -107,14 +107,14 @@ module.service 'Focus', ($window, $q) ->
     
     initActor
       .keyframe 0, transform: "translate(#{origin.x}px, #{origin.y}px) rotate(#{origin.rotation}deg) scale(#{origin.scale})"
-      .keyframe 15000, {
+      .keyframe 1500, {
         transform: "translate(#{target.x}px, #{target.y}px) rotate(#{origin.rotation + 360}deg) scale(#{target.scale})"
       }, 'easeInOutSine'
     
     overlayActor = initAnimation.addActor context: $overlay[0]
     overlayActor
       .keyframe 0, opacity: 0
-      .keyframe 15000, opacity: 1
+      .keyframe 1500, opacity: 1
 
     resumeAnimation = new Rekapi(document.body)
     resumeActor = resumeAnimation.addActor context: $element[0]
