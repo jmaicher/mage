@@ -5,6 +5,9 @@ MAGE_RUBY_VERSION=2.0.0
 MAGE_RUBY_PATCH=p451
 
 if ! ( which ruby &> /dev/null && ruby -v | egrep -q -o $MAGE_RUBY_VERSION$MAGE_RUBY_PATCH ); then
+  # Add GPG key (cf. https://github.com/wayneeseguin/rvm/issues/3110).
+  gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+  
   echo "Installing rvm ..."
   curl -sSL https://get.rvm.io | bash -s stable &> /dev/null
   source /usr/local/rvm/scripts/rvm
